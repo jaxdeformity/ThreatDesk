@@ -1,0 +1,58 @@
+[
+  {
+    "id": "filesystem",
+    "label": "Filesystem",
+    "summary": "Read & write files inside a chosen directory. Useful for letting agents share artifacts across an incident.",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-filesystem", "{{ROOT_PATH}}"],
+    "env_template": {
+      "ROOT_PATH": {"type": "plain", "label": "Root path", "placeholder": "C:/cases", "required": true}
+    }
+  },
+  {
+    "id": "fetch",
+    "label": "Fetch (HTTP)",
+    "summary": "Lets agents fetch URLs over HTTP/HTTPS. Sandboxed to GET only.",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-fetch"],
+    "env_template": {}
+  },
+  {
+    "id": "memory",
+    "label": "Memory (knowledge graph)",
+    "summary": "Persistent knowledge graph that survives across incidents. Agents can record IOCs, suspect users, etc.",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-memory"],
+    "env_template": {}
+  },
+  {
+    "id": "github",
+    "label": "GitHub",
+    "summary": "Search code, create issues, post incident write-ups to a private repo.",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-github"],
+    "env_template": {
+      "GITHUB_PERSONAL_ACCESS_TOKEN": {"type": "secret", "label": "GitHub PAT (repo scope)", "required": true}
+    }
+  },
+  {
+    "id": "sqlite",
+    "label": "SQLite",
+    "summary": "Query a local SQLite database. Handy for hunting across previously parsed log evidence.",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db", "{{DB_PATH}}"],
+    "env_template": {
+      "DB_PATH": {"type": "plain", "label": "Database file path", "placeholder": "C:/cases/notes.db", "required": true}
+    }
+  },
+  {
+    "id": "brave-search",
+    "label": "Brave Search",
+    "summary": "Web search via Brave's API. Good for OSINT / TI lookups.",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+    "env_template": {
+      "BRAVE_API_KEY": {"type": "secret", "label": "Brave Search API key", "required": true}
+    }
+  }
+]

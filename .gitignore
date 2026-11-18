@@ -1,0 +1,21 @@
+.superpowers/
+__pycache__/
+*.egg-info/
+.venv/
+.env
+# runtime data, never committed
+triages/
+logs/
+tip/enrichment/
+config/cache/
+config/environment.json
+config/vuln_tracking.json
+config/ai_config.json
+config/service_keys.json
+config/runtime-settings.json
+config/tech-stack.csv
+config/tech-stack.csv.bak
+config/inventory.json
+# frontend
+web/node_modules/
+web-dist/

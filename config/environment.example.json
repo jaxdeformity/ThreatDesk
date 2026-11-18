@@ -1,0 +1,47 @@
+{
+  "$schema": "./environment.schema.json",
+  "org": {
+    "name": "Acme Corp",
+    "industry": "financial-services",
+    "size_fte": 1200,
+    "hq_jurisdiction": "US-CA",
+    "regulatory_scope": [
+      "SOX",
+      "PCI-DSS",
+      "CCPA"
+    ],
+    "public_company": false
+  },
+  "edr": {
+    "vendor": "CrowdStrike Falcon",
+    "coverage_pct": 97,
+    "exclusions": []
+  },
+  "network": {
+    "perimeter_fw": "Palo Alto Networks (NGFW)",
+    "egress_policy": "default deny; per-app allowlist",
+    "vpn": "Palo Alto GlobalProtect (split-tunnel: yes)",
+    "dns_filter": "Cisco Umbrella"
+  },
+  "sensors": {
+    "siem": "Splunk Enterprise (14d retention hot, 365d cold)",
+    "nta": null,
+    "email_security": "Proofpoint + M365 Defender for Office",
+    "cloud_csp": {
+      "aws": {
+        "account_count": 12,
+        "guardduty": true,
+        "cloudtrail": true
+      },
+      "azure": {
+        "tenant_id_count": 1,
+        "defender_for_cloud": true
+      }
+    }
+  },
+  "intel_feeds": [
+    "https://www.cisa.gov/news-events/alerts",
+    "https://attack.mitre.org/resources/updates/",
+    "https://www.proofpoint.com/us/threat-reference"
+  ]
+}
