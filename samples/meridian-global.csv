@@ -1,0 +1,286 @@
+id,category,subcategory,vendor,product,version,patched_through,environment,count,owner,criticality,internet_facing,match
+INV-0001,Network,Perimeter firewall,Palo Alto Networks,PA-7080 / PA-5450 (PAN-OS),11.1.4-h7,2026-08-31,"Data centres (6), regional hubs (22)",64,Network Security Engineering,crown_jewel,yes,Palo Alto Networks PAN-OS
+INV-0002,Network,Perimeter firewall,Palo Alto Networks,Expedition (migration tool),1.2.96,2024-06-30,Network tooling VLAN,2,Network Security Engineering,medium,no,Palo Alto Networks Expedition
+INV-0003,Network,Branch firewall,Fortinet,FortiGate 100F/200F (FortiOS),7.2.10,2026-08-31,"Branches and retail stores (4,100)",4180,Branch Network Operations,high,yes,Fortinet FortiOS;Fortinet Multiple Products
+INV-0004,Network,Web proxy,Fortinet,FortiProxy,7.4.6,2026-08-31,Regional egress,18,Branch Network Operations,high,yes,Fortinet FortiProxy
+INV-0005,Network,Web application firewall,Fortinet,FortiWeb,7.4.5,2026-08-31,Insurance customer portals,12,Application Security,high,yes,Fortinet FortiWeb
+INV-0006,Network,Endpoint VPN management,Fortinet,FortiClient EMS,7.2.4,2026-08-31,Branch IT management,3,Branch Network Operations,medium,no,Fortinet FortiClient EMS;Fortinet FortiClientEMS
+INV-0007,Network,Sandbox,Fortinet,FortiSandbox,4.4.6,2026-08-31,Mail and web inspection,4,Security Operations,medium,no,Fortinet FortiSandbox
+INV-0008,Network,Mail gateway,Fortinet,FortiMail,7.4.3,2026-08-31,Logistics subsidiary mail,6,Messaging Engineering,medium,yes,Fortinet FortiMail
+INV-0009,Network,Data centre firewall,Cisco,Secure Firewall 4100 (ASA / FTD),ASA 9.18.4 / FTD 7.4.2,2026-08-31,"Legacy acquisitions, PCI segment",46,Network Security Engineering,crown_jewel,yes,Cisco Adaptive Security Appliance;Cisco Firepower Threat Defense;Cisco Secure Firewall Adaptive Security Appliance;Cisco Secure Firewall ASA;Cisco ASA
+INV-0010,Network,Firewall management,Cisco,Secure Firewall Management Center (FMC),7.4.2,2026-08-31,Security management VLAN,4,Network Security Engineering,high,no,Cisco Secure Firewall Management Center
+INV-0011,Network,Campus and WAN routing,Cisco,"Catalyst 9300/9500, ISR 4000 (IOS XE)",17.9.5,2026-08-31,"Campuses (140), WAN edge",9200,Enterprise Networking,high,no,"Cisco IOS XE;Cisco IOS and IOS XE;Cisco IOS Software;Cisco IOS software;Cisco IOS, XR, and XE"
+INV-0012,Network,Service provider core,Cisco,ASR 9000 (IOS XR),7.9.2,2026-08-31,"Backbone, 8 PoPs",32,Enterprise Networking,crown_jewel,no,Cisco IOS XR
+INV-0013,Network,SD-WAN,Cisco,Catalyst SD-WAN Manager / Controller,20.12.3,2026-08-31,Global SD-WAN overlay,9,Enterprise Networking,crown_jewel,yes,Cisco Catalyst SD-WAN;Cisco SD-WAN
+INV-0014,Network,Network access control,Cisco,Identity Services Engine (ISE),3.3 patch 2,2026-08-31,Campus 802.1X,14,Network Security Engineering,high,no,Cisco Identity Services Engine
+INV-0015,Network,Remote access VPN client,Cisco,Secure Client (AnyConnect),5.1.4,2026-08-31,Managed laptops,142000,End User Computing,medium,no,Cisco AnyConnect
+INV-0016,Network,Data centre switching,Arista,7050X3 / 7280R3 (EOS),4.31.2F,2026-08-31,Data centres (6),1450,Data Centre Networking,high,no,Arista Extensible Operating System;Arista EOS
+INV-0017,Network,SD-WAN (acquired logistics unit),Arista,VeloCloud Orchestrator,5.2.1,2026-08-31,Logistics depots,1,Logistics IT,medium,yes,Arista VeloCloud;VMware SD-WAN
+INV-0018,Network,Core routing (insurance),Juniper,MX480 / SRX4600 (Junos OS),22.4R3,2026-08-31,Insurance data centres,38,Enterprise Networking,high,yes,Juniper Junos OS;Juniper Junos
+INV-0019,Network,Application delivery,F5,"BIG-IP i10800 (LTM, APM, ASM)",17.1.1.3,2026-08-31,"Data centres, DMZ",56,Application Delivery,crown_jewel,yes,F5 BIG-IP
+INV-0020,Network,Application delivery,Citrix,NetScaler ADC / Gateway MPX 15000,14.1-29.72,2026-07-31,"Virtual desktop gateway, DMZ",24,End User Computing,crown_jewel,yes,Citrix NetScaler;Citrix Application Delivery Controller;Citrix ADC;Citrix SD-WAN and NetScaler
+INV-0021,Network,Load balancer (healthcare),Progress,Kemp LoadMaster,7.2.59,2026-08-31,Clinic scheduling DMZ,6,Healthcare IT,medium,yes,Progress LoadMaster
+INV-0022,Network,SSL VPN (insurance),Ivanti,Connect Secure,22.7R2.4,2026-06-30,Insurance remote access,8,Insurance IT Infrastructure,crown_jewel,yes,Ivanti Connect Secure;Ivanti Pulse Connect Secure;Pulse Secure Pulse Connect Secure
+INV-0023,Network,Network access (insurance),Ivanti,Policy Secure,22.7R1,2026-08-31,Insurance campus NAC,4,Insurance IT Infrastructure,medium,no,Ivanti Policy Secure
+INV-0024,Network,Retail store firewall,SonicWall,TZ670 (SonicOS),7.0.1-5145,2025-03-31,Pharmacy retail stores (acquired),620,Retail IT,medium,yes,SonicWall SonicOS
+INV-0025,Network,Remote access (acquired),SonicWall,SMA 1000,12.4.3,2025-06-30,Pharmacy remote access,2,Retail IT,high,yes,SonicWall SMA1000;SonicWall SMA 1000
+INV-0026,Network,Warehouse Wi-Fi,Ubiquiti,UniFi OS (Dream Machine Pro),4.1.13,2026-08-31,Small logistics depots,85,Logistics IT,low,no,Ubiquiti UniFi
+INV-0027,Network,Wireless,Hewlett Packard Enterprise (HPE),Aruba 7240XM controllers (ArubaOS),8.12.0.1,2026-08-31,Campuses,120,Enterprise Networking,medium,no,Aruba ArubaOS;HPE Aruba
+INV-0028,Network,DNS,ISC,BIND,9.18.28,2026-08-31,External authoritative DNS,16,DNS and DHCP Services,crown_jewel,yes,ISC BIND
+INV-0029,Network,DDI,Infoblox,NIOS,9.0.3,2026-08-31,"Internal DNS, DHCP, IPAM",48,DNS and DHCP Services,crown_jewel,no,Infoblox NIOS
+INV-0030,Network,Storage networking,Broadcom,Brocade G720 (Fabric OS),9.2.0b,2026-08-31,SAN fabrics,96,Storage Engineering,high,no,Broadcom Brocade Fabric OS;Brocade Fabric OS
+INV-0031,Network,Cellular gateways,Sierra Wireless,AirLink RV55 (ALEOS),4.17.0,2026-08-31,Delivery fleet telematics,3800,Fleet Technology,medium,yes,Sierra Wireless AirLink
+INV-0032,Identity,Directory,Microsoft,Active Directory Domain Services,Windows Server 2022 DCs,2026-08-31,"11 forests, 64 domain controllers",64,Identity Engineering,crown_jewel,no,Microsoft Active Directory
+INV-0033,Identity,Federation,Microsoft,Active Directory Federation Services (AD FS),Windows Server 2019,2026-08-31,Legacy SAML apps,8,Identity Engineering,crown_jewel,yes,Microsoft Active Directory Federation Services
+INV-0034,Identity,Cloud identity,Microsoft,Entra ID (P2),SaaS,2026-08-31,"Workforce identity, 210k users",210000,Identity Engineering,crown_jewel,yes,Microsoft Entra;Microsoft Azure Active Directory
+INV-0035,Identity,Workforce SSO,Okta,Workforce Identity Cloud,SaaS,2026-08-31,Acquired business units,38000,Identity Engineering,high,yes,Okta
+INV-0036,Identity,Privileged access,CyberArk,"Privileged Access Manager (PVWA, CPM, PSM)",14.0,2026-08-31,Tier-0 vaults,22,Privileged Access,crown_jewel,no,CyberArk
+INV-0037,Identity,Privileged remote access,BeyondTrust,Privileged Remote Access (PRA) / Remote Support (RS),24.2.2,2026-08-31,"Vendor access, help desk",6,Privileged Access,crown_jewel,yes,BeyondTrust Remote Support;BeyondTrust Privileged Remote Access
+INV-0038,Identity,Certificate services,Microsoft,Active Directory Certificate Services,Windows Server 2019,2026-08-31,Internal PKI,12,Identity Engineering,crown_jewel,no,Microsoft Active Directory Certificate Services
+INV-0039,Identity,MFA (legacy),RSA,SecurID Authentication Manager,8.7 SP1,2026-08-31,Mainframe and OT access,4,Identity Engineering,high,no,RSA SecurID
+INV-0040,Endpoints,Desktop OS,Microsoft,Windows 11 Enterprise,23H2 / 24H2,2026-08-31,Corporate laptops and desktops,168000,End User Computing,high,no,Microsoft Windows;Microsoft Win32k;Microsoft Windows Kernel;Microsoft DirectX;Microsoft Graphics Device Interface;Microsoft MSHTML;Microsoft SMBv1;Microsoft Enhanced Cryptographic Provider;Microsoft XML Core Services;Microsoft Defender
+INV-0041,Endpoints,Desktop OS (legacy),Microsoft,Windows 10 Enterprise LTSC,21H2,2025-10-14,"Branch kiosks, lab instruments",21400,End User Computing,medium,no,Microsoft Windows
+INV-0042,Endpoints,Desktop OS,Apple,macOS,Sonoma 14.7 / Sequoia 15.2,2026-08-31,"Design, engineering, executives",18600,End User Computing,medium,no,"Apple macOS;Apple OS X;Apple iOS and macOS;Apple iOS, iPadOS, and macOS;Apple Multiple Products"
+INV-0043,Endpoints,Mobile,Apple,iOS / iPadOS,17.7 / 18.2,2026-08-31,"Corporate phones, clinician iPads",96000,Mobility,medium,yes,Apple iOS;Apple iPadOS;Apple iOS and iPadOS;Apple Multiple Products
+INV-0044,Endpoints,Mobile,Samsung,"Galaxy S23/S24, XCover6 Pro (Android 14)",One UI 6.1,2026-03-31,"Field logistics, store associates",54000,Mobility,medium,yes,Samsung Mobile Devices;Android Framework;Android Kernel;Android Runtime;Android Android Kernel;Qualcomm Multiple Chipsets;Qualcomm Chipsets;Arm Mali
+INV-0045,Endpoints,Mobile,Google,Pixel 8 (Android 15),AP4A,2026-08-31,Security team test devices,140,Mobility,low,yes,Google Pixel;Android Pixel
+INV-0046,Endpoints,Browser,Google,Chrome Enterprise,131,2026-08-31,All managed endpoints,190000,End User Computing,high,yes,Google Chromium;Google Chrome;Google Skia;Google Dawn
+INV-0047,Endpoints,Browser,Microsoft,Edge,131,2026-08-31,All managed Windows endpoints,189000,End User Computing,high,yes,Microsoft Edge
+INV-0048,Endpoints,Browser (legacy mode),Microsoft,Internet Explorer 11 mode,IE mode in Edge,2025-06-30,Claims and mainframe web front ends,40000,End User Computing,medium,no,Microsoft Internet Explorer
+INV-0049,Endpoints,Browser,Mozilla,Firefox ESR,128.5,2026-08-31,"Developers, research",9200,End User Computing,low,yes,Mozilla Firefox;Mozilla Multiple Products
+INV-0050,Endpoints,Productivity,Microsoft,Microsoft 365 Apps for enterprise,2408 (Semi-Annual Enterprise),2026-08-31,All knowledge workers,182000,End User Computing,high,no,Microsoft Office;Microsoft Word;Microsoft Excel;Microsoft PowerPoint;Microsoft Outlook;Microsoft Visual Basic for Applications
+INV-0051,Endpoints,PDF,Adobe,Acrobat Reader DC / Acrobat Pro,24.005,2026-08-31,All endpoints,176000,End User Computing,medium,no,Adobe Acrobat;Adobe Reader
+INV-0052,Endpoints,Archive,RARLAB,WinRAR,7.01,2026-08-31,"Finance, engineering (exception list)",3100,End User Computing,low,no,RARLAB WinRAR
+INV-0053,Endpoints,Editor,Notepad++,Notepad++,8.6.9,2026-08-31,Developer workstations,14000,End User Computing,low,no,Notepad++
+INV-0054,Endpoints,Thin clients,IGEL,IGEL OS,12.4.2,2026-08-31,"Call centres, hospital wards",26000,End User Computing,medium,no,IGEL OS
+INV-0055,Endpoints,Disk tools,Daemon,Daemon Tools Lite,12.1,2024-01-01,"Training labs (unapproved, being removed)",40,End User Computing,low,no,Daemon Tools
+INV-0056,Endpoints,Vendor tools,ASUS,Live Update,3.6.8,2026-08-31,Engineering workstations (ASUS ProArt),260,End User Computing,low,no,ASUS Live Update
+INV-0057,Endpoints,Messaging (BYOD),Meta Platforms,WhatsApp,2.24,2026-08-31,Unmanaged personal devices with work profile,30000,Mobility,low,yes,Meta Platforms WhatsApp;WhatsApp
+INV-0058,Endpoint management,Configuration management,Microsoft,Configuration Manager (MECM),2403,2026-08-31,"Global, 4 primary sites",31,Client Engineering,crown_jewel,no,Microsoft Configuration Manager
+INV-0059,Endpoint management,UEM,Microsoft,Intune,SaaS,2026-08-31,"Windows, iOS, Android",300000,Client Engineering,high,yes,Microsoft Intune
+INV-0060,Endpoint management,MDM (insurance),Ivanti,Endpoint Manager Mobile (EPMM / MobileIron Core),12.1.0.1,2026-05-31,Insurance mobile fleet,4,Insurance IT Infrastructure,crown_jewel,yes,Ivanti Endpoint Manager Mobile;Ivanti EPMM;MobileIron Core
+INV-0061,Endpoint management,Endpoint manager (insurance),Ivanti,Endpoint Manager (EPM),2024 SU1,2026-08-31,Insurance desktops,3,Insurance IT Infrastructure,high,no,Ivanti Endpoint Manager (EPM);Ivanti Endpoint Manager
+INV-0062,Endpoint management,Cloud services appliance,Ivanti,Cloud Services Appliance (CSA),5.0.2,2026-08-31,Insurance remote endpoints,2,Insurance IT Infrastructure,high,yes,Ivanti Cloud Services Appliance
+INV-0063,Endpoint management,Mobile gateway,Ivanti,Sentry,9.20,2026-08-31,Insurance mobile mail,4,Insurance IT Infrastructure,medium,yes,Ivanti Sentry
+INV-0064,Endpoint management,UEM (logistics),Omnissa,Workspace ONE UEM,2406,2026-08-31,"Rugged scanners, drivers' tablets",61000,Fleet Technology,high,yes,Omnissa Workspace One;VMware Workspace ONE
+INV-0065,Endpoint management,Systems management (pharmacy),Quest,KACE Systems Management Appliance,14.0,2026-08-31,Pharmacy stores,2,Retail IT,medium,yes,Quest KACE
+INV-0066,Endpoint management,Asset agent (Japan),Motex,LANSCOPE Endpoint Manager,9.4,2026-08-31,Japan subsidiary,2400,APAC IT,low,no,Motex LANSCOPE
+INV-0067,Endpoint management,Asset agent (Japan),SKYSEA,Client View,19.2,2026-08-31,Japan subsidiary plants,900,APAC IT,low,no,SKYSEA Client View
+INV-0068,Security tooling,EDR,CrowdStrike,Falcon sensor,7.18,2026-08-31,"All Windows, macOS, Linux",240000,Security Operations,crown_jewel,no,CrowdStrike Falcon
+INV-0069,Security tooling,EDR (legacy),Trend Micro,Apex One,2019 (SaaS agent),2026-08-31,Healthcare clinics (migration in progress),7800,Healthcare IT,medium,no,Trend Micro Apex One
+INV-0070,Security tooling,Antivirus,Microsoft,Defender for Endpoint,Platform 4.18.24090,2026-08-31,All Windows endpoints and servers,220000,Security Operations,high,no,Microsoft Defender;Microsoft Malware Protection Engine
+INV-0071,Security tooling,SIEM,Splunk,Enterprise / Enterprise Security,9.2.3 / ES 7.3,2026-08-31,Security data platform,210,Security Operations,crown_jewel,no,Splunk Enterprise
+INV-0072,Security tooling,Host monitoring,Wazuh,Wazuh Server,4.8.1,2026-08-31,Retail Linux POS servers,6,Retail IT,medium,no,Wazuh
+INV-0073,Security tooling,Container scanning,Aquasecurity,Trivy,0.56.2,2026-08-31,CI pipelines,1,Platform Engineering,medium,no,Aquasecurity Trivy;Aqua Security Trivy
+INV-0074,Security tooling,Red team,Fortra,Cobalt Strike,4.10,2026-08-31,Internal red team (licensed),3,Offensive Security,medium,no,Fortra Cobalt Strike;HelpSystems Cobalt Strike
+INV-0075,Security tooling,Email security,Cisco,Secure Email Gateway (ESA),15.5.1,2026-08-31,Corporate mail hygiene,16,Messaging Engineering,crown_jewel,yes,Cisco Secure Email;Cisco Email Security
+INV-0076,Security tooling,Email security (pharmacy),Barracuda Networks,Email Security Gateway,9.2,2026-08-31,Pharmacy subsidiary,2,Retail IT,medium,yes,Barracuda Networks Barracuda Email Security Gateway;Barracuda Networks Multiple Products;Barracuda Email Security
+INV-0077,Security tooling,Firewall (Europe),Check Point,Quantum Security Gateway,R81.20,2026-08-31,European subsidiaries,40,EMEA IT,high,yes,Check Point Security Gateway;Check Point Multiple Products;Check Point Quantum
+INV-0078,Security tooling,Firewall management (Europe),Check Point,SmartConsole,R81.20,2026-08-31,EMEA security admins,30,EMEA IT,medium,no,Check Point SmartConsole
+INV-0079,Server OS,Windows Server,Microsoft,Windows Server 2022 Datacenter,21H2 (20348),2026-08-31,"Data centres, Azure",21800,Server Engineering,high,no,Microsoft Windows;Microsoft Win32k;Microsoft Windows Kernel;Microsoft Internet Key Exchange (IKE)
+INV-0080,Server OS,Windows Server,Microsoft,Windows Server 2019 / 2016,1809 / 1607,2026-08-31,"Data centres, legacy apps",9600,Server Engineering,high,no,Microsoft Windows
+INV-0081,Server OS,Windows Server (unsupported),Microsoft,Windows Server 2012 R2 (ESU),6.3,2026-08-31,"Mainframe gateways, lab systems",410,Server Engineering,high,no,Microsoft Windows
+INV-0082,Server OS,Linux,Red Hat,Enterprise Linux 9 / 8,9.4 / 8.10,2026-08-31,"Data centres, AWS, Azure",28400,Linux Engineering,high,no,Linux Kernel;Red Hat Enterprise Linux;Red Hat Polkit;Red Hat Libuser;Red Hat Automatic Bug Reporting Tool;Sudo Sudo;GNU Bash;GNU Bourne-Again Shell;GNU InetUtils;OpenBSD OpenSSH;Microsoft Open Management Infrastructure
+INV-0083,Server OS,Linux,Canonical,Ubuntu Server LTS,22.04 / 24.04,2026-08-31,"Kubernetes nodes, ML clusters",14600,Linux Engineering,high,no,Linux Kernel;Canonical Ubuntu
+INV-0084,Server OS,Linux,SUSE,Linux Enterprise Server for SAP,15 SP5,2026-08-31,SAP HANA hosts,380,SAP Basis,crown_jewel,no,Linux Kernel;SUSE
+INV-0085,Server OS,Unix,IBM,AIX,7.3 TL2,2026-08-31,Core banking (Power10),120,Core Banking Infrastructure,crown_jewel,no,IBM AIX
+INV-0086,Server OS,Mainframe,IBM,z/OS,3.1,2026-08-31,"Card processing, policy admin (z16)",4,Mainframe Systems,crown_jewel,no,IBM z/OS
+INV-0087,Server OS,Appliance OS,Unraid,Unraid,6.12,2025-01-01,"Media lab (shadow IT, being removed)",1,Marketing,low,no,Unraid
+INV-0088,Hardware,Compute,Dell,PowerEdge R760 / R660,"BIOS 2.3.5, iDRAC9 7.10",2026-08-31,Data centres,14200,Data Centre Engineering,high,no,Dell iDRAC;Dell PowerEdge
+INV-0089,Hardware,Compute,Hewlett Packard Enterprise (HPE),ProLiant DL380 Gen11,iLO 6 1.62,2026-08-31,Data centres,6800,Data Centre Engineering,high,no,Hewlett Packard Enterprise (HPE) iLO;HPE iLO
+INV-0090,Hardware,Infrastructure management,Hewlett Packard Enterprise (HPE),OneView,9.0,2026-08-31,HPE fleet management,3,Data Centre Engineering,high,no,Hewlett Packard Enterprise (HPE) OneView;HPE OneView
+INV-0091,Hardware,Compute,Cisco,UCS X-Series / Intersight,5.2(2),2026-08-31,VDI and private cloud,1900,Data Centre Engineering,high,no,Cisco UCS;Cisco Intersight
+INV-0092,Hardware,Hyperconverged (legacy),Cisco,HyperFlex HX,5.0(2e),2026-08-31,Retail edge clusters,140,Retail IT,medium,no,Cisco HyperFlex
+INV-0093,Hardware,BMC firmware,AMI,MegaRAC SPx (OEM BMC),13.x,2026-08-31,"White-box GPU servers, storage nodes",2600,Data Centre Engineering,high,no,AMI MegaRAC
+INV-0094,Hardware,GPU servers,Supermicro,SYS-821GE-TNHR (8x H100),BMC 1.03.18,2026-08-31,AI training cluster,512,AI Platform,crown_jewel,no,Supermicro
+INV-0095,Hardware,Motherboards / firmware,GIGABYTE,Server and workstation boards (UEFI),F14,2026-08-31,Engineering render farm,380,Data Centre Engineering,low,no,GIGABYTE Multiple Products
+INV-0096,Hardware,Storage,Dell,PowerMax 8500 / PowerStore 5200T,PowerMaxOS 10.1,2026-08-31,Tier-1 block storage,42,Storage Engineering,crown_jewel,no,Dell PowerMax;Dell PowerStore
+INV-0097,Hardware,Storage,NetApp,AFF A900 (ONTAP),9.14.1P6,2026-08-31,"File services, VMware datastores",64,Storage Engineering,crown_jewel,no,NetApp ONTAP
+INV-0098,Hardware,Storage,Pure Storage,FlashArray//XL (Purity),6.6.10,2026-08-31,Database tier,28,Storage Engineering,crown_jewel,no,Pure Storage
+INV-0099,Hardware,NAS (branch),QNAP,TS-873A (QTS),5.1.8,2025-11-30,Regional offices,210,Branch Network Operations,medium,yes,QNAP Network Attached Storage;QNAP Photo Station;QNAP QTS
+INV-0100,Hardware,NAS (lab),Zyxel,NAS542,5.21,2024-06-30,Logistics depot CCTV storage,30,Facilities,low,no,Zyxel Multiple Network-Attached Storage
+INV-0101,Hardware,Network appliances (depots),Zyxel,USG FLEX 200 / ATP500,5.38,2025-09-30,Small depots (acquired),140,Logistics IT,medium,yes,Zyxel Multiple Firewalls;Zyxel USG;Zyxel ATP
+INV-0102,Hardware,Mobile chipsets,Qualcomm,Snapdragon 8 Gen 2/3,Vendor BSP,2026-08-31,Corporate Android phones,54000,Mobility,medium,no,Qualcomm Multiple Chipsets;Qualcomm Chipsets
+INV-0103,Hardware,Mobile GPU,Arm,Mali GPU (Exynos devices),r47p0,2026-08-31,XCover rugged phones,18000,Mobility,low,no,Arm Mali
+INV-0104,Hardware,Serial device servers,Lantronix,EDS5000,2.1.0.0R3,2026-08-31,Distribution centre PLC links,220,OT Engineering,medium,no,Lantronix EDS5000
+INV-0105,Virtualisation,Hypervisor,Broadcom,VMware ESXi,8.0 U3b / 7.0 U3q,2026-06-30,"Data centres (2,100 hosts)",2100,Private Cloud Engineering,crown_jewel,no,"VMware ESXi;Broadcom VMware ESX;VMware ESXi, Workstation;VMware ESXi and Workstation;VMware Multiple Products"
+INV-0106,Virtualisation,Management,Broadcom,VMware vCenter Server,8.0 U3d,2026-08-31,14 vCenters,14,Private Cloud Engineering,crown_jewel,no,VMware vCenter;Broadcom VMware vCenter
+INV-0107,Virtualisation,Operations,Broadcom,VMware Aria Operations / Automation,8.18,2026-08-31,Private cloud operations,6,Private Cloud Engineering,high,no,VMware Aria Operations;Broadcom VMware Aria Operations;VMware vRealize;VMware Aria
+INV-0108,Virtualisation,Guest tools,Broadcom,VMware Tools,12.4.5,2026-08-31,All VMware guests,41000,Private Cloud Engineering,medium,no,Broadcom VMware Aria Operations and VMware Tools;VMware Tools
+INV-0109,Virtualisation,Desktop hypervisor,Broadcom,VMware Workstation Pro,17.6,2026-08-31,Developer workstations,2300,End User Computing,low,no,VMware Workstation
+INV-0110,Virtualisation,Hypervisor,Microsoft,Hyper-V / Azure Stack HCI,23H2,2026-08-31,Branch and clinic edge clusters,860,Server Engineering,high,no,Microsoft Hyper-V;Microsoft Windows
+INV-0111,Virtualisation,Hypervisor,Nutanix,AHV / Prism Central,6.8.1 / pc.2024.2,2026-08-31,Insurance VDI,240,Insurance IT Infrastructure,high,no,Nutanix
+INV-0112,Virtualisation,Virtual desktops,Citrix,Virtual Apps and Desktops (CVAD),2402 LTSR CU1,2026-08-31,"Call centres, offshore partners",46000,End User Computing,crown_jewel,yes,Citrix Virtual Apps;Citrix Workspace;Citrix Session Recording
+INV-0113,Virtualisation,Disaster recovery,Dell,RecoverPoint for Virtual Machines,6.0 SP1,2026-08-31,DR replication,8,Storage Engineering,high,no,Dell RecoverPoint
+INV-0114,Cloud,AWS,Amazon Web Services,"EC2, EKS, RDS, S3, Lambda","Org with 1,840 accounts",2026-08-31,"us-east-1, us-west-2, eu-west-1, ap-southeast-2",1840,Cloud Platform (AWS),crown_jewel,yes,Amazon Web Services;AWS
+INV-0115,Cloud,Azure,Microsoft,"Azure (AKS, App Service, SQL MI, Functions)","1,120 subscriptions",2026-08-31,"East US 2, West Europe, UK South",1120,Cloud Platform (Azure),crown_jewel,yes,Microsoft Azure
+INV-0116,Cloud,Google Cloud,Google,"Google Cloud (GKE, BigQuery, Vertex AI)",420 projects,2026-08-31,"us-central1, europe-west4",420,Data and AI Platform,high,yes,Google Cloud
+INV-0117,Cloud,Oracle Cloud,Oracle,"OCI (Exadata Cloud, Fusion Apps)",ERP tenancy,2026-08-31,"Ashburn, Frankfurt",1,Finance Systems,crown_jewel,yes,Oracle Cloud Infrastructure
+INV-0118,Cloud,Kubernetes,Red Hat,OpenShift Container Platform,4.15.30,2026-08-31,On-prem and ROSA,46,Platform Engineering,crown_jewel,no,Red Hat OpenShift
+INV-0119,Cloud,Kubernetes,CNCF,Kubernetes (EKS / AKS / GKE),1.29 / 1.30,2026-08-31,Managed clusters,310,Platform Engineering,crown_jewel,yes,Kubernetes
+INV-0120,Cloud,Infrastructure as code,HashiCorp,Terraform Enterprise,v202409-2,2026-08-31,Cloud landing zones,3,Platform Engineering,high,no,HashiCorp Terraform
+INV-0121,Cloud,Secrets,HashiCorp,Vault Enterprise,1.17.6,2026-08-31,Application secrets,12,Platform Engineering,crown_jewel,no,HashiCorp Vault
+INV-0122,Cloud,Object storage (on-prem),MinIO,MinIO,RELEASE.2024-08-17,2026-08-31,ML feature store,24,AI Platform,medium,no,MinIO
+INV-0123,Cloud,Configuration management,SaltStack,Salt,3006.9,2026-08-31,Linux fleet configuration,4,Linux Engineering,high,no,SaltStack Salt;VMware Salt
+INV-0124,Cloud,Configuration management,Red Hat,Ansible Automation Platform,2.4,2026-08-31,Network and server automation,9,Automation Engineering,high,no,Red Hat Ansible
+INV-0125,Collaboration,Email (on-prem hybrid),Microsoft,Exchange Server Subscription Edition,SE RTM,2026-08-31,"Hybrid relay, journaling, 3 sites",18,Messaging Engineering,crown_jewel,yes,Microsoft Exchange Server;Microsoft Exchange
+INV-0126,Collaboration,Email (cloud),Microsoft,Exchange Online,SaaS,2026-08-31,All mailboxes,210000,Messaging Engineering,crown_jewel,yes,Microsoft Exchange Online
+INV-0127,Collaboration,Intranet,Microsoft,SharePoint Server Subscription Edition,24H2,2026-08-31,"Legal, compliance, intranet",22,Collaboration Platforms,crown_jewel,yes,Microsoft SharePoint
+INV-0128,Collaboration,Email (acquired),Synacor,Zimbra Collaboration Suite,10.0.9,2025-06-30,Freight subsidiary (migration Q3),4,Logistics IT,medium,yes,Synacor Zimbra;Zimbra Collaboration Suite
+INV-0129,Collaboration,Webmail (acquired),Roundcube,Webmail,1.6.7,2025-09-30,Freight subsidiary,2,Logistics IT,medium,yes,Roundcube Webmail;Roundcube Roundcube Webmail
+INV-0130,Collaboration,Mail server (Europe),Exim,Exim,4.97,2025-01-01,EMEA outbound relays,6,EMEA IT,medium,yes,Exim
+INV-0131,Collaboration,Wiki,Atlassian,Confluence Data Center,8.5.14,2026-08-31,Engineering knowledge base,6,Developer Platforms,high,yes,Atlassian Confluence
+INV-0132,Collaboration,Issue tracking,Atlassian,Jira Software Data Center,9.12.12,2026-08-31,Engineering and change,8,Developer Platforms,crown_jewel,yes,Atlassian Jira;Atlassian Multiple Products
+INV-0133,Collaboration,Wiki (R&D),XWiki,XWiki Platform,15.10.11,2026-08-31,Pharma research wiki,1,Research IT,low,no,XWiki Platform
+INV-0134,Collaboration,Documents,ONLYOFFICE,Docs,8.1.3,2026-08-31,Research collaboration (Linux),2,Research IT,low,no,ONLYOFFICE Docs
+INV-0135,Collaboration,Documents,Collabora,Collabora Online (CODE),24.04,2026-08-31,"Nextcloud integration, research",2,Research IT,low,no,Collabora Online
+INV-0136,Collaboration,File sync (research),ownCloud,ownCloud Server,10.15,2026-08-31,Research partners,1,Research IT,low,yes,ownCloud
+INV-0137,Collaboration,Video,Zoom,Workplace,6.2,2026-08-31,All employees,200000,Collaboration Platforms,medium,yes,Zoom
+INV-0138,Collaboration,Telephony,Cisco,Unified Communications Manager / BroadWorks,15 SU2,2026-08-31,Contact centres,18,Unified Communications,crown_jewel,no,Cisco Unified Communications Manager;Cisco BroadWorks
+INV-0139,Collaboration,Telephony (healthcare),Mitel,MiCollab / MiVoice Connect,9.8 SP1,2026-08-31,Clinics,12,Healthcare IT,medium,yes,Mitel MiCollab;Mitel MiVoice
+INV-0140,Collaboration,Telephony (stores),Sangoma,FreePBX / Switchvox,16.0.40,2026-08-31,Pharmacy stores,80,Retail IT,low,yes,Sangoma FreePBX;Sangoma Switchvox
+INV-0141,Collaboration,Telephony (lab),SignalWire,FreeSWITCH,1.10.11,2026-08-31,IVR development,3,Contact Centre Engineering,low,no,SignalWire FreeSwitch
+INV-0142,Collaboration,"Video conferencing (Russia JV, frozen)",TrueConf,Server,5.2,2026-08-31,Dormant joint-venture office,1,EMEA IT,low,yes,TrueConf
+INV-0143,Business applications,ERP,SAP,S/4HANA 2023 and ECC 6.0 EHP8 (NetWeaver),"S/4 2023 FPS01, NW 7.50",2026-06-30,"Finance, supply chain, HR",140,SAP Basis,crown_jewel,yes,SAP NetWeaver;SAP S/4HANA;SAP Multiple Products
+INV-0144,Business applications,ERP (insurance),Oracle,E-Business Suite,12.2.12,2026-07-15,Insurance general ledger,12,Finance Systems,crown_jewel,no,Oracle E-Business Suite
+INV-0145,Business applications,HR (legacy),Oracle,PeopleSoft HCM (PeopleTools),9.2 / 8.61,2026-08-31,Canadian payroll,6,HR Technology,high,no,Oracle PeopleSoft
+INV-0146,Business applications,PLM,Oracle,Agile Product Lifecycle Management,9.3.6,2026-08-31,Medical device engineering,4,Engineering Systems,high,no,Oracle Agile Product Lifecycle Management
+INV-0147,Business applications,PLM,PTC,Windchill,12.1.2,2026-08-31,Manufacturing subsidiary,6,Engineering Systems,high,no,PTC Windchill
+INV-0148,Business applications,Manufacturing execution,Dassault Systèmes,DELMIA Apriso,2024,2026-08-31,Medical devices plants,4,Manufacturing IT,high,no,Dassault Systèmes DELMIA Apriso;Dassault DELMIA
+INV-0149,Business applications,ITSM,ServiceNow,Now Platform,Washington DC Patch 7,2026-08-31,"IT, HR, security operations",1,Enterprise Service Management,crown_jewel,yes,ServiceNow
+INV-0150,Business applications,CRM,Salesforce,Sales and Service Cloud,SaaS,2026-08-31,"Insurance agents, commercial banking",52000,CRM Platforms,high,yes,Salesforce
+INV-0151,Business applications,Analytics,Qlik,Qlik Sense Enterprise,May 2024 Patch 6,2026-08-31,Supply chain analytics,6,Data and AI Platform,medium,yes,Qlik Sense
+INV-0152,Business applications,Reporting,TIBCO,JasperReports Server,8.2,2026-08-31,Claims reporting,3,Insurance Applications,medium,no,TIBCO JasperReports
+INV-0153,Business applications,Analytics (legacy),Hitachi Vantara,Pentaho Business Analytics Server,9.3,2025-03-31,Logistics BI,2,Logistics IT,low,no,Hitachi Vantara Pentaho
+INV-0154,Business applications,BI,Metabase,Metabase,0.50.21,2026-08-31,Product analytics,2,Digital Products,low,yes,Metabase
+INV-0155,Business applications,Print management,PaperCut,PaperCut MF,23.0.9,2026-08-31,All offices,36,End User Computing,medium,no,PaperCut NG/MF;PaperCut
+INV-0156,Business applications,Signage,Samsung,MagicINFO 9 Server,21.1050,2026-08-31,Retail and lobby signage,4,Facilities,low,yes,Samsung MagicINFO
+INV-0157,Business applications,Time and attendance,ZKTeco,BioTime,9.0.1,2026-08-31,Warehouses (biometric clocks),3,Logistics IT,medium,no,ZKTeco BioTime
+INV-0158,Business applications,Help desk (logistics),SolarWinds,Web Help Desk,12.8.3,2026-03-31,Logistics IT help desk,1,Logistics IT,medium,yes,SolarWinds Web Help Desk
+INV-0159,Business applications,Help desk (pharmacy),SysAid,SysAid On-Prem,23.3.38,2026-08-31,Pharmacy IT,1,Retail IT,medium,yes,SysAid
+INV-0160,Business applications,Customer support,Zammad GmbH,Zammad,6.3,2026-08-31,EMEA customer support,1,EMEA IT,low,yes,Zammad
+INV-0161,Business applications,Order management (3PL),Advantive,VeraCore,2024.1,2026-08-31,E-commerce fulfilment,1,Logistics IT,high,yes,Advantive VeraCore
+INV-0162,Databases,Relational,Oracle,Database Enterprise Edition / Exadata X9M,19.24 / 23ai,2026-08-31,"Core banking, policy admin",860,Database Engineering,crown_jewel,no,Oracle Database
+INV-0163,Databases,Relational,Microsoft,SQL Server Enterprise,2019 CU28 / 2022 CU15,2026-08-31,Line-of-business apps,6400,Database Engineering,crown_jewel,no,Microsoft SQL Server
+INV-0164,Databases,In-memory,SAP,HANA,2.0 SPS07,2026-08-31,S/4HANA,120,SAP Basis,crown_jewel,no,SAP HANA
+INV-0165,Databases,Relational,PostgreSQL,PostgreSQL,15.8 / 16.4,2026-08-31,Digital platforms,3100,Database Engineering,high,no,PostgreSQL
+INV-0166,Databases,Document,MongoDB,MongoDB Enterprise Server,7.0.14,2026-08-31,Mobile app back ends,420,Database Engineering,high,no,MongoDB
+INV-0167,Databases,Search,Elastic,Elasticsearch / Kibana,8.15.2,2026-08-31,"Observability, fraud search",640,Observability Engineering,high,no,Elastic Elasticsearch;Elastic Kibana
+INV-0168,Databases,Search,Apache,Solr,9.6.1,2026-08-31,Product catalogue search,40,Digital Products,medium,yes,Apache Solr
+INV-0169,Databases,Cache,Redis,Redis Enterprise,7.4,2026-08-31,Session stores,380,Database Engineering,high,no,Redis
+INV-0170,Databases,Streaming,Confluent,Confluent Platform (Apache Kafka),7.7,2026-08-31,Event streaming,220,Data Platform Engineering,crown_jewel,no,Apache Kafka
+INV-0171,Databases,Messaging,Apache,ActiveMQ Classic,5.18.4,2026-08-31,Claims integration bus,18,Integration Engineering,high,no,Apache ActiveMQ
+INV-0172,Databases,Messaging,IBM,MQ,9.3.0.20,2026-08-31,Payments messaging,90,Integration Engineering,crown_jewel,no,IBM MQ
+INV-0173,Databases,Data warehouse,Snowflake,Snowflake,SaaS,2026-08-31,Enterprise data warehouse,1,Data Platform Engineering,crown_jewel,yes,Snowflake
+INV-0174,Databases,Lakehouse,Databricks,Databricks on AWS and Azure,Runtime 15.4 LTS,2026-08-31,Analytics and ML,1,Data and AI Platform,crown_jewel,yes,Databricks
+INV-0175,Databases,Data risk,IBM,Data Risk Manager,2.0.6,2026-08-31,Database security analytics,1,Data Protection,medium,no,IBM Data Risk Manager
+INV-0176,Middleware,Java EE,Oracle,WebLogic Server,14.1.1.0 / 12.2.1.4,2026-04-30,"Policy admin, claims",340,Middleware Engineering,crown_jewel,yes,Oracle WebLogic;Oracle Fusion Middleware;Oracle HTTP Server
+INV-0177,Middleware,Java EE,Red Hat,JBoss EAP,7.4.18,2026-08-31,Banking channels,520,Middleware Engineering,high,no,Red Hat JBoss
+INV-0178,Middleware,Java EE,IBM,WebSphere Application Server,9.0.5.20,2026-08-31,Mainframe integration,160,Middleware Engineering,high,no,IBM WebSphere
+INV-0179,Middleware,Servlet container,Apache,Tomcat,9.0.96 / 10.1.31,2026-08-31,Internal web apps,4200,Middleware Engineering,high,yes,Apache Tomcat
+INV-0180,Middleware,Web server,Apache,HTTP Server,2.4.62,2026-08-31,"Reverse proxies, static content",2600,Middleware Engineering,high,yes,Apache HTTP Server
+INV-0181,Middleware,Web server,F5,NGINX Plus,R32,2026-08-31,API ingress,880,Application Delivery,high,yes,F5 NGINX;NGINX
+INV-0182,Middleware,Web server,Microsoft,IIS,10.0,2026-08-31,Windows web apps,5200,Server Engineering,high,yes,Microsoft Internet Information Services;Microsoft IIS
+INV-0183,Middleware,Runtime,Microsoft,.NET Framework / .NET,4.8.1 / 8.0.10,2026-08-31,Windows apps,26000,Application Platforms,high,no,Microsoft .NET Framework;Microsoft .NET
+INV-0184,Middleware,Runtime,Oracle,Java SE (JDK / JRE),8u431 / 17.0.13 / 21.0.5,2026-07-15,Servers and endpoints,61000,Application Platforms,high,no,Oracle Java SE;Oracle Java Runtime Environment
+INV-0185,Middleware,Runtime,Erlang,Erlang/OTP,26.2.5,2026-08-31,RabbitMQ clusters,60,Integration Engineering,medium,no,Erlang Erlang/OTP
+INV-0186,Middleware,Runtime,PHP Group,PHP,8.2.24,2026-08-31,"Marketing sites, legacy portals",140,Digital Products,medium,yes,PHP Group PHP
+INV-0187,Middleware,API gateway,WSO2,API Manager,4.2.0,2026-08-31,Partner APIs (insurance),8,Integration Engineering,high,yes,WSO2 Multiple Products;WSO2 API Manager
+INV-0188,Middleware,Integration,MuleSoft,Anypoint Runtime,4.6,2026-08-31,System APIs,220,Integration Engineering,high,no,MuleSoft
+INV-0189,Middleware,Web UI library,Telerik,UI for ASP.NET AJAX,2019.3.1023,2020-01-01,Legacy agent portal,6,Insurance Applications,high,yes,Telerik User Interface (UI) for ASP.NET AJAX;Telerik UI
+INV-0190,Middleware,Web UI library,Ajax.NET Professional,Ajax.NET Professional,21.12.22.1,2022-01-01,Legacy claims intake,2,Insurance Applications,medium,yes,Ajax.NET Professional
+INV-0191,Web and CMS,CMS,Sitecore,Experience Platform (XP),10.3.2,2026-08-31,Corporate and brand websites,24,Digital Experience,high,yes,Sitecore CMS;Sitecore Multiple Products;Sitecore Experience Platform
+INV-0192,Web and CMS,CMS / forms,Adobe,Experience Manager (AEM) and AEM Forms,6.5.21,2026-08-31,Insurance quote forms,30,Digital Experience,crown_jewel,yes,Adobe Experience Manager
+INV-0193,Web and CMS,E-commerce,Adobe,Commerce (Magento),2.4.7-p2,2026-08-31,Pharmacy online store,12,Digital Commerce,crown_jewel,yes,Adobe Commerce;Adobe Magento;Mirasvit
+INV-0194,Web and CMS,CMS,Kentico,Xperience,13.0.160,2026-08-31,Regional marketing sites,6,Digital Experience,medium,yes,Kentico Xperience;Kentico Kentico Xperience
+INV-0195,Web and CMS,CMS,WordPress,WordPress Core,6.6.2,2026-08-31,Campaign microsites,70,Marketing Technology,medium,yes,WordPress Core;WordPress WordPress Core
+INV-0196,Web and CMS,CMS,Drupal,Drupal Core,10.3.6,2026-08-31,Foundation and careers sites,8,Marketing Technology,medium,yes,Drupal Core
+INV-0197,Web and CMS,CMS (acquired),Craft CMS,Craft CMS,4.12.5,2026-08-31,Logistics brand site,1,Marketing Technology,low,yes,Craft CMS
+INV-0198,Web and CMS,CMS (acquired),DotNetNuke (DNN),DNN Platform,9.13.4,2026-08-31,Legacy intranet (Mexico),1,LATAM IT,low,no,DotNetNuke
+INV-0199,Web and CMS,Forum,vBulletin,vBulletin,6.0.6,2024-01-01,Customer community (read-only archive),1,Digital Products,low,yes,vBulletin
+INV-0200,Web and CMS,Hosting panel,WebPros,cPanel & WHM,118,2026-08-31,Marketing agency hosting (third party),3,Marketing Technology,low,yes,WebPros cPanel;cPanel;LiteSpeed cPanel
+INV-0201,Web and CMS,Hosting panel,CyberPersons,CyberPanel,2.3.6,2026-08-31,Agency-managed microsites,1,Marketing Technology,low,yes,CyberPersons CyberPanel;CWP Control Web Panel
+INV-0202,Web and CMS,CMS,Joomla,Joomla! with JCE editor and SP Page Builder,5.1.4,2026-08-31,Franchise partner sites,40,Marketing Technology,low,yes,Widget Factory Joomla Content Editor;JoomShaper SP Page Builder;Joomlack Page Builder;Balbooa Forms;iCagenda
+INV-0203,Web and CMS,Headless CMS,Strapi,Strapi,4.25.8,2026-08-31,Mobile app content,3,Digital Products,medium,yes,Strapi
+INV-0204,Web and CMS,Geospatial,OSGeo,GeoServer,2.25.3,2026-08-31,Fleet routing maps,4,Fleet Technology,medium,yes,OSGeo GeoServer
+INV-0205,Developer platforms,Artifact repository,JFrog,Artifactory Enterprise+ / Xray,7.90.13,2026-08-31,"Global artifact cache (Maven, npm, PyPI, Docker)",12,Developer Platforms,crown_jewel,yes,JFrog Artifactory
+INV-0206,Developer platforms,Source control,GitLab,GitLab Enterprise Edition (self-managed),17.3.4,2026-08-31,"Primary SCM, 28k repos",6,Developer Platforms,crown_jewel,yes,GitLab Community and Enterprise;GitLab GitLab
+INV-0207,Developer platforms,Source control,GitHub,GitHub Enterprise Cloud + Actions,SaaS,2026-08-31,Open-source and data science,1,Developer Platforms,high,yes,GitHub;tj-actions changed-files;reviewdog action-setup
+INV-0208,Developer platforms,Source control (acquired),Gitea,Gitea,1.22.2,2026-08-31,Logistics engineering team,1,Logistics IT,medium,no,Gitea;Gogs
+INV-0209,Developer platforms,CI,Jenkins,Jenkins LTS,2.462.3,2026-08-31,"Legacy CI, 140 controllers",140,Developer Platforms,high,no,Jenkins
+INV-0210,Developer platforms,CI,JetBrains,TeamCity,2024.07.2,2026-08-31,Mobile and game studio builds,4,Developer Platforms,high,yes,JetBrains TeamCity
+INV-0211,Developer platforms,Code quality,SonarSource,SonarQube Enterprise,10.6,2026-08-31,Static analysis,3,Application Security,medium,no,SonarQube
+INV-0212,Developer platforms,Version control client,Git,Git for Windows / Git,2.46.2,2026-08-31,All developer workstations,31000,Developer Platforms,medium,no,Git Git
+INV-0213,Developer platforms,IDE extension,Nx,Nx Console,18.x,2026-08-31,Front-end monorepos,4200,Developer Platforms,low,no,Nx Nx Console
+INV-0214,Developer platforms,Workflow automation,Kestra,Kestra OSS,0.19,2026-08-31,Data engineering pipelines,2,Data Platform Engineering,medium,no,Kestra
+INV-0215,Developer platforms,Workflow automation,n8n,n8n,1.62,2026-08-31,Ops automation (security team),2,Security Automation,medium,yes,n8n
+INV-0216,Developer platforms,API toolchain,React Native Community,CLI,14.1,2026-08-31,Mobile app builds,900,Mobile Engineering,low,no,React Native Community CLI
+INV-0217,Software packages,Java logging,Apache,Log4j2,2.17.2 / 2.24.1,2026-08-31,"Pinned in 6,800 Maven builds",6800,Application Security,crown_jewel,no,Apache Log4j2;Apache Log4j
+INV-0218,Software packages,Java framework,Apache,Struts,2.5.33 / 6.4.0,2024-12-31,Legacy insurance portals,38,Insurance Applications,high,yes,Apache Struts
+INV-0219,Software packages,Java framework,VMware,Spring Framework / Spring Boot,5.3.39 / 6.1.13,2026-08-31,Most Java services,4100,Application Platforms,high,yes,Spring Framework;VMware Spring;Spring Cloud
+INV-0220,Software packages,Java ERP framework,Apache,OFBiz,18.12.16,2026-08-31,Spare-parts catalogue,2,Logistics IT,medium,yes,Apache OFBiz
+INV-0221,Software packages,Python web,Kludex,Starlette,0.38.6,2026-08-31,Internal FastAPI services,640,Application Platforms,medium,no,Kludex Starlette;Starlette
+INV-0222,Software packages,Ruby web,Rails,Ruby on Rails,7.1.4,2026-08-31,Booking and scheduling apps,40,Digital Products,medium,yes,Rails Ruby on Rails;Ruby on Rails
+INV-0223,Software packages,PHP web,Laravel,Livewire,3.5.6,2026-08-31,Partner portals,14,Digital Products,medium,yes,Laravel Livewire
+INV-0224,Software packages,PHP framework,Yiiframework,Yii,2.0.51,2026-08-31,Legacy logistics tools,4,Logistics IT,low,no,Yiiframework Yii
+INV-0225,Software packages,PHP library,PHP,PHPMailer,6.9.1,2026-08-31,Marketing forms,30,Marketing Technology,low,yes,PHP PHPMailer;PHPMailer
+INV-0226,Software packages,PHP library,PEAR,Archive_Tar,1.4.14,2026-08-31,Legacy PHP apps,12,Digital Products,low,no,PEAR Archive_Tar
+INV-0227,Software packages,JavaScript,Meta,React / React Server Components,18.3 / 19.0,2026-08-31,Web front ends,2600,Digital Products,high,yes,Meta React;React Server Components
+INV-0228,Software packages,JavaScript build,Vite,Vite,5.4.8,2026-08-31,Front-end builds,1900,Digital Products,medium,no,Vite Vitejs;Vitejs
+INV-0229,Software packages,JavaScript,TanStack,TanStack Query / Router,5.59,2026-08-31,Web front ends,1100,Digital Products,low,no,TanStack
+INV-0230,Software packages,JavaScript lint,Prettier,eslint-config-prettier,9.1.0,2026-08-31,All JS repos,3400,Developer Platforms,low,no,Prettier eslint-config-prettier
+INV-0231,Software packages,Image processing,ImageMagick,ImageMagick,7.1.1-38,2026-08-31,Document imaging pipeline,60,Insurance Applications,medium,no,ImageMagick
+INV-0232,Software packages,Font rendering,FreeType,FreeType,2.13.3,2026-08-31,Bundled in Linux base images,18000,Linux Engineering,low,no,FreeType
+INV-0233,Software packages,Compression,Google,Brotli,1.1.0,2026-08-31,Bundled in CDN edge images,900,Application Delivery,low,no,Google Brotli
+INV-0234,Software packages,Crypto,OpenSSL,OpenSSL,3.0.15 / 3.3.2,2026-08-31,Linux base images,42000,Linux Engineering,high,no,OpenSSL
+INV-0235,Software packages,Crypto,OpenBSD,OpenSSH,9.6p1 / 9.8p1,2026-08-31,All Linux and Unix servers,43000,Linux Engineering,high,no,OpenBSD OpenSSH
+INV-0236,Software packages,Notebook,Marimo,Marimo,0.9.4,2026-08-31,Data science notebooks,300,Data and AI Platform,low,no,Marimo
+INV-0237,Software packages,Database admin,Adminer,Adminer,4.8.1,2021-05-01,Legacy dev tooling (prohibited),3,Digital Products,low,yes,Adminer
+INV-0238,AI platform,LLM gateway,BerriAI,LiteLLM Proxy,1.52.0,2026-06-30,Internal LLM routing,6,AI Platform,high,no,BerriAI LiteLLM
+INV-0239,AI platform,Agent builder,Langflow,Langflow,1.0.18,2026-06-30,Business-unit AI pilots,4,AI Platform,high,yes,Langflow;IBM Langflow
+INV-0240,AI platform,ML lifecycle,MLflow,MLflow,2.16.2,2026-08-31,Model registry,3,AI Platform,high,no,MLflow
+INV-0241,AI platform,Distributed compute,Ray-Project,Ray,2.37.0,2026-08-31,Training and batch inference,14,AI Platform,high,no,Ray-Project Ray;Anyscale Ray
+INV-0242,AI platform,GPU cluster manager,GPUStack,GPUStack,0.3.2,2026-08-31,On-prem inference pilot,1,AI Platform,medium,no,GPUStack
+INV-0243,AI platform,Data visualisation,Grafana Labs,Grafana Enterprise,11.2.2,2026-08-31,Platform and AI dashboards,18,Observability Engineering,medium,no,Grafana Labs Grafana;Grafana
+INV-0244,IT operations,Network monitoring,SolarWinds,Orion Platform / Network Performance Monitor,2024.2.1,2026-08-31,Global network monitoring,18,Network Operations Centre,crown_jewel,no,SolarWinds Orion;SolarWinds Network Performance Monitor
+INV-0245,IT operations,File transfer,SolarWinds,Serv-U MFT,15.4.2,2026-05-31,Retail supplier file drops,2,Retail IT,high,yes,SolarWinds Serv-U
+INV-0246,IT operations,Monitoring (acquired),Nagios,Nagios XI,2024R1.2,2026-08-31,Logistics data centre,2,Logistics IT,medium,no,Nagios Nagios XI
+INV-0247,IT operations,Monitoring,Zabbix,Zabbix,7.0.4,2026-08-31,OT network monitoring,4,OT Engineering,medium,no,Zabbix Frontend;Zabbix
+INV-0248,IT operations,Monitoring,Paessler,PRTG Network Monitor,24.3.100,2026-08-31,EMEA offices,3,EMEA IT,low,no,Paessler PRTG
+INV-0249,IT operations,Monitoring,Progress,WhatsUp Gold,2024.0.1,2026-08-31,Pharmacy stores,1,Retail IT,medium,no,Progress WhatsUp Gold
+INV-0250,IT operations,Remote monitoring (MSP),N-able,N-central,2024.5,2026-08-31,Managed-service partner for clinics,1,Healthcare IT,high,yes,N-able N-central;N-able N-Central
+INV-0251,IT operations,Remote monitoring (MSP),Kaseya,VSA,9.5.20,2021-07-02,Dental clinic group (acquired),1,Healthcare IT,high,yes,Kaseya Virtual System/Server Administrator;Kaseya VSA
+INV-0252,IT operations,Remote support,ConnectWise,ScreenConnect,24.2.3,2026-08-31,Field engineering vendor access,2,IT Service Desk,crown_jewel,yes,ConnectWise ScreenConnect
+INV-0253,IT operations,Remote support,SimpleHelp,SimpleHelp,5.5.7,2026-08-31,Clinic IT contractor,1,Healthcare IT,high,yes,SimpleHelp
+INV-0254,IT operations,Software licensing,Cisco,Smart Licensing Utility,2.3.0,2026-08-31,Network licensing,2,Enterprise Networking,low,no,Cisco Smart Licensing Utility
+INV-0255,IT operations,Software distribution,Siemens,Software Center,3.2,2026-08-31,Plant engineering workstations,4,Manufacturing IT,low,no,Siemens Software Center
+INV-0256,File transfer,MFT,Progress,MOVEit Transfer,2024.0.4,2026-08-31,Partner and payroll file exchange,4,Integration Engineering,crown_jewel,yes,Progress MOVEit
+INV-0257,File transfer,MFT,Fortra,GoAnywhere MFT,7.6.1,2026-08-31,Bank statement exchange,3,Integration Engineering,crown_jewel,yes,Fortra GoAnywhere
+INV-0258,File transfer,MFT,Cleo,Harmony / VLTrader,5.8.0.21,2026-07-31,Logistics EDI,4,Logistics IT,crown_jewel,yes,Cleo Multiple Products;Cleo Harmony
+INV-0259,File transfer,SFTP,CrushFTP,CrushFTP,11.2.1,2026-08-31,Marketing agency exchange,1,Marketing Technology,medium,yes,CrushFTP
+INV-0260,File transfer,SFTP,Wing FTP Server,Wing FTP Server,7.4.3,2026-08-31,Plant data uploads,1,Manufacturing IT,medium,yes,Wing FTP Server
+INV-0261,File transfer,File sharing,Citrix,ShareFile Storage Zones Controller,5.12.1,2026-08-31,Legal document exchange,2,Legal Technology,high,yes,Citrix ShareFile
+INV-0262,File transfer,File sharing,Gladinet,CentreStack,16.10,2026-08-31,Clinic file sync (acquired),1,Healthcare IT,medium,yes,Gladinet CentreStack;Gladinet Triofox
+INV-0263,File transfer,SFTP,ProFTPD,ProFTPD,1.3.8b,2026-08-31,Legacy Unix batch,6,Core Banking Infrastructure,medium,no,ProFTPD
+INV-0264,File transfer,File transfer (Japan),Soliton Systems K.K,FileZen,5.0.10,2026-08-31,Japan subsidiary,1,APAC IT,low,yes,Soliton Systems K.K FileZen
+INV-0265,Backup,Backup,Veeam,Backup & Replication,12.2.0.334,2026-08-31,VMware and Hyper-V estates,48,Backup and Recovery,crown_jewel,no,Veeam Backup
+INV-0266,Backup,Backup,Commvault,Commvault Platform / Command Center,11.36,2026-08-31,Databases and file servers,22,Backup and Recovery,crown_jewel,yes,Commvault Command Center;Commvault Web Server
+INV-0267,Backup,Backup (legacy),Veritas,Backup Exec,22.2,2026-08-31,Small clinics,30,Healthcare IT,medium,no,Veritas Backup Exec
+INV-0268,Backup,Backup (endpoints),Acronis,Cyber Protect,16,2026-08-31,Executive laptops,1,End User Computing,low,no,Acronis Backup;Acronis Cyber Protect
+INV-0269,Backup,Backup (lab),NAKIVO,Backup & Replication,10.11,2026-08-31,Research lab,1,Research IT,low,no,NAKIVO Backup
+INV-0270,Backup,Backup (cloud),Ahsay,AhsayCBS,9.5,2026-08-31,Managed backup for franchisees,1,Retail IT,low,yes,Ahsay AhsayCBS
+INV-0271,OT and IoT,PLCs,Rockwell,ControlLogix 5580 / FactoryTalk,v34,2026-08-31,"Distribution centres, device plants",1400,OT Engineering,crown_jewel,no,Rockwell Multiple Products;Rockwell Automation
+INV-0272,OT and IoT,PLCs,Siemens,SIMATIC S7-1500,V3.1,2026-08-31,Device manufacturing plants,600,OT Engineering,crown_jewel,no,Siemens SIMATIC
+INV-0273,OT and IoT,SCADA (lab),OpenPLC,ScadaBR,1.2,2024-01-01,OT training lab,1,OT Engineering,low,no,OpenPLC ScadaBR
+INV-0274,OT and IoT,Building automation,KNX Association,KNX IP routers,Spec 2.1,2026-08-31,Headquarters building systems,140,Facilities,medium,no,KNX Association KNX
+INV-0275,OT and IoT,CCTV,Hikvision,DS-2CD IP cameras / NVRs,V5.7.x,2023-06-30,Warehouses (being replaced),6200,Corporate Security,medium,no,Hikvision Multiple Products;Hikvision
+INV-0276,OT and IoT,CCTV,Dahua,IP cameras,V2.840,2023-01-01,Acquired depots,900,Corporate Security,low,no,Dahua IP Camera
+INV-0277,OT and IoT,CCTV,GeoVision,GV-IP cameras,V1.10,2024-01-01,Pharmacy stores,1800,Corporate Security,low,no,GeoVision Multiple Devices
+INV-0278,OT and IoT,Conference cameras,PTZOptics,PT30X-NDI,6.3.40,2026-08-31,Boardrooms,120,Collaboration Platforms,low,no,PTZOptics PT30X
+INV-0279,OT and IoT,Weather stations,Smartbedded,Meteobridge,6.1,2026-08-31,Logistics hubs,22,Fleet Technology,low,yes,Smartbedded Meteobridge
+INV-0280,OT and IoT,Access control,ZKTeco,BioTime readers,2.0,2026-08-31,Warehouses,1400,Corporate Security,medium,no,ZKTeco
+INV-0281,OT and IoT,Edge routers (stores),MikroTik,RouterOS,7.16,2025-02-01,Franchise stores,300,Retail IT,low,yes,MikroTik RouterOS
+INV-0282,OT and IoT,Edge routers (stores),DrayTek,Vigor 2927,4.4.5.3,2024-10-01,Franchise stores (EMEA),210,EMEA IT,low,yes,DrayTek
+INV-0283,OT and IoT,Edge routers (home office),TP-Link,Archer / Deco (provided to executives),Latest,2025-12-31,Executive home offices,400,Executive Support,low,yes,TP-Link
+INV-0284,OT and IoT,Edge routers (home office),ASUS,RT-AX88U Pro,3.0.0.6.102,2026-08-31,Executive home offices,160,Executive Support,low,yes,ASUS Routers;ASUS RT-AX
+INV-0285,OT and IoT,Streaming (lobby),Plex,Plex Media Server,1.41,2023-01-01,Lobby displays (unapproved),3,Facilities,low,no,Plex Media Server

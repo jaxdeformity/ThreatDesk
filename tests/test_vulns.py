@@ -27,6 +27,9 @@ KEV = [
 def env(tmp_path, monkeypatch):
     monkeypatch.setenv("SOC_ORG_TECH_STACK", "Microsoft Exchange, Fortinet FortiOS")
     monkeypatch.delenv("SOC_ORG_INVENTORY", raising=False)  # .env may set it when api.main was imported
+    for k in ("THREATDESK_TECH_STACK", "THREATDESK_INVENTORY"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("THREATDESK_TECH_STACK_CSV", str(tmp_path / "none.csv"))
     monkeypatch.setattr(V, "TRACKING_PATH", tmp_path / "t.json")
 
 
@@ -138,3 +141,19 @@ def test_vuln_news_tags_exploitation_stack_and_kev_additions(tmp_path, monkeypat
     roundup = next(i for i in r["items"] if i["title"] == "Weekly patch roundup")
     assert roundup["cves"][0]["cve"] == "CVE-2025-2002" and roundup["cves"][0]["kev"]
     assert V.vuln_news(raw=raw, kev=KEV, mine=True)["total"] >= 1
+
+
+def test_threatdesk_env_names(env, monkeypatch):
+    monkeypatch.setenv("SOC_ORG_TECH_STACK", "")
+    monkeypatch.setenv("THREATDESK_TECH_STACK", "Microsoft Exchange")
+    assert [a["product"] for a in V.load_inventory()] == ["Microsoft Exchange"]
+
+
+def test_inventory_from_tech_stack_csv(env, tmp_path, monkeypatch):
+    csv_p = tmp_path / "ts.csv"
+    csv_p.write_text("vendor,product,version,criticality\nFortinet,FortiOS,7.2,crown_jewel\n", encoding="utf-8")
+    monkeypatch.setenv("THREATDESK_TECH_STACK_CSV", str(csv_p))
+    monkeypatch.setenv("SOC_ORG_TECH_STACK", "")
+    view = V.inventory_view(KEV)
+    [row] = view["assets"]
+    assert row["product"] == "FortiOS" and row["kev"] >= 1

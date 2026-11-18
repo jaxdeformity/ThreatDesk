@@ -1,0 +1,5024 @@
+{
+ "organisation": {
+  "name": "Meridian Global Holdings (fictional)",
+  "description": "Synthetic Fortune-50-scale group: retail banking, insurance, logistics, pharmacy retail, healthcare services and medical-device manufacturing. 210,000 employees, 6 data centres, AWS + Azure + Google Cloud + OCI.",
+  "synthetic": true,
+  "generated_by": "scenarios/org-inventory/build_inventory.py"
+ },
+ "assets": [
+  {
+   "category": "Network",
+   "subcategory": "Perimeter firewall",
+   "vendor": "Palo Alto Networks",
+   "product": "PA-7080 / PA-5450 (PAN-OS)",
+   "version": "11.1.4-h7",
+   "environment": "Data centres (6), regional hubs (22)",
+   "count": 64,
+   "owner": "Network Security Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Palo Alto Networks PAN-OS"
+   ],
+   "id": "INV-0001",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Perimeter firewall",
+   "vendor": "Palo Alto Networks",
+   "product": "Expedition (migration tool)",
+   "version": "1.2.96",
+   "environment": "Network tooling VLAN",
+   "count": 2,
+   "owner": "Network Security Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Palo Alto Networks Expedition"
+   ],
+   "id": "INV-0002",
+   "patched_through": "2024-06-30"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Branch firewall",
+   "vendor": "Fortinet",
+   "product": "FortiGate 100F/200F (FortiOS)",
+   "version": "7.2.10",
+   "environment": "Branches and retail stores (4,100)",
+   "count": 4180,
+   "owner": "Branch Network Operations",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Fortinet FortiOS",
+    "Fortinet Multiple Products"
+   ],
+   "id": "INV-0003",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Web proxy",
+   "vendor": "Fortinet",
+   "product": "FortiProxy",
+   "version": "7.4.6",
+   "environment": "Regional egress",
+   "count": 18,
+   "owner": "Branch Network Operations",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Fortinet FortiProxy"
+   ],
+   "id": "INV-0004",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Web application firewall",
+   "vendor": "Fortinet",
+   "product": "FortiWeb",
+   "version": "7.4.5",
+   "environment": "Insurance customer portals",
+   "count": 12,
+   "owner": "Application Security",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Fortinet FortiWeb"
+   ],
+   "id": "INV-0005",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Endpoint VPN management",
+   "vendor": "Fortinet",
+   "product": "FortiClient EMS",
+   "version": "7.2.4",
+   "environment": "Branch IT management",
+   "count": 3,
+   "owner": "Branch Network Operations",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Fortinet FortiClient EMS",
+    "Fortinet FortiClientEMS"
+   ],
+   "id": "INV-0006",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Sandbox",
+   "vendor": "Fortinet",
+   "product": "FortiSandbox",
+   "version": "4.4.6",
+   "environment": "Mail and web inspection",
+   "count": 4,
+   "owner": "Security Operations",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Fortinet FortiSandbox"
+   ],
+   "id": "INV-0007",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Mail gateway",
+   "vendor": "Fortinet",
+   "product": "FortiMail",
+   "version": "7.4.3",
+   "environment": "Logistics subsidiary mail",
+   "count": 6,
+   "owner": "Messaging Engineering",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Fortinet FortiMail"
+   ],
+   "id": "INV-0008",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Data centre firewall",
+   "vendor": "Cisco",
+   "product": "Secure Firewall 4100 (ASA / FTD)",
+   "version": "ASA 9.18.4 / FTD 7.4.2",
+   "environment": "Legacy acquisitions, PCI segment",
+   "count": 46,
+   "owner": "Network Security Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Cisco Adaptive Security Appliance",
+    "Cisco Firepower Threat Defense",
+    "Cisco Secure Firewall Adaptive Security Appliance",
+    "Cisco Secure Firewall ASA",
+    "Cisco ASA"
+   ],
+   "id": "INV-0009",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Firewall management",
+   "vendor": "Cisco",
+   "product": "Secure Firewall Management Center (FMC)",
+   "version": "7.4.2",
+   "environment": "Security management VLAN",
+   "count": 4,
+   "owner": "Network Security Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Cisco Secure Firewall Management Center"
+   ],
+   "id": "INV-0010",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Campus and WAN routing",
+   "vendor": "Cisco",
+   "product": "Catalyst 9300/9500, ISR 4000 (IOS XE)",
+   "version": "17.9.5",
+   "environment": "Campuses (140), WAN edge",
+   "count": 9200,
+   "owner": "Enterprise Networking",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Cisco IOS XE",
+    "Cisco IOS and IOS XE",
+    "Cisco IOS Software",
+    "Cisco IOS software",
+    "Cisco IOS, XR, and XE"
+   ],
+   "id": "INV-0011",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Service provider core",
+   "vendor": "Cisco",
+   "product": "ASR 9000 (IOS XR)",
+   "version": "7.9.2",
+   "environment": "Backbone, 8 PoPs",
+   "count": 32,
+   "owner": "Enterprise Networking",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Cisco IOS XR"
+   ],
+   "id": "INV-0012",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "SD-WAN",
+   "vendor": "Cisco",
+   "product": "Catalyst SD-WAN Manager / Controller",
+   "version": "20.12.3",
+   "environment": "Global SD-WAN overlay",
+   "count": 9,
+   "owner": "Enterprise Networking",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Cisco Catalyst SD-WAN",
+    "Cisco SD-WAN"
+   ],
+   "id": "INV-0013",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Network access control",
+   "vendor": "Cisco",
+   "product": "Identity Services Engine (ISE)",
+   "version": "3.3 patch 2",
+   "environment": "Campus 802.1X",
+   "count": 14,
+   "owner": "Network Security Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Cisco Identity Services Engine"
+   ],
+   "id": "INV-0014",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Remote access VPN client",
+   "vendor": "Cisco",
+   "product": "Secure Client (AnyConnect)",
+   "version": "5.1.4",
+   "environment": "Managed laptops",
+   "count": 142000,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Cisco AnyConnect"
+   ],
+   "id": "INV-0015",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Data centre switching",
+   "vendor": "Arista",
+   "product": "7050X3 / 7280R3 (EOS)",
+   "version": "4.31.2F",
+   "environment": "Data centres (6)",
+   "count": 1450,
+   "owner": "Data Centre Networking",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Arista Extensible Operating System",
+    "Arista EOS"
+   ],
+   "id": "INV-0016",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "SD-WAN (acquired logistics unit)",
+   "vendor": "Arista",
+   "product": "VeloCloud Orchestrator",
+   "version": "5.2.1",
+   "environment": "Logistics depots",
+   "count": 1,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Arista VeloCloud",
+    "VMware SD-WAN"
+   ],
+   "id": "INV-0017",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Core routing (insurance)",
+   "vendor": "Juniper",
+   "product": "MX480 / SRX4600 (Junos OS)",
+   "version": "22.4R3",
+   "environment": "Insurance data centres",
+   "count": 38,
+   "owner": "Enterprise Networking",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Juniper Junos OS",
+    "Juniper Junos"
+   ],
+   "id": "INV-0018",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Application delivery",
+   "vendor": "F5",
+   "product": "BIG-IP i10800 (LTM, APM, ASM)",
+   "version": "17.1.1.3",
+   "environment": "Data centres, DMZ",
+   "count": 56,
+   "owner": "Application Delivery",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "F5 BIG-IP"
+   ],
+   "id": "INV-0019",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Application delivery",
+   "vendor": "Citrix",
+   "product": "NetScaler ADC / Gateway MPX 15000",
+   "version": "14.1-29.72",
+   "environment": "Virtual desktop gateway, DMZ",
+   "count": 24,
+   "owner": "End User Computing",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Citrix NetScaler",
+    "Citrix Application Delivery Controller",
+    "Citrix ADC",
+    "Citrix SD-WAN and NetScaler"
+   ],
+   "id": "INV-0020",
+   "patched_through": "2026-07-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Load balancer (healthcare)",
+   "vendor": "Progress",
+   "product": "Kemp LoadMaster",
+   "version": "7.2.59",
+   "environment": "Clinic scheduling DMZ",
+   "count": 6,
+   "owner": "Healthcare IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Progress LoadMaster"
+   ],
+   "id": "INV-0021",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "SSL VPN (insurance)",
+   "vendor": "Ivanti",
+   "product": "Connect Secure",
+   "version": "22.7R2.4",
+   "environment": "Insurance remote access",
+   "count": 8,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Ivanti Connect Secure",
+    "Ivanti Pulse Connect Secure",
+    "Pulse Secure Pulse Connect Secure"
+   ],
+   "id": "INV-0022",
+   "patched_through": "2026-06-30"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Network access (insurance)",
+   "vendor": "Ivanti",
+   "product": "Policy Secure",
+   "version": "22.7R1",
+   "environment": "Insurance campus NAC",
+   "count": 4,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Ivanti Policy Secure"
+   ],
+   "id": "INV-0023",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Retail store firewall",
+   "vendor": "SonicWall",
+   "product": "TZ670 (SonicOS)",
+   "version": "7.0.1-5145",
+   "environment": "Pharmacy retail stores (acquired)",
+   "count": 620,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "SonicWall SonicOS"
+   ],
+   "id": "INV-0024",
+   "patched_through": "2025-03-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Remote access (acquired)",
+   "vendor": "SonicWall",
+   "product": "SMA 1000",
+   "version": "12.4.3",
+   "environment": "Pharmacy remote access",
+   "count": 2,
+   "owner": "Retail IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "SonicWall SMA1000",
+    "SonicWall SMA 1000"
+   ],
+   "id": "INV-0025",
+   "patched_through": "2025-06-30"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Warehouse Wi-Fi",
+   "vendor": "Ubiquiti",
+   "product": "UniFi OS (Dream Machine Pro)",
+   "version": "4.1.13",
+   "environment": "Small logistics depots",
+   "count": 85,
+   "owner": "Logistics IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Ubiquiti UniFi"
+   ],
+   "id": "INV-0026",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Wireless",
+   "vendor": "Hewlett Packard Enterprise (HPE)",
+   "product": "Aruba 7240XM controllers (ArubaOS)",
+   "version": "8.12.0.1",
+   "environment": "Campuses",
+   "count": 120,
+   "owner": "Enterprise Networking",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Aruba ArubaOS",
+    "HPE Aruba"
+   ],
+   "id": "INV-0027",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "DNS",
+   "vendor": "ISC",
+   "product": "BIND",
+   "version": "9.18.28",
+   "environment": "External authoritative DNS",
+   "count": 16,
+   "owner": "DNS and DHCP Services",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "ISC BIND"
+   ],
+   "id": "INV-0028",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "DDI",
+   "vendor": "Infoblox",
+   "product": "NIOS",
+   "version": "9.0.3",
+   "environment": "Internal DNS, DHCP, IPAM",
+   "count": 48,
+   "owner": "DNS and DHCP Services",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Infoblox NIOS"
+   ],
+   "id": "INV-0029",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Storage networking",
+   "vendor": "Broadcom",
+   "product": "Brocade G720 (Fabric OS)",
+   "version": "9.2.0b",
+   "environment": "SAN fabrics",
+   "count": 96,
+   "owner": "Storage Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Broadcom Brocade Fabric OS",
+    "Brocade Fabric OS"
+   ],
+   "id": "INV-0030",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Network",
+   "subcategory": "Cellular gateways",
+   "vendor": "Sierra Wireless",
+   "product": "AirLink RV55 (ALEOS)",
+   "version": "4.17.0",
+   "environment": "Delivery fleet telematics",
+   "count": 3800,
+   "owner": "Fleet Technology",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Sierra Wireless AirLink"
+   ],
+   "id": "INV-0031",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Directory",
+   "vendor": "Microsoft",
+   "product": "Active Directory Domain Services",
+   "version": "Windows Server 2022 DCs",
+   "environment": "11 forests, 64 domain controllers",
+   "count": 64,
+   "owner": "Identity Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Active Directory"
+   ],
+   "id": "INV-0032",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Federation",
+   "vendor": "Microsoft",
+   "product": "Active Directory Federation Services (AD FS)",
+   "version": "Windows Server 2019",
+   "environment": "Legacy SAML apps",
+   "count": 8,
+   "owner": "Identity Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Active Directory Federation Services"
+   ],
+   "id": "INV-0033",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Cloud identity",
+   "vendor": "Microsoft",
+   "product": "Entra ID (P2)",
+   "version": "SaaS",
+   "environment": "Workforce identity, 210k users",
+   "count": 210000,
+   "owner": "Identity Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Entra",
+    "Microsoft Azure Active Directory"
+   ],
+   "id": "INV-0034",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Workforce SSO",
+   "vendor": "Okta",
+   "product": "Workforce Identity Cloud",
+   "version": "SaaS",
+   "environment": "Acquired business units",
+   "count": 38000,
+   "owner": "Identity Engineering",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Okta"
+   ],
+   "id": "INV-0035",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Privileged access",
+   "vendor": "CyberArk",
+   "product": "Privileged Access Manager (PVWA, CPM, PSM)",
+   "version": "14.0",
+   "environment": "Tier-0 vaults",
+   "count": 22,
+   "owner": "Privileged Access",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "CyberArk"
+   ],
+   "id": "INV-0036",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Privileged remote access",
+   "vendor": "BeyondTrust",
+   "product": "Privileged Remote Access (PRA) / Remote Support (RS)",
+   "version": "24.2.2",
+   "environment": "Vendor access, help desk",
+   "count": 6,
+   "owner": "Privileged Access",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "BeyondTrust Remote Support",
+    "BeyondTrust Privileged Remote Access"
+   ],
+   "id": "INV-0037",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "Certificate services",
+   "vendor": "Microsoft",
+   "product": "Active Directory Certificate Services",
+   "version": "Windows Server 2019",
+   "environment": "Internal PKI",
+   "count": 12,
+   "owner": "Identity Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Active Directory Certificate Services"
+   ],
+   "id": "INV-0038",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Identity",
+   "subcategory": "MFA (legacy)",
+   "vendor": "RSA",
+   "product": "SecurID Authentication Manager",
+   "version": "8.7 SP1",
+   "environment": "Mainframe and OT access",
+   "count": 4,
+   "owner": "Identity Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "RSA SecurID"
+   ],
+   "id": "INV-0039",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Desktop OS",
+   "vendor": "Microsoft",
+   "product": "Windows 11 Enterprise",
+   "version": "23H2 / 24H2",
+   "environment": "Corporate laptops and desktops",
+   "count": 168000,
+   "owner": "End User Computing",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Windows",
+    "Microsoft Win32k",
+    "Microsoft Windows Kernel",
+    "Microsoft DirectX",
+    "Microsoft Graphics Device Interface",
+    "Microsoft MSHTML",
+    "Microsoft SMBv1",
+    "Microsoft Enhanced Cryptographic Provider",
+    "Microsoft XML Core Services",
+    "Microsoft Defender"
+   ],
+   "id": "INV-0040",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Desktop OS (legacy)",
+   "vendor": "Microsoft",
+   "product": "Windows 10 Enterprise LTSC",
+   "version": "21H2",
+   "environment": "Branch kiosks, lab instruments",
+   "count": 21400,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Windows"
+   ],
+   "id": "INV-0041",
+   "patched_through": "2025-10-14"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Desktop OS",
+   "vendor": "Apple",
+   "product": "macOS",
+   "version": "Sonoma 14.7 / Sequoia 15.2",
+   "environment": "Design, engineering, executives",
+   "count": 18600,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Apple macOS",
+    "Apple OS X",
+    "Apple iOS and macOS",
+    "Apple iOS, iPadOS, and macOS",
+    "Apple Multiple Products"
+   ],
+   "id": "INV-0042",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Mobile",
+   "vendor": "Apple",
+   "product": "iOS / iPadOS",
+   "version": "17.7 / 18.2",
+   "environment": "Corporate phones, clinician iPads",
+   "count": 96000,
+   "owner": "Mobility",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Apple iOS",
+    "Apple iPadOS",
+    "Apple iOS and iPadOS",
+    "Apple Multiple Products"
+   ],
+   "id": "INV-0043",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Mobile",
+   "vendor": "Samsung",
+   "product": "Galaxy S23/S24, XCover6 Pro (Android 14)",
+   "version": "One UI 6.1",
+   "environment": "Field logistics, store associates",
+   "count": 54000,
+   "owner": "Mobility",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Samsung Mobile Devices",
+    "Android Framework",
+    "Android Kernel",
+    "Android Runtime",
+    "Android Android Kernel",
+    "Qualcomm Multiple Chipsets",
+    "Qualcomm Chipsets",
+    "Arm Mali"
+   ],
+   "id": "INV-0044",
+   "patched_through": "2026-03-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Mobile",
+   "vendor": "Google",
+   "product": "Pixel 8 (Android 15)",
+   "version": "AP4A",
+   "environment": "Security team test devices",
+   "count": 140,
+   "owner": "Mobility",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Google Pixel",
+    "Android Pixel"
+   ],
+   "id": "INV-0045",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Browser",
+   "vendor": "Google",
+   "product": "Chrome Enterprise",
+   "version": "131",
+   "environment": "All managed endpoints",
+   "count": 190000,
+   "owner": "End User Computing",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Google Chromium",
+    "Google Chrome",
+    "Google Skia",
+    "Google Dawn"
+   ],
+   "id": "INV-0046",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Browser",
+   "vendor": "Microsoft",
+   "product": "Edge",
+   "version": "131",
+   "environment": "All managed Windows endpoints",
+   "count": 189000,
+   "owner": "End User Computing",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Edge"
+   ],
+   "id": "INV-0047",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Browser (legacy mode)",
+   "vendor": "Microsoft",
+   "product": "Internet Explorer 11 mode",
+   "version": "IE mode in Edge",
+   "environment": "Claims and mainframe web front ends",
+   "count": 40000,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Internet Explorer"
+   ],
+   "id": "INV-0048",
+   "patched_through": "2025-06-30"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Browser",
+   "vendor": "Mozilla",
+   "product": "Firefox ESR",
+   "version": "128.5",
+   "environment": "Developers, research",
+   "count": 9200,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Mozilla Firefox",
+    "Mozilla Multiple Products"
+   ],
+   "id": "INV-0049",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Productivity",
+   "vendor": "Microsoft",
+   "product": "Microsoft 365 Apps for enterprise",
+   "version": "2408 (Semi-Annual Enterprise)",
+   "environment": "All knowledge workers",
+   "count": 182000,
+   "owner": "End User Computing",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Office",
+    "Microsoft Word",
+    "Microsoft Excel",
+    "Microsoft PowerPoint",
+    "Microsoft Outlook",
+    "Microsoft Visual Basic for Applications"
+   ],
+   "id": "INV-0050",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "PDF",
+   "vendor": "Adobe",
+   "product": "Acrobat Reader DC / Acrobat Pro",
+   "version": "24.005",
+   "environment": "All endpoints",
+   "count": 176000,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Adobe Acrobat",
+    "Adobe Reader"
+   ],
+   "id": "INV-0051",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Archive",
+   "vendor": "RARLAB",
+   "product": "WinRAR",
+   "version": "7.01",
+   "environment": "Finance, engineering (exception list)",
+   "count": 3100,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "RARLAB WinRAR"
+   ],
+   "id": "INV-0052",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Editor",
+   "vendor": "Notepad++",
+   "product": "Notepad++",
+   "version": "8.6.9",
+   "environment": "Developer workstations",
+   "count": 14000,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Notepad++"
+   ],
+   "id": "INV-0053",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Thin clients",
+   "vendor": "IGEL",
+   "product": "IGEL OS",
+   "version": "12.4.2",
+   "environment": "Call centres, hospital wards",
+   "count": 26000,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "IGEL OS"
+   ],
+   "id": "INV-0054",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Disk tools",
+   "vendor": "Daemon",
+   "product": "Daemon Tools Lite",
+   "version": "12.1",
+   "environment": "Training labs (unapproved, being removed)",
+   "count": 40,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Daemon Tools"
+   ],
+   "id": "INV-0055",
+   "patched_through": "2024-01-01"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Vendor tools",
+   "vendor": "ASUS",
+   "product": "Live Update",
+   "version": "3.6.8",
+   "environment": "Engineering workstations (ASUS ProArt)",
+   "count": 260,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "ASUS Live Update"
+   ],
+   "id": "INV-0056",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoints",
+   "subcategory": "Messaging (BYOD)",
+   "vendor": "Meta Platforms",
+   "product": "WhatsApp",
+   "version": "2.24",
+   "environment": "Unmanaged personal devices with work profile",
+   "count": 30000,
+   "owner": "Mobility",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Meta Platforms WhatsApp",
+    "WhatsApp"
+   ],
+   "id": "INV-0057",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Configuration management",
+   "vendor": "Microsoft",
+   "product": "Configuration Manager (MECM)",
+   "version": "2403",
+   "environment": "Global, 4 primary sites",
+   "count": 31,
+   "owner": "Client Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Configuration Manager"
+   ],
+   "id": "INV-0058",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "UEM",
+   "vendor": "Microsoft",
+   "product": "Intune",
+   "version": "SaaS",
+   "environment": "Windows, iOS, Android",
+   "count": 300000,
+   "owner": "Client Engineering",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Intune"
+   ],
+   "id": "INV-0059",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "MDM (insurance)",
+   "vendor": "Ivanti",
+   "product": "Endpoint Manager Mobile (EPMM / MobileIron Core)",
+   "version": "12.1.0.1",
+   "environment": "Insurance mobile fleet",
+   "count": 4,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Ivanti Endpoint Manager Mobile",
+    "Ivanti EPMM",
+    "MobileIron Core"
+   ],
+   "id": "INV-0060",
+   "patched_through": "2026-05-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Endpoint manager (insurance)",
+   "vendor": "Ivanti",
+   "product": "Endpoint Manager (EPM)",
+   "version": "2024 SU1",
+   "environment": "Insurance desktops",
+   "count": 3,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Ivanti Endpoint Manager (EPM)",
+    "Ivanti Endpoint Manager"
+   ],
+   "id": "INV-0061",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Cloud services appliance",
+   "vendor": "Ivanti",
+   "product": "Cloud Services Appliance (CSA)",
+   "version": "5.0.2",
+   "environment": "Insurance remote endpoints",
+   "count": 2,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Ivanti Cloud Services Appliance"
+   ],
+   "id": "INV-0062",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Mobile gateway",
+   "vendor": "Ivanti",
+   "product": "Sentry",
+   "version": "9.20",
+   "environment": "Insurance mobile mail",
+   "count": 4,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Ivanti Sentry"
+   ],
+   "id": "INV-0063",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "UEM (logistics)",
+   "vendor": "Omnissa",
+   "product": "Workspace ONE UEM",
+   "version": "2406",
+   "environment": "Rugged scanners, drivers' tablets",
+   "count": 61000,
+   "owner": "Fleet Technology",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Omnissa Workspace One",
+    "VMware Workspace ONE"
+   ],
+   "id": "INV-0064",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Systems management (pharmacy)",
+   "vendor": "Quest",
+   "product": "KACE Systems Management Appliance",
+   "version": "14.0",
+   "environment": "Pharmacy stores",
+   "count": 2,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Quest KACE"
+   ],
+   "id": "INV-0065",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Asset agent (Japan)",
+   "vendor": "Motex",
+   "product": "LANSCOPE Endpoint Manager",
+   "version": "9.4",
+   "environment": "Japan subsidiary",
+   "count": 2400,
+   "owner": "APAC IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Motex LANSCOPE"
+   ],
+   "id": "INV-0066",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Endpoint management",
+   "subcategory": "Asset agent (Japan)",
+   "vendor": "SKYSEA",
+   "product": "Client View",
+   "version": "19.2",
+   "environment": "Japan subsidiary plants",
+   "count": 900,
+   "owner": "APAC IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "SKYSEA Client View"
+   ],
+   "id": "INV-0067",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "EDR",
+   "vendor": "CrowdStrike",
+   "product": "Falcon sensor",
+   "version": "7.18",
+   "environment": "All Windows, macOS, Linux",
+   "count": 240000,
+   "owner": "Security Operations",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "CrowdStrike Falcon"
+   ],
+   "id": "INV-0068",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "EDR (legacy)",
+   "vendor": "Trend Micro",
+   "product": "Apex One",
+   "version": "2019 (SaaS agent)",
+   "environment": "Healthcare clinics (migration in progress)",
+   "count": 7800,
+   "owner": "Healthcare IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Trend Micro Apex One"
+   ],
+   "id": "INV-0069",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Antivirus",
+   "vendor": "Microsoft",
+   "product": "Defender for Endpoint",
+   "version": "Platform 4.18.24090",
+   "environment": "All Windows endpoints and servers",
+   "count": 220000,
+   "owner": "Security Operations",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Defender",
+    "Microsoft Malware Protection Engine"
+   ],
+   "id": "INV-0070",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "SIEM",
+   "vendor": "Splunk",
+   "product": "Enterprise / Enterprise Security",
+   "version": "9.2.3 / ES 7.3",
+   "environment": "Security data platform",
+   "count": 210,
+   "owner": "Security Operations",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Splunk Enterprise"
+   ],
+   "id": "INV-0071",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Host monitoring",
+   "vendor": "Wazuh",
+   "product": "Wazuh Server",
+   "version": "4.8.1",
+   "environment": "Retail Linux POS servers",
+   "count": 6,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Wazuh"
+   ],
+   "id": "INV-0072",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Container scanning",
+   "vendor": "Aquasecurity",
+   "product": "Trivy",
+   "version": "0.56.2",
+   "environment": "CI pipelines",
+   "count": 1,
+   "owner": "Platform Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Aquasecurity Trivy",
+    "Aqua Security Trivy"
+   ],
+   "id": "INV-0073",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Red team",
+   "vendor": "Fortra",
+   "product": "Cobalt Strike",
+   "version": "4.10",
+   "environment": "Internal red team (licensed)",
+   "count": 3,
+   "owner": "Offensive Security",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Fortra Cobalt Strike",
+    "HelpSystems Cobalt Strike"
+   ],
+   "id": "INV-0074",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Email security",
+   "vendor": "Cisco",
+   "product": "Secure Email Gateway (ESA)",
+   "version": "15.5.1",
+   "environment": "Corporate mail hygiene",
+   "count": 16,
+   "owner": "Messaging Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Cisco Secure Email",
+    "Cisco Email Security"
+   ],
+   "id": "INV-0075",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Email security (pharmacy)",
+   "vendor": "Barracuda Networks",
+   "product": "Email Security Gateway",
+   "version": "9.2",
+   "environment": "Pharmacy subsidiary",
+   "count": 2,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Barracuda Networks Barracuda Email Security Gateway",
+    "Barracuda Networks Multiple Products",
+    "Barracuda Email Security"
+   ],
+   "id": "INV-0076",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Firewall (Europe)",
+   "vendor": "Check Point",
+   "product": "Quantum Security Gateway",
+   "version": "R81.20",
+   "environment": "European subsidiaries",
+   "count": 40,
+   "owner": "EMEA IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Check Point Security Gateway",
+    "Check Point Multiple Products",
+    "Check Point Quantum"
+   ],
+   "id": "INV-0077",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Security tooling",
+   "subcategory": "Firewall management (Europe)",
+   "vendor": "Check Point",
+   "product": "SmartConsole",
+   "version": "R81.20",
+   "environment": "EMEA security admins",
+   "count": 30,
+   "owner": "EMEA IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Check Point SmartConsole"
+   ],
+   "id": "INV-0078",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Windows Server",
+   "vendor": "Microsoft",
+   "product": "Windows Server 2022 Datacenter",
+   "version": "21H2 (20348)",
+   "environment": "Data centres, Azure",
+   "count": 21800,
+   "owner": "Server Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Windows",
+    "Microsoft Win32k",
+    "Microsoft Windows Kernel",
+    "Microsoft Internet Key Exchange (IKE)"
+   ],
+   "id": "INV-0079",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Windows Server",
+   "vendor": "Microsoft",
+   "product": "Windows Server 2019 / 2016",
+   "version": "1809 / 1607",
+   "environment": "Data centres, legacy apps",
+   "count": 9600,
+   "owner": "Server Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Windows"
+   ],
+   "id": "INV-0080",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Windows Server (unsupported)",
+   "vendor": "Microsoft",
+   "product": "Windows Server 2012 R2 (ESU)",
+   "version": "6.3",
+   "environment": "Mainframe gateways, lab systems",
+   "count": 410,
+   "owner": "Server Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Windows"
+   ],
+   "id": "INV-0081",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Linux",
+   "vendor": "Red Hat",
+   "product": "Enterprise Linux 9 / 8",
+   "version": "9.4 / 8.10",
+   "environment": "Data centres, AWS, Azure",
+   "count": 28400,
+   "owner": "Linux Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Linux Kernel",
+    "Red Hat Enterprise Linux",
+    "Red Hat Polkit",
+    "Red Hat Libuser",
+    "Red Hat Automatic Bug Reporting Tool",
+    "Sudo Sudo",
+    "GNU Bash",
+    "GNU Bourne-Again Shell",
+    "GNU InetUtils",
+    "OpenBSD OpenSSH",
+    "Microsoft Open Management Infrastructure"
+   ],
+   "id": "INV-0082",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Linux",
+   "vendor": "Canonical",
+   "product": "Ubuntu Server LTS",
+   "version": "22.04 / 24.04",
+   "environment": "Kubernetes nodes, ML clusters",
+   "count": 14600,
+   "owner": "Linux Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Linux Kernel",
+    "Canonical Ubuntu"
+   ],
+   "id": "INV-0083",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Linux",
+   "vendor": "SUSE",
+   "product": "Linux Enterprise Server for SAP",
+   "version": "15 SP5",
+   "environment": "SAP HANA hosts",
+   "count": 380,
+   "owner": "SAP Basis",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Linux Kernel",
+    "SUSE"
+   ],
+   "id": "INV-0084",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Unix",
+   "vendor": "IBM",
+   "product": "AIX",
+   "version": "7.3 TL2",
+   "environment": "Core banking (Power10)",
+   "count": 120,
+   "owner": "Core Banking Infrastructure",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "IBM AIX"
+   ],
+   "id": "INV-0085",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Mainframe",
+   "vendor": "IBM",
+   "product": "z/OS",
+   "version": "3.1",
+   "environment": "Card processing, policy admin (z16)",
+   "count": 4,
+   "owner": "Mainframe Systems",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "IBM z/OS"
+   ],
+   "id": "INV-0086",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Server OS",
+   "subcategory": "Appliance OS",
+   "vendor": "Unraid",
+   "product": "Unraid",
+   "version": "6.12",
+   "environment": "Media lab (shadow IT, being removed)",
+   "count": 1,
+   "owner": "Marketing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Unraid"
+   ],
+   "id": "INV-0087",
+   "patched_through": "2025-01-01"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Compute",
+   "vendor": "Dell",
+   "product": "PowerEdge R760 / R660",
+   "version": "BIOS 2.3.5, iDRAC9 7.10",
+   "environment": "Data centres",
+   "count": 14200,
+   "owner": "Data Centre Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Dell iDRAC",
+    "Dell PowerEdge"
+   ],
+   "id": "INV-0088",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Compute",
+   "vendor": "Hewlett Packard Enterprise (HPE)",
+   "product": "ProLiant DL380 Gen11",
+   "version": "iLO 6 1.62",
+   "environment": "Data centres",
+   "count": 6800,
+   "owner": "Data Centre Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Hewlett Packard Enterprise (HPE) iLO",
+    "HPE iLO"
+   ],
+   "id": "INV-0089",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Infrastructure management",
+   "vendor": "Hewlett Packard Enterprise (HPE)",
+   "product": "OneView",
+   "version": "9.0",
+   "environment": "HPE fleet management",
+   "count": 3,
+   "owner": "Data Centre Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Hewlett Packard Enterprise (HPE) OneView",
+    "HPE OneView"
+   ],
+   "id": "INV-0090",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Compute",
+   "vendor": "Cisco",
+   "product": "UCS X-Series / Intersight",
+   "version": "5.2(2)",
+   "environment": "VDI and private cloud",
+   "count": 1900,
+   "owner": "Data Centre Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Cisco UCS",
+    "Cisco Intersight"
+   ],
+   "id": "INV-0091",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Hyperconverged (legacy)",
+   "vendor": "Cisco",
+   "product": "HyperFlex HX",
+   "version": "5.0(2e)",
+   "environment": "Retail edge clusters",
+   "count": 140,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Cisco HyperFlex"
+   ],
+   "id": "INV-0092",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "BMC firmware",
+   "vendor": "AMI",
+   "product": "MegaRAC SPx (OEM BMC)",
+   "version": "13.x",
+   "environment": "White-box GPU servers, storage nodes",
+   "count": 2600,
+   "owner": "Data Centre Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "AMI MegaRAC"
+   ],
+   "id": "INV-0093",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "GPU servers",
+   "vendor": "Supermicro",
+   "product": "SYS-821GE-TNHR (8x H100)",
+   "version": "BMC 1.03.18",
+   "environment": "AI training cluster",
+   "count": 512,
+   "owner": "AI Platform",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Supermicro"
+   ],
+   "id": "INV-0094",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Motherboards / firmware",
+   "vendor": "GIGABYTE",
+   "product": "Server and workstation boards (UEFI)",
+   "version": "F14",
+   "environment": "Engineering render farm",
+   "count": 380,
+   "owner": "Data Centre Engineering",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "GIGABYTE Multiple Products"
+   ],
+   "id": "INV-0095",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Storage",
+   "vendor": "Dell",
+   "product": "PowerMax 8500 / PowerStore 5200T",
+   "version": "PowerMaxOS 10.1",
+   "environment": "Tier-1 block storage",
+   "count": 42,
+   "owner": "Storage Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Dell PowerMax",
+    "Dell PowerStore"
+   ],
+   "id": "INV-0096",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Storage",
+   "vendor": "NetApp",
+   "product": "AFF A900 (ONTAP)",
+   "version": "9.14.1P6",
+   "environment": "File services, VMware datastores",
+   "count": 64,
+   "owner": "Storage Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "NetApp ONTAP"
+   ],
+   "id": "INV-0097",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Storage",
+   "vendor": "Pure Storage",
+   "product": "FlashArray//XL (Purity)",
+   "version": "6.6.10",
+   "environment": "Database tier",
+   "count": 28,
+   "owner": "Storage Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Pure Storage"
+   ],
+   "id": "INV-0098",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "NAS (branch)",
+   "vendor": "QNAP",
+   "product": "TS-873A (QTS)",
+   "version": "5.1.8",
+   "environment": "Regional offices",
+   "count": 210,
+   "owner": "Branch Network Operations",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "QNAP Network Attached Storage",
+    "QNAP Photo Station",
+    "QNAP QTS"
+   ],
+   "id": "INV-0099",
+   "patched_through": "2025-11-30"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "NAS (lab)",
+   "vendor": "Zyxel",
+   "product": "NAS542",
+   "version": "5.21",
+   "environment": "Logistics depot CCTV storage",
+   "count": 30,
+   "owner": "Facilities",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Zyxel Multiple Network-Attached Storage"
+   ],
+   "id": "INV-0100",
+   "patched_through": "2024-06-30"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Network appliances (depots)",
+   "vendor": "Zyxel",
+   "product": "USG FLEX 200 / ATP500",
+   "version": "5.38",
+   "environment": "Small depots (acquired)",
+   "count": 140,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Zyxel Multiple Firewalls",
+    "Zyxel USG",
+    "Zyxel ATP"
+   ],
+   "id": "INV-0101",
+   "patched_through": "2025-09-30"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Mobile chipsets",
+   "vendor": "Qualcomm",
+   "product": "Snapdragon 8 Gen 2/3",
+   "version": "Vendor BSP",
+   "environment": "Corporate Android phones",
+   "count": 54000,
+   "owner": "Mobility",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Qualcomm Multiple Chipsets",
+    "Qualcomm Chipsets"
+   ],
+   "id": "INV-0102",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Mobile GPU",
+   "vendor": "Arm",
+   "product": "Mali GPU (Exynos devices)",
+   "version": "r47p0",
+   "environment": "XCover rugged phones",
+   "count": 18000,
+   "owner": "Mobility",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Arm Mali"
+   ],
+   "id": "INV-0103",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Hardware",
+   "subcategory": "Serial device servers",
+   "vendor": "Lantronix",
+   "product": "EDS5000",
+   "version": "2.1.0.0R3",
+   "environment": "Distribution centre PLC links",
+   "count": 220,
+   "owner": "OT Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Lantronix EDS5000"
+   ],
+   "id": "INV-0104",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Hypervisor",
+   "vendor": "Broadcom",
+   "product": "VMware ESXi",
+   "version": "8.0 U3b / 7.0 U3q",
+   "environment": "Data centres (2,100 hosts)",
+   "count": 2100,
+   "owner": "Private Cloud Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "VMware ESXi",
+    "Broadcom VMware ESX",
+    "VMware ESXi, Workstation",
+    "VMware ESXi and Workstation",
+    "VMware Multiple Products"
+   ],
+   "id": "INV-0105",
+   "patched_through": "2026-06-30"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Management",
+   "vendor": "Broadcom",
+   "product": "VMware vCenter Server",
+   "version": "8.0 U3d",
+   "environment": "14 vCenters",
+   "count": 14,
+   "owner": "Private Cloud Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "VMware vCenter",
+    "Broadcom VMware vCenter"
+   ],
+   "id": "INV-0106",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Operations",
+   "vendor": "Broadcom",
+   "product": "VMware Aria Operations / Automation",
+   "version": "8.18",
+   "environment": "Private cloud operations",
+   "count": 6,
+   "owner": "Private Cloud Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "VMware Aria Operations",
+    "Broadcom VMware Aria Operations",
+    "VMware vRealize",
+    "VMware Aria"
+   ],
+   "id": "INV-0107",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Guest tools",
+   "vendor": "Broadcom",
+   "product": "VMware Tools",
+   "version": "12.4.5",
+   "environment": "All VMware guests",
+   "count": 41000,
+   "owner": "Private Cloud Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Broadcom VMware Aria Operations and VMware Tools",
+    "VMware Tools"
+   ],
+   "id": "INV-0108",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Desktop hypervisor",
+   "vendor": "Broadcom",
+   "product": "VMware Workstation Pro",
+   "version": "17.6",
+   "environment": "Developer workstations",
+   "count": 2300,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "VMware Workstation"
+   ],
+   "id": "INV-0109",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Hypervisor",
+   "vendor": "Microsoft",
+   "product": "Hyper-V / Azure Stack HCI",
+   "version": "23H2",
+   "environment": "Branch and clinic edge clusters",
+   "count": 860,
+   "owner": "Server Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft Hyper-V",
+    "Microsoft Windows"
+   ],
+   "id": "INV-0110",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Hypervisor",
+   "vendor": "Nutanix",
+   "product": "AHV / Prism Central",
+   "version": "6.8.1 / pc.2024.2",
+   "environment": "Insurance VDI",
+   "count": 240,
+   "owner": "Insurance IT Infrastructure",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Nutanix"
+   ],
+   "id": "INV-0111",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Virtual desktops",
+   "vendor": "Citrix",
+   "product": "Virtual Apps and Desktops (CVAD)",
+   "version": "2402 LTSR CU1",
+   "environment": "Call centres, offshore partners",
+   "count": 46000,
+   "owner": "End User Computing",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Citrix Virtual Apps",
+    "Citrix Workspace",
+    "Citrix Session Recording"
+   ],
+   "id": "INV-0112",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Virtualisation",
+   "subcategory": "Disaster recovery",
+   "vendor": "Dell",
+   "product": "RecoverPoint for Virtual Machines",
+   "version": "6.0 SP1",
+   "environment": "DR replication",
+   "count": 8,
+   "owner": "Storage Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Dell RecoverPoint"
+   ],
+   "id": "INV-0113",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "AWS",
+   "vendor": "Amazon Web Services",
+   "product": "EC2, EKS, RDS, S3, Lambda",
+   "version": "Org with 1,840 accounts",
+   "environment": "us-east-1, us-west-2, eu-west-1, ap-southeast-2",
+   "count": 1840,
+   "owner": "Cloud Platform (AWS)",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Amazon Web Services",
+    "AWS"
+   ],
+   "id": "INV-0114",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Azure",
+   "vendor": "Microsoft",
+   "product": "Azure (AKS, App Service, SQL MI, Functions)",
+   "version": "1,120 subscriptions",
+   "environment": "East US 2, West Europe, UK South",
+   "count": 1120,
+   "owner": "Cloud Platform (Azure)",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Azure"
+   ],
+   "id": "INV-0115",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Google Cloud",
+   "vendor": "Google",
+   "product": "Google Cloud (GKE, BigQuery, Vertex AI)",
+   "version": "420 projects",
+   "environment": "us-central1, europe-west4",
+   "count": 420,
+   "owner": "Data and AI Platform",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Google Cloud"
+   ],
+   "id": "INV-0116",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Oracle Cloud",
+   "vendor": "Oracle",
+   "product": "OCI (Exadata Cloud, Fusion Apps)",
+   "version": "ERP tenancy",
+   "environment": "Ashburn, Frankfurt",
+   "count": 1,
+   "owner": "Finance Systems",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Oracle Cloud Infrastructure"
+   ],
+   "id": "INV-0117",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Kubernetes",
+   "vendor": "Red Hat",
+   "product": "OpenShift Container Platform",
+   "version": "4.15.30",
+   "environment": "On-prem and ROSA",
+   "count": 46,
+   "owner": "Platform Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Red Hat OpenShift"
+   ],
+   "id": "INV-0118",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Kubernetes",
+   "vendor": "CNCF",
+   "product": "Kubernetes (EKS / AKS / GKE)",
+   "version": "1.29 / 1.30",
+   "environment": "Managed clusters",
+   "count": 310,
+   "owner": "Platform Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Kubernetes"
+   ],
+   "id": "INV-0119",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Infrastructure as code",
+   "vendor": "HashiCorp",
+   "product": "Terraform Enterprise",
+   "version": "v202409-2",
+   "environment": "Cloud landing zones",
+   "count": 3,
+   "owner": "Platform Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "HashiCorp Terraform"
+   ],
+   "id": "INV-0120",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Secrets",
+   "vendor": "HashiCorp",
+   "product": "Vault Enterprise",
+   "version": "1.17.6",
+   "environment": "Application secrets",
+   "count": 12,
+   "owner": "Platform Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "HashiCorp Vault"
+   ],
+   "id": "INV-0121",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Object storage (on-prem)",
+   "vendor": "MinIO",
+   "product": "MinIO",
+   "version": "RELEASE.2024-08-17",
+   "environment": "ML feature store",
+   "count": 24,
+   "owner": "AI Platform",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "MinIO"
+   ],
+   "id": "INV-0122",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Configuration management",
+   "vendor": "SaltStack",
+   "product": "Salt",
+   "version": "3006.9",
+   "environment": "Linux fleet configuration",
+   "count": 4,
+   "owner": "Linux Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "SaltStack Salt",
+    "VMware Salt"
+   ],
+   "id": "INV-0123",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Cloud",
+   "subcategory": "Configuration management",
+   "vendor": "Red Hat",
+   "product": "Ansible Automation Platform",
+   "version": "2.4",
+   "environment": "Network and server automation",
+   "count": 9,
+   "owner": "Automation Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Red Hat Ansible"
+   ],
+   "id": "INV-0124",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Email (on-prem hybrid)",
+   "vendor": "Microsoft",
+   "product": "Exchange Server Subscription Edition",
+   "version": "SE RTM",
+   "environment": "Hybrid relay, journaling, 3 sites",
+   "count": 18,
+   "owner": "Messaging Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Exchange Server",
+    "Microsoft Exchange"
+   ],
+   "id": "INV-0125",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Email (cloud)",
+   "vendor": "Microsoft",
+   "product": "Exchange Online",
+   "version": "SaaS",
+   "environment": "All mailboxes",
+   "count": 210000,
+   "owner": "Messaging Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Exchange Online"
+   ],
+   "id": "INV-0126",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Intranet",
+   "vendor": "Microsoft",
+   "product": "SharePoint Server Subscription Edition",
+   "version": "24H2",
+   "environment": "Legal, compliance, intranet",
+   "count": 22,
+   "owner": "Collaboration Platforms",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Microsoft SharePoint"
+   ],
+   "id": "INV-0127",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Email (acquired)",
+   "vendor": "Synacor",
+   "product": "Zimbra Collaboration Suite",
+   "version": "10.0.9",
+   "environment": "Freight subsidiary (migration Q3)",
+   "count": 4,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Synacor Zimbra",
+    "Zimbra Collaboration Suite"
+   ],
+   "id": "INV-0128",
+   "patched_through": "2025-06-30"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Webmail (acquired)",
+   "vendor": "Roundcube",
+   "product": "Webmail",
+   "version": "1.6.7",
+   "environment": "Freight subsidiary",
+   "count": 2,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Roundcube Webmail",
+    "Roundcube Roundcube Webmail"
+   ],
+   "id": "INV-0129",
+   "patched_through": "2025-09-30"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Mail server (Europe)",
+   "vendor": "Exim",
+   "product": "Exim",
+   "version": "4.97",
+   "environment": "EMEA outbound relays",
+   "count": 6,
+   "owner": "EMEA IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Exim"
+   ],
+   "id": "INV-0130",
+   "patched_through": "2025-01-01"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Wiki",
+   "vendor": "Atlassian",
+   "product": "Confluence Data Center",
+   "version": "8.5.14",
+   "environment": "Engineering knowledge base",
+   "count": 6,
+   "owner": "Developer Platforms",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Atlassian Confluence"
+   ],
+   "id": "INV-0131",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Issue tracking",
+   "vendor": "Atlassian",
+   "product": "Jira Software Data Center",
+   "version": "9.12.12",
+   "environment": "Engineering and change",
+   "count": 8,
+   "owner": "Developer Platforms",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Atlassian Jira",
+    "Atlassian Multiple Products"
+   ],
+   "id": "INV-0132",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Wiki (R&D)",
+   "vendor": "XWiki",
+   "product": "XWiki Platform",
+   "version": "15.10.11",
+   "environment": "Pharma research wiki",
+   "count": 1,
+   "owner": "Research IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "XWiki Platform"
+   ],
+   "id": "INV-0133",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Documents",
+   "vendor": "ONLYOFFICE",
+   "product": "Docs",
+   "version": "8.1.3",
+   "environment": "Research collaboration (Linux)",
+   "count": 2,
+   "owner": "Research IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "ONLYOFFICE Docs"
+   ],
+   "id": "INV-0134",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Documents",
+   "vendor": "Collabora",
+   "product": "Collabora Online (CODE)",
+   "version": "24.04",
+   "environment": "Nextcloud integration, research",
+   "count": 2,
+   "owner": "Research IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Collabora Online"
+   ],
+   "id": "INV-0135",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "File sync (research)",
+   "vendor": "ownCloud",
+   "product": "ownCloud Server",
+   "version": "10.15",
+   "environment": "Research partners",
+   "count": 1,
+   "owner": "Research IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "ownCloud"
+   ],
+   "id": "INV-0136",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Video",
+   "vendor": "Zoom",
+   "product": "Workplace",
+   "version": "6.2",
+   "environment": "All employees",
+   "count": 200000,
+   "owner": "Collaboration Platforms",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Zoom"
+   ],
+   "id": "INV-0137",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Telephony",
+   "vendor": "Cisco",
+   "product": "Unified Communications Manager / BroadWorks",
+   "version": "15 SU2",
+   "environment": "Contact centres",
+   "count": 18,
+   "owner": "Unified Communications",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Cisco Unified Communications Manager",
+    "Cisco BroadWorks"
+   ],
+   "id": "INV-0138",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Telephony (healthcare)",
+   "vendor": "Mitel",
+   "product": "MiCollab / MiVoice Connect",
+   "version": "9.8 SP1",
+   "environment": "Clinics",
+   "count": 12,
+   "owner": "Healthcare IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Mitel MiCollab",
+    "Mitel MiVoice"
+   ],
+   "id": "INV-0139",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Telephony (stores)",
+   "vendor": "Sangoma",
+   "product": "FreePBX / Switchvox",
+   "version": "16.0.40",
+   "environment": "Pharmacy stores",
+   "count": 80,
+   "owner": "Retail IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Sangoma FreePBX",
+    "Sangoma Switchvox"
+   ],
+   "id": "INV-0140",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Telephony (lab)",
+   "vendor": "SignalWire",
+   "product": "FreeSWITCH",
+   "version": "1.10.11",
+   "environment": "IVR development",
+   "count": 3,
+   "owner": "Contact Centre Engineering",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "SignalWire FreeSwitch"
+   ],
+   "id": "INV-0141",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Collaboration",
+   "subcategory": "Video conferencing (Russia JV, frozen)",
+   "vendor": "TrueConf",
+   "product": "Server",
+   "version": "5.2",
+   "environment": "Dormant joint-venture office",
+   "count": 1,
+   "owner": "EMEA IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "TrueConf"
+   ],
+   "id": "INV-0142",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "ERP",
+   "vendor": "SAP",
+   "product": "S/4HANA 2023 and ECC 6.0 EHP8 (NetWeaver)",
+   "version": "S/4 2023 FPS01, NW 7.50",
+   "environment": "Finance, supply chain, HR",
+   "count": 140,
+   "owner": "SAP Basis",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "SAP NetWeaver",
+    "SAP S/4HANA",
+    "SAP Multiple Products"
+   ],
+   "id": "INV-0143",
+   "patched_through": "2026-06-30"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "ERP (insurance)",
+   "vendor": "Oracle",
+   "product": "E-Business Suite",
+   "version": "12.2.12",
+   "environment": "Insurance general ledger",
+   "count": 12,
+   "owner": "Finance Systems",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Oracle E-Business Suite"
+   ],
+   "id": "INV-0144",
+   "patched_through": "2026-07-15"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "HR (legacy)",
+   "vendor": "Oracle",
+   "product": "PeopleSoft HCM (PeopleTools)",
+   "version": "9.2 / 8.61",
+   "environment": "Canadian payroll",
+   "count": 6,
+   "owner": "HR Technology",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Oracle PeopleSoft"
+   ],
+   "id": "INV-0145",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "PLM",
+   "vendor": "Oracle",
+   "product": "Agile Product Lifecycle Management",
+   "version": "9.3.6",
+   "environment": "Medical device engineering",
+   "count": 4,
+   "owner": "Engineering Systems",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Oracle Agile Product Lifecycle Management"
+   ],
+   "id": "INV-0146",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "PLM",
+   "vendor": "PTC",
+   "product": "Windchill",
+   "version": "12.1.2",
+   "environment": "Manufacturing subsidiary",
+   "count": 6,
+   "owner": "Engineering Systems",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "PTC Windchill"
+   ],
+   "id": "INV-0147",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Manufacturing execution",
+   "vendor": "Dassault Systèmes",
+   "product": "DELMIA Apriso",
+   "version": "2024",
+   "environment": "Medical devices plants",
+   "count": 4,
+   "owner": "Manufacturing IT",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Dassault Systèmes DELMIA Apriso",
+    "Dassault DELMIA"
+   ],
+   "id": "INV-0148",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "ITSM",
+   "vendor": "ServiceNow",
+   "product": "Now Platform",
+   "version": "Washington DC Patch 7",
+   "environment": "IT, HR, security operations",
+   "count": 1,
+   "owner": "Enterprise Service Management",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "ServiceNow"
+   ],
+   "id": "INV-0149",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "CRM",
+   "vendor": "Salesforce",
+   "product": "Sales and Service Cloud",
+   "version": "SaaS",
+   "environment": "Insurance agents, commercial banking",
+   "count": 52000,
+   "owner": "CRM Platforms",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Salesforce"
+   ],
+   "id": "INV-0150",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Analytics",
+   "vendor": "Qlik",
+   "product": "Qlik Sense Enterprise",
+   "version": "May 2024 Patch 6",
+   "environment": "Supply chain analytics",
+   "count": 6,
+   "owner": "Data and AI Platform",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Qlik Sense"
+   ],
+   "id": "INV-0151",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Reporting",
+   "vendor": "TIBCO",
+   "product": "JasperReports Server",
+   "version": "8.2",
+   "environment": "Claims reporting",
+   "count": 3,
+   "owner": "Insurance Applications",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "TIBCO JasperReports"
+   ],
+   "id": "INV-0152",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Analytics (legacy)",
+   "vendor": "Hitachi Vantara",
+   "product": "Pentaho Business Analytics Server",
+   "version": "9.3",
+   "environment": "Logistics BI",
+   "count": 2,
+   "owner": "Logistics IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Hitachi Vantara Pentaho"
+   ],
+   "id": "INV-0153",
+   "patched_through": "2025-03-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "BI",
+   "vendor": "Metabase",
+   "product": "Metabase",
+   "version": "0.50.21",
+   "environment": "Product analytics",
+   "count": 2,
+   "owner": "Digital Products",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Metabase"
+   ],
+   "id": "INV-0154",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Print management",
+   "vendor": "PaperCut",
+   "product": "PaperCut MF",
+   "version": "23.0.9",
+   "environment": "All offices",
+   "count": 36,
+   "owner": "End User Computing",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "PaperCut NG/MF",
+    "PaperCut"
+   ],
+   "id": "INV-0155",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Signage",
+   "vendor": "Samsung",
+   "product": "MagicINFO 9 Server",
+   "version": "21.1050",
+   "environment": "Retail and lobby signage",
+   "count": 4,
+   "owner": "Facilities",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Samsung MagicINFO"
+   ],
+   "id": "INV-0156",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Time and attendance",
+   "vendor": "ZKTeco",
+   "product": "BioTime",
+   "version": "9.0.1",
+   "environment": "Warehouses (biometric clocks)",
+   "count": 3,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "ZKTeco BioTime"
+   ],
+   "id": "INV-0157",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Help desk (logistics)",
+   "vendor": "SolarWinds",
+   "product": "Web Help Desk",
+   "version": "12.8.3",
+   "environment": "Logistics IT help desk",
+   "count": 1,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "SolarWinds Web Help Desk"
+   ],
+   "id": "INV-0158",
+   "patched_through": "2026-03-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Help desk (pharmacy)",
+   "vendor": "SysAid",
+   "product": "SysAid On-Prem",
+   "version": "23.3.38",
+   "environment": "Pharmacy IT",
+   "count": 1,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "SysAid"
+   ],
+   "id": "INV-0159",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Customer support",
+   "vendor": "Zammad GmbH",
+   "product": "Zammad",
+   "version": "6.3",
+   "environment": "EMEA customer support",
+   "count": 1,
+   "owner": "EMEA IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Zammad"
+   ],
+   "id": "INV-0160",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Business applications",
+   "subcategory": "Order management (3PL)",
+   "vendor": "Advantive",
+   "product": "VeraCore",
+   "version": "2024.1",
+   "environment": "E-commerce fulfilment",
+   "count": 1,
+   "owner": "Logistics IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Advantive VeraCore"
+   ],
+   "id": "INV-0161",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Relational",
+   "vendor": "Oracle",
+   "product": "Database Enterprise Edition / Exadata X9M",
+   "version": "19.24 / 23ai",
+   "environment": "Core banking, policy admin",
+   "count": 860,
+   "owner": "Database Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Oracle Database"
+   ],
+   "id": "INV-0162",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Relational",
+   "vendor": "Microsoft",
+   "product": "SQL Server Enterprise",
+   "version": "2019 CU28 / 2022 CU15",
+   "environment": "Line-of-business apps",
+   "count": 6400,
+   "owner": "Database Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Microsoft SQL Server"
+   ],
+   "id": "INV-0163",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "In-memory",
+   "vendor": "SAP",
+   "product": "HANA",
+   "version": "2.0 SPS07",
+   "environment": "S/4HANA",
+   "count": 120,
+   "owner": "SAP Basis",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "SAP HANA"
+   ],
+   "id": "INV-0164",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Relational",
+   "vendor": "PostgreSQL",
+   "product": "PostgreSQL",
+   "version": "15.8 / 16.4",
+   "environment": "Digital platforms",
+   "count": 3100,
+   "owner": "Database Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "PostgreSQL"
+   ],
+   "id": "INV-0165",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Document",
+   "vendor": "MongoDB",
+   "product": "MongoDB Enterprise Server",
+   "version": "7.0.14",
+   "environment": "Mobile app back ends",
+   "count": 420,
+   "owner": "Database Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "MongoDB"
+   ],
+   "id": "INV-0166",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Search",
+   "vendor": "Elastic",
+   "product": "Elasticsearch / Kibana",
+   "version": "8.15.2",
+   "environment": "Observability, fraud search",
+   "count": 640,
+   "owner": "Observability Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Elastic Elasticsearch",
+    "Elastic Kibana"
+   ],
+   "id": "INV-0167",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Search",
+   "vendor": "Apache",
+   "product": "Solr",
+   "version": "9.6.1",
+   "environment": "Product catalogue search",
+   "count": 40,
+   "owner": "Digital Products",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Apache Solr"
+   ],
+   "id": "INV-0168",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Cache",
+   "vendor": "Redis",
+   "product": "Redis Enterprise",
+   "version": "7.4",
+   "environment": "Session stores",
+   "count": 380,
+   "owner": "Database Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Redis"
+   ],
+   "id": "INV-0169",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Streaming",
+   "vendor": "Confluent",
+   "product": "Confluent Platform (Apache Kafka)",
+   "version": "7.7",
+   "environment": "Event streaming",
+   "count": 220,
+   "owner": "Data Platform Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Apache Kafka"
+   ],
+   "id": "INV-0170",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Messaging",
+   "vendor": "Apache",
+   "product": "ActiveMQ Classic",
+   "version": "5.18.4",
+   "environment": "Claims integration bus",
+   "count": 18,
+   "owner": "Integration Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Apache ActiveMQ"
+   ],
+   "id": "INV-0171",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Messaging",
+   "vendor": "IBM",
+   "product": "MQ",
+   "version": "9.3.0.20",
+   "environment": "Payments messaging",
+   "count": 90,
+   "owner": "Integration Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "IBM MQ"
+   ],
+   "id": "INV-0172",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Data warehouse",
+   "vendor": "Snowflake",
+   "product": "Snowflake",
+   "version": "SaaS",
+   "environment": "Enterprise data warehouse",
+   "count": 1,
+   "owner": "Data Platform Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Snowflake"
+   ],
+   "id": "INV-0173",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Lakehouse",
+   "vendor": "Databricks",
+   "product": "Databricks on AWS and Azure",
+   "version": "Runtime 15.4 LTS",
+   "environment": "Analytics and ML",
+   "count": 1,
+   "owner": "Data and AI Platform",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Databricks"
+   ],
+   "id": "INV-0174",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Databases",
+   "subcategory": "Data risk",
+   "vendor": "IBM",
+   "product": "Data Risk Manager",
+   "version": "2.0.6",
+   "environment": "Database security analytics",
+   "count": 1,
+   "owner": "Data Protection",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "IBM Data Risk Manager"
+   ],
+   "id": "INV-0175",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Java EE",
+   "vendor": "Oracle",
+   "product": "WebLogic Server",
+   "version": "14.1.1.0 / 12.2.1.4",
+   "environment": "Policy admin, claims",
+   "count": 340,
+   "owner": "Middleware Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Oracle WebLogic",
+    "Oracle Fusion Middleware",
+    "Oracle HTTP Server"
+   ],
+   "id": "INV-0176",
+   "patched_through": "2026-04-30"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Java EE",
+   "vendor": "Red Hat",
+   "product": "JBoss EAP",
+   "version": "7.4.18",
+   "environment": "Banking channels",
+   "count": 520,
+   "owner": "Middleware Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Red Hat JBoss"
+   ],
+   "id": "INV-0177",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Java EE",
+   "vendor": "IBM",
+   "product": "WebSphere Application Server",
+   "version": "9.0.5.20",
+   "environment": "Mainframe integration",
+   "count": 160,
+   "owner": "Middleware Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "IBM WebSphere"
+   ],
+   "id": "INV-0178",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Servlet container",
+   "vendor": "Apache",
+   "product": "Tomcat",
+   "version": "9.0.96 / 10.1.31",
+   "environment": "Internal web apps",
+   "count": 4200,
+   "owner": "Middleware Engineering",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Apache Tomcat"
+   ],
+   "id": "INV-0179",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Web server",
+   "vendor": "Apache",
+   "product": "HTTP Server",
+   "version": "2.4.62",
+   "environment": "Reverse proxies, static content",
+   "count": 2600,
+   "owner": "Middleware Engineering",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Apache HTTP Server"
+   ],
+   "id": "INV-0180",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Web server",
+   "vendor": "F5",
+   "product": "NGINX Plus",
+   "version": "R32",
+   "environment": "API ingress",
+   "count": 880,
+   "owner": "Application Delivery",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "F5 NGINX",
+    "NGINX"
+   ],
+   "id": "INV-0181",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Web server",
+   "vendor": "Microsoft",
+   "product": "IIS",
+   "version": "10.0",
+   "environment": "Windows web apps",
+   "count": 5200,
+   "owner": "Server Engineering",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Microsoft Internet Information Services",
+    "Microsoft IIS"
+   ],
+   "id": "INV-0182",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Runtime",
+   "vendor": "Microsoft",
+   "product": ".NET Framework / .NET",
+   "version": "4.8.1 / 8.0.10",
+   "environment": "Windows apps",
+   "count": 26000,
+   "owner": "Application Platforms",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Microsoft .NET Framework",
+    "Microsoft .NET"
+   ],
+   "id": "INV-0183",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Runtime",
+   "vendor": "Oracle",
+   "product": "Java SE (JDK / JRE)",
+   "version": "8u431 / 17.0.13 / 21.0.5",
+   "environment": "Servers and endpoints",
+   "count": 61000,
+   "owner": "Application Platforms",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Oracle Java SE",
+    "Oracle Java Runtime Environment"
+   ],
+   "id": "INV-0184",
+   "patched_through": "2026-07-15"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Runtime",
+   "vendor": "Erlang",
+   "product": "Erlang/OTP",
+   "version": "26.2.5",
+   "environment": "RabbitMQ clusters",
+   "count": 60,
+   "owner": "Integration Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Erlang Erlang/OTP"
+   ],
+   "id": "INV-0185",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Runtime",
+   "vendor": "PHP Group",
+   "product": "PHP",
+   "version": "8.2.24",
+   "environment": "Marketing sites, legacy portals",
+   "count": 140,
+   "owner": "Digital Products",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "PHP Group PHP"
+   ],
+   "id": "INV-0186",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "API gateway",
+   "vendor": "WSO2",
+   "product": "API Manager",
+   "version": "4.2.0",
+   "environment": "Partner APIs (insurance)",
+   "count": 8,
+   "owner": "Integration Engineering",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "WSO2 Multiple Products",
+    "WSO2 API Manager"
+   ],
+   "id": "INV-0187",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Integration",
+   "vendor": "MuleSoft",
+   "product": "Anypoint Runtime",
+   "version": "4.6",
+   "environment": "System APIs",
+   "count": 220,
+   "owner": "Integration Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "MuleSoft"
+   ],
+   "id": "INV-0188",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Web UI library",
+   "vendor": "Telerik",
+   "product": "UI for ASP.NET AJAX",
+   "version": "2019.3.1023",
+   "environment": "Legacy agent portal",
+   "count": 6,
+   "owner": "Insurance Applications",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Telerik User Interface (UI) for ASP.NET AJAX",
+    "Telerik UI"
+   ],
+   "id": "INV-0189",
+   "patched_through": "2020-01-01"
+  },
+  {
+   "category": "Middleware",
+   "subcategory": "Web UI library",
+   "vendor": "Ajax.NET Professional",
+   "product": "Ajax.NET Professional",
+   "version": "21.12.22.1",
+   "environment": "Legacy claims intake",
+   "count": 2,
+   "owner": "Insurance Applications",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Ajax.NET Professional"
+   ],
+   "id": "INV-0190",
+   "patched_through": "2022-01-01"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS",
+   "vendor": "Sitecore",
+   "product": "Experience Platform (XP)",
+   "version": "10.3.2",
+   "environment": "Corporate and brand websites",
+   "count": 24,
+   "owner": "Digital Experience",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Sitecore CMS",
+    "Sitecore Multiple Products",
+    "Sitecore Experience Platform"
+   ],
+   "id": "INV-0191",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS / forms",
+   "vendor": "Adobe",
+   "product": "Experience Manager (AEM) and AEM Forms",
+   "version": "6.5.21",
+   "environment": "Insurance quote forms",
+   "count": 30,
+   "owner": "Digital Experience",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Adobe Experience Manager"
+   ],
+   "id": "INV-0192",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "E-commerce",
+   "vendor": "Adobe",
+   "product": "Commerce (Magento)",
+   "version": "2.4.7-p2",
+   "environment": "Pharmacy online store",
+   "count": 12,
+   "owner": "Digital Commerce",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Adobe Commerce",
+    "Adobe Magento",
+    "Mirasvit"
+   ],
+   "id": "INV-0193",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS",
+   "vendor": "Kentico",
+   "product": "Xperience",
+   "version": "13.0.160",
+   "environment": "Regional marketing sites",
+   "count": 6,
+   "owner": "Digital Experience",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Kentico Xperience",
+    "Kentico Kentico Xperience"
+   ],
+   "id": "INV-0194",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS",
+   "vendor": "WordPress",
+   "product": "WordPress Core",
+   "version": "6.6.2",
+   "environment": "Campaign microsites",
+   "count": 70,
+   "owner": "Marketing Technology",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "WordPress Core",
+    "WordPress WordPress Core"
+   ],
+   "id": "INV-0195",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS",
+   "vendor": "Drupal",
+   "product": "Drupal Core",
+   "version": "10.3.6",
+   "environment": "Foundation and careers sites",
+   "count": 8,
+   "owner": "Marketing Technology",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Drupal Core"
+   ],
+   "id": "INV-0196",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS (acquired)",
+   "vendor": "Craft CMS",
+   "product": "Craft CMS",
+   "version": "4.12.5",
+   "environment": "Logistics brand site",
+   "count": 1,
+   "owner": "Marketing Technology",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Craft CMS"
+   ],
+   "id": "INV-0197",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS (acquired)",
+   "vendor": "DotNetNuke (DNN)",
+   "product": "DNN Platform",
+   "version": "9.13.4",
+   "environment": "Legacy intranet (Mexico)",
+   "count": 1,
+   "owner": "LATAM IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "DotNetNuke"
+   ],
+   "id": "INV-0198",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "Forum",
+   "vendor": "vBulletin",
+   "product": "vBulletin",
+   "version": "6.0.6",
+   "environment": "Customer community (read-only archive)",
+   "count": 1,
+   "owner": "Digital Products",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "vBulletin"
+   ],
+   "id": "INV-0199",
+   "patched_through": "2024-01-01"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "Hosting panel",
+   "vendor": "WebPros",
+   "product": "cPanel & WHM",
+   "version": "118",
+   "environment": "Marketing agency hosting (third party)",
+   "count": 3,
+   "owner": "Marketing Technology",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "WebPros cPanel",
+    "cPanel",
+    "LiteSpeed cPanel"
+   ],
+   "id": "INV-0200",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "Hosting panel",
+   "vendor": "CyberPersons",
+   "product": "CyberPanel",
+   "version": "2.3.6",
+   "environment": "Agency-managed microsites",
+   "count": 1,
+   "owner": "Marketing Technology",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "CyberPersons CyberPanel",
+    "CWP Control Web Panel"
+   ],
+   "id": "INV-0201",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "CMS",
+   "vendor": "Joomla",
+   "product": "Joomla! with JCE editor and SP Page Builder",
+   "version": "5.1.4",
+   "environment": "Franchise partner sites",
+   "count": 40,
+   "owner": "Marketing Technology",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Widget Factory Joomla Content Editor",
+    "JoomShaper SP Page Builder",
+    "Joomlack Page Builder",
+    "Balbooa Forms",
+    "iCagenda"
+   ],
+   "id": "INV-0202",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "Headless CMS",
+   "vendor": "Strapi",
+   "product": "Strapi",
+   "version": "4.25.8",
+   "environment": "Mobile app content",
+   "count": 3,
+   "owner": "Digital Products",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Strapi"
+   ],
+   "id": "INV-0203",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Web and CMS",
+   "subcategory": "Geospatial",
+   "vendor": "OSGeo",
+   "product": "GeoServer",
+   "version": "2.25.3",
+   "environment": "Fleet routing maps",
+   "count": 4,
+   "owner": "Fleet Technology",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "OSGeo GeoServer"
+   ],
+   "id": "INV-0204",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Artifact repository",
+   "vendor": "JFrog",
+   "product": "Artifactory Enterprise+ / Xray",
+   "version": "7.90.13",
+   "environment": "Global artifact cache (Maven, npm, PyPI, Docker)",
+   "count": 12,
+   "owner": "Developer Platforms",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "JFrog Artifactory"
+   ],
+   "id": "INV-0205",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Source control",
+   "vendor": "GitLab",
+   "product": "GitLab Enterprise Edition (self-managed)",
+   "version": "17.3.4",
+   "environment": "Primary SCM, 28k repos",
+   "count": 6,
+   "owner": "Developer Platforms",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "GitLab Community and Enterprise",
+    "GitLab GitLab"
+   ],
+   "id": "INV-0206",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Source control",
+   "vendor": "GitHub",
+   "product": "GitHub Enterprise Cloud + Actions",
+   "version": "SaaS",
+   "environment": "Open-source and data science",
+   "count": 1,
+   "owner": "Developer Platforms",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "GitHub",
+    "tj-actions changed-files",
+    "reviewdog action-setup"
+   ],
+   "id": "INV-0207",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Source control (acquired)",
+   "vendor": "Gitea",
+   "product": "Gitea",
+   "version": "1.22.2",
+   "environment": "Logistics engineering team",
+   "count": 1,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Gitea",
+    "Gogs"
+   ],
+   "id": "INV-0208",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "CI",
+   "vendor": "Jenkins",
+   "product": "Jenkins LTS",
+   "version": "2.462.3",
+   "environment": "Legacy CI, 140 controllers",
+   "count": 140,
+   "owner": "Developer Platforms",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Jenkins"
+   ],
+   "id": "INV-0209",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "CI",
+   "vendor": "JetBrains",
+   "product": "TeamCity",
+   "version": "2024.07.2",
+   "environment": "Mobile and game studio builds",
+   "count": 4,
+   "owner": "Developer Platforms",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "JetBrains TeamCity"
+   ],
+   "id": "INV-0210",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Code quality",
+   "vendor": "SonarSource",
+   "product": "SonarQube Enterprise",
+   "version": "10.6",
+   "environment": "Static analysis",
+   "count": 3,
+   "owner": "Application Security",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "SonarQube"
+   ],
+   "id": "INV-0211",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Version control client",
+   "vendor": "Git",
+   "product": "Git for Windows / Git",
+   "version": "2.46.2",
+   "environment": "All developer workstations",
+   "count": 31000,
+   "owner": "Developer Platforms",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Git Git"
+   ],
+   "id": "INV-0212",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "IDE extension",
+   "vendor": "Nx",
+   "product": "Nx Console",
+   "version": "18.x",
+   "environment": "Front-end monorepos",
+   "count": 4200,
+   "owner": "Developer Platforms",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Nx Nx Console"
+   ],
+   "id": "INV-0213",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Workflow automation",
+   "vendor": "Kestra",
+   "product": "Kestra OSS",
+   "version": "0.19",
+   "environment": "Data engineering pipelines",
+   "count": 2,
+   "owner": "Data Platform Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Kestra"
+   ],
+   "id": "INV-0214",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "Workflow automation",
+   "vendor": "n8n",
+   "product": "n8n",
+   "version": "1.62",
+   "environment": "Ops automation (security team)",
+   "count": 2,
+   "owner": "Security Automation",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "n8n"
+   ],
+   "id": "INV-0215",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Developer platforms",
+   "subcategory": "API toolchain",
+   "vendor": "React Native Community",
+   "product": "CLI",
+   "version": "14.1",
+   "environment": "Mobile app builds",
+   "count": 900,
+   "owner": "Mobile Engineering",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "React Native Community CLI"
+   ],
+   "id": "INV-0216",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Java logging",
+   "vendor": "Apache",
+   "product": "Log4j2",
+   "version": "2.17.2 / 2.24.1",
+   "environment": "Pinned in 6,800 Maven builds",
+   "count": 6800,
+   "owner": "Application Security",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Apache Log4j2",
+    "Apache Log4j"
+   ],
+   "id": "INV-0217",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Java framework",
+   "vendor": "Apache",
+   "product": "Struts",
+   "version": "2.5.33 / 6.4.0",
+   "environment": "Legacy insurance portals",
+   "count": 38,
+   "owner": "Insurance Applications",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Apache Struts"
+   ],
+   "id": "INV-0218",
+   "patched_through": "2024-12-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Java framework",
+   "vendor": "VMware",
+   "product": "Spring Framework / Spring Boot",
+   "version": "5.3.39 / 6.1.13",
+   "environment": "Most Java services",
+   "count": 4100,
+   "owner": "Application Platforms",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Spring Framework",
+    "VMware Spring",
+    "Spring Cloud"
+   ],
+   "id": "INV-0219",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Java ERP framework",
+   "vendor": "Apache",
+   "product": "OFBiz",
+   "version": "18.12.16",
+   "environment": "Spare-parts catalogue",
+   "count": 2,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Apache OFBiz"
+   ],
+   "id": "INV-0220",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Python web",
+   "vendor": "Kludex",
+   "product": "Starlette",
+   "version": "0.38.6",
+   "environment": "Internal FastAPI services",
+   "count": 640,
+   "owner": "Application Platforms",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Kludex Starlette",
+    "Starlette"
+   ],
+   "id": "INV-0221",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Ruby web",
+   "vendor": "Rails",
+   "product": "Ruby on Rails",
+   "version": "7.1.4",
+   "environment": "Booking and scheduling apps",
+   "count": 40,
+   "owner": "Digital Products",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Rails Ruby on Rails",
+    "Ruby on Rails"
+   ],
+   "id": "INV-0222",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "PHP web",
+   "vendor": "Laravel",
+   "product": "Livewire",
+   "version": "3.5.6",
+   "environment": "Partner portals",
+   "count": 14,
+   "owner": "Digital Products",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Laravel Livewire"
+   ],
+   "id": "INV-0223",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "PHP framework",
+   "vendor": "Yiiframework",
+   "product": "Yii",
+   "version": "2.0.51",
+   "environment": "Legacy logistics tools",
+   "count": 4,
+   "owner": "Logistics IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Yiiframework Yii"
+   ],
+   "id": "INV-0224",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "PHP library",
+   "vendor": "PHP",
+   "product": "PHPMailer",
+   "version": "6.9.1",
+   "environment": "Marketing forms",
+   "count": 30,
+   "owner": "Marketing Technology",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "PHP PHPMailer",
+    "PHPMailer"
+   ],
+   "id": "INV-0225",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "PHP library",
+   "vendor": "PEAR",
+   "product": "Archive_Tar",
+   "version": "1.4.14",
+   "environment": "Legacy PHP apps",
+   "count": 12,
+   "owner": "Digital Products",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "PEAR Archive_Tar"
+   ],
+   "id": "INV-0226",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "JavaScript",
+   "vendor": "Meta",
+   "product": "React / React Server Components",
+   "version": "18.3 / 19.0",
+   "environment": "Web front ends",
+   "count": 2600,
+   "owner": "Digital Products",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Meta React",
+    "React Server Components"
+   ],
+   "id": "INV-0227",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "JavaScript build",
+   "vendor": "Vite",
+   "product": "Vite",
+   "version": "5.4.8",
+   "environment": "Front-end builds",
+   "count": 1900,
+   "owner": "Digital Products",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Vite Vitejs",
+    "Vitejs"
+   ],
+   "id": "INV-0228",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "JavaScript",
+   "vendor": "TanStack",
+   "product": "TanStack Query / Router",
+   "version": "5.59",
+   "environment": "Web front ends",
+   "count": 1100,
+   "owner": "Digital Products",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "TanStack"
+   ],
+   "id": "INV-0229",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "JavaScript lint",
+   "vendor": "Prettier",
+   "product": "eslint-config-prettier",
+   "version": "9.1.0",
+   "environment": "All JS repos",
+   "count": 3400,
+   "owner": "Developer Platforms",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Prettier eslint-config-prettier"
+   ],
+   "id": "INV-0230",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Image processing",
+   "vendor": "ImageMagick",
+   "product": "ImageMagick",
+   "version": "7.1.1-38",
+   "environment": "Document imaging pipeline",
+   "count": 60,
+   "owner": "Insurance Applications",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "ImageMagick"
+   ],
+   "id": "INV-0231",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Font rendering",
+   "vendor": "FreeType",
+   "product": "FreeType",
+   "version": "2.13.3",
+   "environment": "Bundled in Linux base images",
+   "count": 18000,
+   "owner": "Linux Engineering",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "FreeType"
+   ],
+   "id": "INV-0232",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Compression",
+   "vendor": "Google",
+   "product": "Brotli",
+   "version": "1.1.0",
+   "environment": "Bundled in CDN edge images",
+   "count": 900,
+   "owner": "Application Delivery",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Google Brotli"
+   ],
+   "id": "INV-0233",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Crypto",
+   "vendor": "OpenSSL",
+   "product": "OpenSSL",
+   "version": "3.0.15 / 3.3.2",
+   "environment": "Linux base images",
+   "count": 42000,
+   "owner": "Linux Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "OpenSSL"
+   ],
+   "id": "INV-0234",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Crypto",
+   "vendor": "OpenBSD",
+   "product": "OpenSSH",
+   "version": "9.6p1 / 9.8p1",
+   "environment": "All Linux and Unix servers",
+   "count": 43000,
+   "owner": "Linux Engineering",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "OpenBSD OpenSSH"
+   ],
+   "id": "INV-0235",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Notebook",
+   "vendor": "Marimo",
+   "product": "Marimo",
+   "version": "0.9.4",
+   "environment": "Data science notebooks",
+   "count": 300,
+   "owner": "Data and AI Platform",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Marimo"
+   ],
+   "id": "INV-0236",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Software packages",
+   "subcategory": "Database admin",
+   "vendor": "Adminer",
+   "product": "Adminer",
+   "version": "4.8.1",
+   "environment": "Legacy dev tooling (prohibited)",
+   "count": 3,
+   "owner": "Digital Products",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Adminer"
+   ],
+   "id": "INV-0237",
+   "patched_through": "2021-05-01"
+  },
+  {
+   "category": "AI platform",
+   "subcategory": "LLM gateway",
+   "vendor": "BerriAI",
+   "product": "LiteLLM Proxy",
+   "version": "1.52.0",
+   "environment": "Internal LLM routing",
+   "count": 6,
+   "owner": "AI Platform",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "BerriAI LiteLLM"
+   ],
+   "id": "INV-0238",
+   "patched_through": "2026-06-30"
+  },
+  {
+   "category": "AI platform",
+   "subcategory": "Agent builder",
+   "vendor": "Langflow",
+   "product": "Langflow",
+   "version": "1.0.18",
+   "environment": "Business-unit AI pilots",
+   "count": 4,
+   "owner": "AI Platform",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Langflow",
+    "IBM Langflow"
+   ],
+   "id": "INV-0239",
+   "patched_through": "2026-06-30"
+  },
+  {
+   "category": "AI platform",
+   "subcategory": "ML lifecycle",
+   "vendor": "MLflow",
+   "product": "MLflow",
+   "version": "2.16.2",
+   "environment": "Model registry",
+   "count": 3,
+   "owner": "AI Platform",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "MLflow"
+   ],
+   "id": "INV-0240",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "AI platform",
+   "subcategory": "Distributed compute",
+   "vendor": "Ray-Project",
+   "product": "Ray",
+   "version": "2.37.0",
+   "environment": "Training and batch inference",
+   "count": 14,
+   "owner": "AI Platform",
+   "criticality": "high",
+   "internet_facing": false,
+   "match": [
+    "Ray-Project Ray",
+    "Anyscale Ray"
+   ],
+   "id": "INV-0241",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "AI platform",
+   "subcategory": "GPU cluster manager",
+   "vendor": "GPUStack",
+   "product": "GPUStack",
+   "version": "0.3.2",
+   "environment": "On-prem inference pilot",
+   "count": 1,
+   "owner": "AI Platform",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "GPUStack"
+   ],
+   "id": "INV-0242",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "AI platform",
+   "subcategory": "Data visualisation",
+   "vendor": "Grafana Labs",
+   "product": "Grafana Enterprise",
+   "version": "11.2.2",
+   "environment": "Platform and AI dashboards",
+   "count": 18,
+   "owner": "Observability Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Grafana Labs Grafana",
+    "Grafana"
+   ],
+   "id": "INV-0243",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Network monitoring",
+   "vendor": "SolarWinds",
+   "product": "Orion Platform / Network Performance Monitor",
+   "version": "2024.2.1",
+   "environment": "Global network monitoring",
+   "count": 18,
+   "owner": "Network Operations Centre",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "SolarWinds Orion",
+    "SolarWinds Network Performance Monitor"
+   ],
+   "id": "INV-0244",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "File transfer",
+   "vendor": "SolarWinds",
+   "product": "Serv-U MFT",
+   "version": "15.4.2",
+   "environment": "Retail supplier file drops",
+   "count": 2,
+   "owner": "Retail IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "SolarWinds Serv-U"
+   ],
+   "id": "INV-0245",
+   "patched_through": "2026-05-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Monitoring (acquired)",
+   "vendor": "Nagios",
+   "product": "Nagios XI",
+   "version": "2024R1.2",
+   "environment": "Logistics data centre",
+   "count": 2,
+   "owner": "Logistics IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Nagios Nagios XI"
+   ],
+   "id": "INV-0246",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Monitoring",
+   "vendor": "Zabbix",
+   "product": "Zabbix",
+   "version": "7.0.4",
+   "environment": "OT network monitoring",
+   "count": 4,
+   "owner": "OT Engineering",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Zabbix Frontend",
+    "Zabbix"
+   ],
+   "id": "INV-0247",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Monitoring",
+   "vendor": "Paessler",
+   "product": "PRTG Network Monitor",
+   "version": "24.3.100",
+   "environment": "EMEA offices",
+   "count": 3,
+   "owner": "EMEA IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Paessler PRTG"
+   ],
+   "id": "INV-0248",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Monitoring",
+   "vendor": "Progress",
+   "product": "WhatsUp Gold",
+   "version": "2024.0.1",
+   "environment": "Pharmacy stores",
+   "count": 1,
+   "owner": "Retail IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Progress WhatsUp Gold"
+   ],
+   "id": "INV-0249",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Remote monitoring (MSP)",
+   "vendor": "N-able",
+   "product": "N-central",
+   "version": "2024.5",
+   "environment": "Managed-service partner for clinics",
+   "count": 1,
+   "owner": "Healthcare IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "N-able N-central",
+    "N-able N-Central"
+   ],
+   "id": "INV-0250",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Remote monitoring (MSP)",
+   "vendor": "Kaseya",
+   "product": "VSA",
+   "version": "9.5.20",
+   "environment": "Dental clinic group (acquired)",
+   "count": 1,
+   "owner": "Healthcare IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Kaseya Virtual System/Server Administrator",
+    "Kaseya VSA"
+   ],
+   "id": "INV-0251",
+   "patched_through": "2021-07-02"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Remote support",
+   "vendor": "ConnectWise",
+   "product": "ScreenConnect",
+   "version": "24.2.3",
+   "environment": "Field engineering vendor access",
+   "count": 2,
+   "owner": "IT Service Desk",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "ConnectWise ScreenConnect"
+   ],
+   "id": "INV-0252",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Remote support",
+   "vendor": "SimpleHelp",
+   "product": "SimpleHelp",
+   "version": "5.5.7",
+   "environment": "Clinic IT contractor",
+   "count": 1,
+   "owner": "Healthcare IT",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "SimpleHelp"
+   ],
+   "id": "INV-0253",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Software licensing",
+   "vendor": "Cisco",
+   "product": "Smart Licensing Utility",
+   "version": "2.3.0",
+   "environment": "Network licensing",
+   "count": 2,
+   "owner": "Enterprise Networking",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Cisco Smart Licensing Utility"
+   ],
+   "id": "INV-0254",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "IT operations",
+   "subcategory": "Software distribution",
+   "vendor": "Siemens",
+   "product": "Software Center",
+   "version": "3.2",
+   "environment": "Plant engineering workstations",
+   "count": 4,
+   "owner": "Manufacturing IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Siemens Software Center"
+   ],
+   "id": "INV-0255",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "MFT",
+   "vendor": "Progress",
+   "product": "MOVEit Transfer",
+   "version": "2024.0.4",
+   "environment": "Partner and payroll file exchange",
+   "count": 4,
+   "owner": "Integration Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Progress MOVEit"
+   ],
+   "id": "INV-0256",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "MFT",
+   "vendor": "Fortra",
+   "product": "GoAnywhere MFT",
+   "version": "7.6.1",
+   "environment": "Bank statement exchange",
+   "count": 3,
+   "owner": "Integration Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Fortra GoAnywhere"
+   ],
+   "id": "INV-0257",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "MFT",
+   "vendor": "Cleo",
+   "product": "Harmony / VLTrader",
+   "version": "5.8.0.21",
+   "environment": "Logistics EDI",
+   "count": 4,
+   "owner": "Logistics IT",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Cleo Multiple Products",
+    "Cleo Harmony"
+   ],
+   "id": "INV-0258",
+   "patched_through": "2026-07-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "SFTP",
+   "vendor": "CrushFTP",
+   "product": "CrushFTP",
+   "version": "11.2.1",
+   "environment": "Marketing agency exchange",
+   "count": 1,
+   "owner": "Marketing Technology",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "CrushFTP"
+   ],
+   "id": "INV-0259",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "SFTP",
+   "vendor": "Wing FTP Server",
+   "product": "Wing FTP Server",
+   "version": "7.4.3",
+   "environment": "Plant data uploads",
+   "count": 1,
+   "owner": "Manufacturing IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Wing FTP Server"
+   ],
+   "id": "INV-0260",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "File sharing",
+   "vendor": "Citrix",
+   "product": "ShareFile Storage Zones Controller",
+   "version": "5.12.1",
+   "environment": "Legal document exchange",
+   "count": 2,
+   "owner": "Legal Technology",
+   "criticality": "high",
+   "internet_facing": true,
+   "match": [
+    "Citrix ShareFile"
+   ],
+   "id": "INV-0261",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "File sharing",
+   "vendor": "Gladinet",
+   "product": "CentreStack",
+   "version": "16.10",
+   "environment": "Clinic file sync (acquired)",
+   "count": 1,
+   "owner": "Healthcare IT",
+   "criticality": "medium",
+   "internet_facing": true,
+   "match": [
+    "Gladinet CentreStack",
+    "Gladinet Triofox"
+   ],
+   "id": "INV-0262",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "SFTP",
+   "vendor": "ProFTPD",
+   "product": "ProFTPD",
+   "version": "1.3.8b",
+   "environment": "Legacy Unix batch",
+   "count": 6,
+   "owner": "Core Banking Infrastructure",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "ProFTPD"
+   ],
+   "id": "INV-0263",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "File transfer",
+   "subcategory": "File transfer (Japan)",
+   "vendor": "Soliton Systems K.K",
+   "product": "FileZen",
+   "version": "5.0.10",
+   "environment": "Japan subsidiary",
+   "count": 1,
+   "owner": "APAC IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Soliton Systems K.K FileZen"
+   ],
+   "id": "INV-0264",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Backup",
+   "subcategory": "Backup",
+   "vendor": "Veeam",
+   "product": "Backup & Replication",
+   "version": "12.2.0.334",
+   "environment": "VMware and Hyper-V estates",
+   "count": 48,
+   "owner": "Backup and Recovery",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Veeam Backup"
+   ],
+   "id": "INV-0265",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Backup",
+   "subcategory": "Backup",
+   "vendor": "Commvault",
+   "product": "Commvault Platform / Command Center",
+   "version": "11.36",
+   "environment": "Databases and file servers",
+   "count": 22,
+   "owner": "Backup and Recovery",
+   "criticality": "crown_jewel",
+   "internet_facing": true,
+   "match": [
+    "Commvault Command Center",
+    "Commvault Web Server"
+   ],
+   "id": "INV-0266",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Backup",
+   "subcategory": "Backup (legacy)",
+   "vendor": "Veritas",
+   "product": "Backup Exec",
+   "version": "22.2",
+   "environment": "Small clinics",
+   "count": 30,
+   "owner": "Healthcare IT",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Veritas Backup Exec"
+   ],
+   "id": "INV-0267",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Backup",
+   "subcategory": "Backup (endpoints)",
+   "vendor": "Acronis",
+   "product": "Cyber Protect",
+   "version": "16",
+   "environment": "Executive laptops",
+   "count": 1,
+   "owner": "End User Computing",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Acronis Backup",
+    "Acronis Cyber Protect"
+   ],
+   "id": "INV-0268",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Backup",
+   "subcategory": "Backup (lab)",
+   "vendor": "NAKIVO",
+   "product": "Backup & Replication",
+   "version": "10.11",
+   "environment": "Research lab",
+   "count": 1,
+   "owner": "Research IT",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "NAKIVO Backup"
+   ],
+   "id": "INV-0269",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "Backup",
+   "subcategory": "Backup (cloud)",
+   "vendor": "Ahsay",
+   "product": "AhsayCBS",
+   "version": "9.5",
+   "environment": "Managed backup for franchisees",
+   "count": 1,
+   "owner": "Retail IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Ahsay AhsayCBS"
+   ],
+   "id": "INV-0270",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "PLCs",
+   "vendor": "Rockwell",
+   "product": "ControlLogix 5580 / FactoryTalk",
+   "version": "v34",
+   "environment": "Distribution centres, device plants",
+   "count": 1400,
+   "owner": "OT Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Rockwell Multiple Products",
+    "Rockwell Automation"
+   ],
+   "id": "INV-0271",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "PLCs",
+   "vendor": "Siemens",
+   "product": "SIMATIC S7-1500",
+   "version": "V3.1",
+   "environment": "Device manufacturing plants",
+   "count": 600,
+   "owner": "OT Engineering",
+   "criticality": "crown_jewel",
+   "internet_facing": false,
+   "match": [
+    "Siemens SIMATIC"
+   ],
+   "id": "INV-0272",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "SCADA (lab)",
+   "vendor": "OpenPLC",
+   "product": "ScadaBR",
+   "version": "1.2",
+   "environment": "OT training lab",
+   "count": 1,
+   "owner": "OT Engineering",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "OpenPLC ScadaBR"
+   ],
+   "id": "INV-0273",
+   "patched_through": "2024-01-01"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Building automation",
+   "vendor": "KNX Association",
+   "product": "KNX IP routers",
+   "version": "Spec 2.1",
+   "environment": "Headquarters building systems",
+   "count": 140,
+   "owner": "Facilities",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "KNX Association KNX"
+   ],
+   "id": "INV-0274",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "CCTV",
+   "vendor": "Hikvision",
+   "product": "DS-2CD IP cameras / NVRs",
+   "version": "V5.7.x",
+   "environment": "Warehouses (being replaced)",
+   "count": 6200,
+   "owner": "Corporate Security",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "Hikvision Multiple Products",
+    "Hikvision"
+   ],
+   "id": "INV-0275",
+   "patched_through": "2023-06-30"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "CCTV",
+   "vendor": "Dahua",
+   "product": "IP cameras",
+   "version": "V2.840",
+   "environment": "Acquired depots",
+   "count": 900,
+   "owner": "Corporate Security",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Dahua IP Camera"
+   ],
+   "id": "INV-0276",
+   "patched_through": "2023-01-01"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "CCTV",
+   "vendor": "GeoVision",
+   "product": "GV-IP cameras",
+   "version": "V1.10",
+   "environment": "Pharmacy stores",
+   "count": 1800,
+   "owner": "Corporate Security",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "GeoVision Multiple Devices"
+   ],
+   "id": "INV-0277",
+   "patched_through": "2024-01-01"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Conference cameras",
+   "vendor": "PTZOptics",
+   "product": "PT30X-NDI",
+   "version": "6.3.40",
+   "environment": "Boardrooms",
+   "count": 120,
+   "owner": "Collaboration Platforms",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "PTZOptics PT30X"
+   ],
+   "id": "INV-0278",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Weather stations",
+   "vendor": "Smartbedded",
+   "product": "Meteobridge",
+   "version": "6.1",
+   "environment": "Logistics hubs",
+   "count": 22,
+   "owner": "Fleet Technology",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "Smartbedded Meteobridge"
+   ],
+   "id": "INV-0279",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Access control",
+   "vendor": "ZKTeco",
+   "product": "BioTime readers",
+   "version": "2.0",
+   "environment": "Warehouses",
+   "count": 1400,
+   "owner": "Corporate Security",
+   "criticality": "medium",
+   "internet_facing": false,
+   "match": [
+    "ZKTeco"
+   ],
+   "id": "INV-0280",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Edge routers (stores)",
+   "vendor": "MikroTik",
+   "product": "RouterOS",
+   "version": "7.16",
+   "environment": "Franchise stores",
+   "count": 300,
+   "owner": "Retail IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "MikroTik RouterOS"
+   ],
+   "id": "INV-0281",
+   "patched_through": "2025-02-01"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Edge routers (stores)",
+   "vendor": "DrayTek",
+   "product": "Vigor 2927",
+   "version": "4.4.5.3",
+   "environment": "Franchise stores (EMEA)",
+   "count": 210,
+   "owner": "EMEA IT",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "DrayTek"
+   ],
+   "id": "INV-0282",
+   "patched_through": "2024-10-01"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Edge routers (home office)",
+   "vendor": "TP-Link",
+   "product": "Archer / Deco (provided to executives)",
+   "version": "Latest",
+   "environment": "Executive home offices",
+   "count": 400,
+   "owner": "Executive Support",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "TP-Link"
+   ],
+   "id": "INV-0283",
+   "patched_through": "2025-12-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Edge routers (home office)",
+   "vendor": "ASUS",
+   "product": "RT-AX88U Pro",
+   "version": "3.0.0.6.102",
+   "environment": "Executive home offices",
+   "count": 160,
+   "owner": "Executive Support",
+   "criticality": "low",
+   "internet_facing": true,
+   "match": [
+    "ASUS Routers",
+    "ASUS RT-AX"
+   ],
+   "id": "INV-0284",
+   "patched_through": "2026-08-31"
+  },
+  {
+   "category": "OT and IoT",
+   "subcategory": "Streaming (lobby)",
+   "vendor": "Plex",
+   "product": "Plex Media Server",
+   "version": "1.41",
+   "environment": "Lobby displays (unapproved)",
+   "count": 3,
+   "owner": "Facilities",
+   "criticality": "low",
+   "internet_facing": false,
+   "match": [
+    "Plex Media Server"
+   ],
+   "id": "INV-0285",
+   "patched_through": "2023-01-01"
+  }
+ ]
+}

@@ -2,8 +2,8 @@
 
 What it answers:
   - Which actively exploited vulnerabilities touch *our* technology?
-    The org's stack comes from ``SOC_ORG_TECH_STACK`` in ``.env``
-    (comma separated, e.g. "Microsoft Exchange, Fortinet FortiOS, Citrix").
+    The org's stack comes from ``threatdesk.inventory`` (tech-stack CSV,
+    inventory JSON, or the THREATDESK_TECH_STACK comma list).
   - What is new and loud right now? KEV additions in the last 14 days,
     plus CVEs the news feeds keep mentioning (``threat_feed``).
   - Search by technology, CVE id or ATT&CK technique.
@@ -16,8 +16,8 @@ Sources (public; the NVD key is optional, from ``NVD_API_KEY``):
   - NIST NVD CVE API 2.0, per-CVE and keyword search, 24 h TTL
 
 Remediation tracking is stored locally in ``config/vuln_tracking.json``
-(status, owner, ticket, notes, history). It is the seam for Jira,
-ServiceNow or Glean later: each record carries ``provider`` and
+(status, owner, ticket, notes, history). It is the seam for a ServiceNow
+(or Jira) sync later: each record carries ``provider`` and
 ``external_ref`` so a sync job can own the status instead of a human.
 
 Requests send only CVE ids and search words. No org data leaves the
@@ -37,6 +37,8 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
+
+from threatdesk import inventory
 
 log = logging.getLogger(__name__)
 
@@ -244,60 +246,34 @@ def _nvd_summary(c: dict[str, Any]) -> dict[str, Any]:
 
 # ── Org inventory ────────────────────────────────────────────────────
 #
-# Two sources, merged:
-#   SOC_ORG_INVENTORY   path to a JSON inventory (see
-#                       scenarios/org-inventory/build_inventory.py): one
-#                       record per product with version, environment,
-#                       asset count, owner, criticality, internet exposure
-#                       and the KEV names it matches.
-#   SOC_ORG_TECH_STACK  quick comma-separated product list; each becomes a
-#                       bare inventory record.
+# Sources and precedence live in threatdesk.inventory (tech-stack CSV >
+# inventory JSON > THREATDESK_TECH_STACK list). Synthetic demo inventory:
+# samples/meridian-global.{json,csv}.
 
 CRIT_ORDER = {"crown_jewel": 0, "high": 1, "medium": 2, "low": 3}
 
 
 def org_stack() -> list[str]:
-    raw = os.environ.get("SOC_ORG_TECH_STACK", "")
-    return [t.strip() for t in re.split(r"[,;\n]", raw) if t.strip()][:100]
+    """Plain product terms from THREATDESK_TECH_STACK (SOC_ORG_TECH_STACK accepted)."""
+    return inventory.env_terms()
 
 
 def _inventory_path() -> Path | None:
-    raw = os.environ.get("SOC_ORG_INVENTORY", "").strip()
-    if not raw:
-        return None
-    p = Path(raw)
-    return p if p.is_absolute() else REPO_ROOT / p
+    """The file-backed inventory source shown in the UI: the tech-stack CSV
+    when present, else the inventory JSON."""
+    c = inventory.csv_path()
+    return c if c.exists() else inventory.json_path()
 
 
 _inv_cache: dict[str, Any] = {"key": None, "assets": []}
 
 
 def load_inventory() -> list[dict[str, Any]]:
-    path = _inventory_path()
-    stack = org_stack()
-    try:
-        mtime = path.stat().st_mtime if path else None
-    except OSError:
-        mtime = None
-    key = (str(path), mtime, tuple(stack))
-    if _inv_cache["key"] == key:
-        return _inv_cache["assets"]
-    assets: list[dict[str, Any]] = []
-    if path and mtime:
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-            for a in data.get("assets") or []:
-                if isinstance(a, dict) and a.get("product"):
-                    a = dict(a)
-                    a.setdefault("match", [f"{a.get('vendor', '')} {a['product']}".strip()])
-                    assets.append(a)
-        except (OSError, ValueError) as e:
-            log.warning("vulns: inventory %s unreadable: %s", path, e)
-    for i, term in enumerate(stack, 1):
-        assets.append({"id": f"ENV-{i:03d}", "category": "Listed in .env", "subcategory": "", "vendor": "",
-                       "product": term, "version": "", "environment": "", "count": None, "owner": "",
-                       "criticality": "medium", "internet_facing": False, "match": [term]})
-    _inv_cache.update(key=key, assets=assets, index=None)
+    """Merged org inventory (tech-stack CSV > inventory JSON > env list)."""
+    assets = inventory.load_assets()
+    key = inventory.cache_key()
+    if _inv_cache["key"] != key:
+        _inv_cache.update(key=key, assets=assets, index=None)
     return assets
 
 
