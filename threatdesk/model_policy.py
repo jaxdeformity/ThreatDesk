@@ -2,9 +2,9 @@
 
 Every triage turn goes through ``run_turn_with_fallback``.
 If the primary model refuses the turn (Anthropic usage-policy / cyber
-safeguard refusal), the same prompt is retried once on the cyber-exempt
-fallback model. Fallback is per turn only: the caller passes the primary
-again on the next turn, so the incident re-upgrades automatically.
+safeguard refusal) and a fallback is configured (runtime setting
+``cyber_fallback_enabled``), the same prompt is retried once on the
+fallback model. Otherwise a ``refusal_unresolved`` event is emitted.
 
 Refusal signals we act on (anything else is treated as a normal turn):
 - ``kind == "refusal"``, emitted by the runner when the API returns
@@ -26,10 +26,6 @@ CYBER_FALLBACK_MODEL = "claude-opus-4-7"
 
 DEFAULT_TRIAGE_MODEL = "claude-opus-5-5"
 
-DEFAULT_COORDINATOR_MODEL = "claude-fable-5-2"
-DEFAULT_SCRIBE_MODEL = "claude-haiku-5-5"
-DEFAULT_SPECIALIST_MODEL = "claude-sonnet-5-5"
-DEFAULT_REPORT_MODEL = "claude-opus-5-5"
 
 SUPPORTED_MODELS: list[dict[str, str]] = [
     {

@@ -1,22 +1,13 @@
-"""On-the-fly model selection for the specialist subagents.
+"""Model selection for the agents under ``.claude/agents/*.md``.
 
-The 14 specialists under ``.claude/agents/*.md`` carry their model in a
-frontmatter ``model:`` line. Unlike the coordinator/Scribe (whose model
-is read from ``runtime-settings.json`` at incident launch), the
-specialists are spawned by the coordinator via the Task tool, which
-reads each agent's frontmatter **fresh on every spawn**. That means a
-frontmatter edit takes effect on the *next* Task spawn with **no server
-reboot** — this module is the safe, validated lever for that edit so the
-operator never has to hand-edit markdown.
-
-Semantics match the coordinator/Scribe knob: a change applies to agent
-spawns that happen *after* it lands. An already-running specialist
-subprocess keeps the model it launched with; nothing flaps in-flight.
+Each agent (ThreatDesk ships one: ``threat-triage``) carries its model in
+a frontmatter ``model:`` line, which Claude Code reads fresh on every run.
+This module is the validated lever Settings uses to change it: the next
+triage uses the new model; a run already in flight keeps its model.
 
 Writes are surgical (only the frontmatter ``model:`` line is touched,
 everything else byte-preserved) and atomic (temp file + ``os.replace``).
-Line endings are preserved (``newline=""``) so we don't rewrite LF→CRLF
-on Windows checkouts.
+Line endings are preserved (``newline=""``).
 """
 
 from __future__ import annotations

@@ -15,7 +15,7 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  health: () => req<{ status: string }>('/api/health'),
+  health: () => req<{ ok: boolean; product: string; version: string }>('/api/health'),
   getRuntimeSettings: () =>
     req<{
       settings: RuntimeSettings
@@ -203,7 +203,6 @@ export interface RuntimeSettings {
   cyber_fallback_enabled: boolean
   cyber_fallback_model: string
   use_subscription: boolean
-  runner_backend: 'sdk' | 'cli'
 }
 
 export interface TriageResult {

@@ -73,7 +73,7 @@ SOURCES: list[dict[str, str]] = [
     },
     # Cyber Security Hub (industry desk). A focused, high-signal subset of
     # https://www.cshub.com/rss-feeds — the news desk plus the three
-    # category feeds that map to incident work. The marketing feeds
+    # category feeds that map to threat-ops work. The marketing feeds
     # (webinars, whitepapers, jobs, podcasts) are intentionally omitted.
     {
         "id": "cshub-news",
@@ -104,6 +104,7 @@ SOURCES: list[dict[str, str]] = [
 KEV_URL = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
 
 TTL_SECONDS = 30 * 60          # 30 min
+OUTAGE_BACKOFF_SECONDS = 120   # retry delay after every source failed
 FETCH_TIMEOUT = 12              # seconds per source
 USER_AGENT = "ThreatDesk/0.1"
 
@@ -217,6 +218,7 @@ class FeedCache:
     kev_cves: set[str] = field(default_factory=set)
     source_status: dict[str, dict[str, Any]] = field(default_factory=dict)
     last_refreshed_at: float = 0.0
+    last_failed_at: float = 0.0
     refreshing: bool = False
 
 
@@ -231,7 +233,10 @@ async def get_feed(force: bool = False) -> dict[str, Any]:
     when the TTL expires; subsequent calls within the TTL are cheap
     (just return the cached payload)."""
     now = time.time()
-    if force or now - _cache.last_refreshed_at > TTL_SECONDS:
+    # After a total outage, wait OUTAGE_BACKOFF before refetching so an
+    # offline box doesn't pay every source's timeout on each request.
+    backing_off = now - _cache.last_failed_at < OUTAGE_BACKOFF_SECONDS
+    if force or (now - _cache.last_refreshed_at > TTL_SECONDS and not backing_off):
         async with _cache_lock:
             # Double-check under the lock, another caller may have
             # just refreshed while we waited.
@@ -278,6 +283,16 @@ async def _refresh() -> None:
         log.warning("threat_feed: KEV fetch failed: %s", kev_result)
     elif kev_result:
         kev_cves = kev_result
+
+    # Total outage (offline demo box, proxy hiccup): keep serving the last
+    # good feed, record the failures, and leave last_refreshed_at alone so
+    # the next request retries instead of pinning an empty feed for a TTL.
+    if not items and not any(s["ok"] for s in source_status.values()):
+        _cache.source_status = source_status
+        _cache.refreshing = False
+        _cache.last_failed_at = time.time()
+        log.warning("threat_feed: every source failed; keeping %d cached items", len(_cache.items))
+        return
 
     # Correlation pass
     cve_index: dict[str, list[int]] = {}

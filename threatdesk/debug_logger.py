@@ -1,26 +1,16 @@
-"""Structured JSONL debug logger for diagnosing live-orchestrator runs.
+"""Structured JSONL debug logger for triage runs.
 
-Every noteworthy event in a live session gets one line of JSON in
-``logs/<incident_id>.jsonl``. Designed to be grep-friendly, tailable,
-and small enough that we can paste the whole thing into a chat when
-something breaks.
+Each triage gets ``logs/<triage_id>.jsonl``: one JSON line per
+noteworthy event (``triage_created``, ``subprocess_spawned`` with the
+sanitized claude argv, ``subprocess_event``, ``subprocess_exited`` with
+exit code + stderr tail, errors with traceback). Grep-friendly and
+tailable.
 
-Log entries include:
-- ``incident_launched``, packet state at launch + staging content
-- ``subprocess_spawned``, claude CLI argv (sanitized), cwd, pid
-- ``subprocess_event``, every runner event, raw
-- ``subprocess_exited``, exit code + stderr tail + duration
-- ``packet_write``, before/after content hash so diffs are reconstructible
-- ``api_request``, method + path + status + duration_ms + sanitized body
-- ``operator_input``, content + target_agent + incident
-- ``sse_connect`` / ``sse_disconnect``, subscriber lifecycle
-- ``error``, uncaught exceptions with traceback
-
-Secrets are scrubbed, any env var name containing KEY|TOKEN|SECRET is
+Secrets are scrubbed: any env var name containing KEY|TOKEN|SECRET is
 redacted, and the ``--append-system-prompt`` value is truncated to the
-first 200 chars (prompts are not secret but they're long).
+first 200 chars.
 
-Also mirrors to stderr when ``SOC_DEBUG=1``.
+Also mirrors to stderr when ``THREATDESK_DEBUG=1``.
 """
 
 from __future__ import annotations
@@ -43,74 +33,74 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 _MIRROR_TO_STDERR = os.environ.get("THREATDESK_DEBUG", "").lower() in ("1", "true", "yes")
 
 # Serialize writes per-file so concurrent event emitters don't interleave
-# half-lines. Per-incident lock keyed by incident_id.
+# half-lines. Per-log lock keyed by log_id.
 _locks: dict[str, threading.Lock] = {}
 _locks_lock = threading.Lock()
 
 
-def _lock_for(incident_id: str) -> threading.Lock:
+def _lock_for(log_id: str) -> threading.Lock:
     with _locks_lock:
-        lk = _locks.get(incident_id)
+        lk = _locks.get(log_id)
         if lk is None:
             lk = threading.Lock()
-            _locks[incident_id] = lk
+            _locks[log_id] = lk
         return lk
 
 
-def _log_path(incident_id: str) -> Path:
-    # Keep it simple: one file per incident, lifetime of the incident.
-    # Collisions would require the same incident id to exist twice
+def _log_path(log_id: str) -> Path:
+    # Keep it simple: one file per triage, lifetime of the triage.
+    # Collisions would require the same triage id to exist twice
     # (the ID contains a timestamp + title slug, so basically never).
-    safe = incident_id.replace("/", "_").replace("\\", "_")
+    safe = log_id.replace("/", "_").replace("\\", "_")
     return LOG_DIR / f"{safe}.jsonl"
 
 
-def log(incident_id: str, kind: str, **fields: Any) -> None:
-    """Write one line of structured JSON to the per-incident log file.
+def log(log_id: str, kind: str, **fields: Any) -> None:
+    """Write one line of structured JSON to the per-triage log file.
 
     ``kind`` is the event discriminator. Additional fields are merged
     into the record. ``ts`` is added automatically.
     """
-    if not incident_id:
+    if not log_id:
         return
     record: dict[str, Any] = {
         "ts": datetime.now(timezone.utc).isoformat(timespec="milliseconds"),
-        "incident_id": incident_id,
+        "log_id": log_id,
         "kind": kind,
     }
     record.update(_sanitize(fields))
     line = json.dumps(record, default=str, ensure_ascii=False)
-    path = _log_path(incident_id)
+    path = _log_path(log_id)
     try:
-        with _lock_for(incident_id):
+        with _lock_for(log_id):
             with path.open("a", encoding="utf-8") as f:
                 f.write(line + "\n")
     except OSError as e:
         # Best-effort logging, never crash the caller.
         sys.stderr.write(f"[debug_logger] write failed: {e}\n")
     if _MIRROR_TO_STDERR:
-        sys.stderr.write("[soc] " + line + "\n")
+        sys.stderr.write("[threatdesk] " + line + "\n")
         sys.stderr.flush()
 
 
-def log_exception(incident_id: str, where: str) -> None:
+def log_exception(log_id: str, where: str) -> None:
     """Capture the current exception as an ``error`` log entry."""
     log(
-        incident_id,
+        log_id,
         "error",
         where=where,
         exc=traceback.format_exc(),
     )
 
 
-def read_log(incident_id: str, tail: int | None = None) -> list[dict[str, Any]]:
-    """Read (up to ``tail`` most recent) log entries for an incident.
+def read_log(log_id: str, tail: int | None = None) -> list[dict[str, Any]]:
+    """Read (up to ``tail`` most recent) log entries for a triage.
 
     Returns a list of parsed JSON objects. Malformed lines are skipped
     with a ``_malformed`` entry in their place so we don't silently drop
     diagnostic context.
     """
-    path = _log_path(incident_id)
+    path = _log_path(log_id)
     if not path.exists():
         return []
     try:
@@ -131,11 +121,10 @@ def read_log(incident_id: str, tail: int | None = None) -> list[dict[str, Any]]:
     return out
 
 
-def list_incident_log_files() -> list[dict[str, Any]]:
-    """Return a summary of every ``<incident>.jsonl`` file on disk.
+def list_log_files() -> list[dict[str, Any]]:
+    """Return a summary of every ``<triage>.jsonl`` file on disk.
 
-    Used by the dashboard's debug drawer to offer a picker when the
-    current incident isn't the one the operator wants to inspect.
+    For ad-hoc inspection of past triage runs.
     """
     out: list[dict[str, Any]] = []
     if not LOG_DIR.exists():
@@ -146,7 +135,7 @@ def list_incident_log_files() -> list[dict[str, Any]]:
         except OSError:
             continue
         out.append({
-            "incident_id": p.stem,
+            "log_id": p.stem,
             "path": str(p),
             "size_bytes": stat.st_size,
             "mtime": datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc).isoformat(timespec="seconds"),
@@ -203,15 +192,3 @@ def _sanitize_list(lst: list[Any]) -> list[Any]:
 def _looks_secret(key: str) -> bool:
     up = key.upper()
     return any(s in up for s in _SECRET_KEY_SUBSTRINGS)
-
-
-# ── Convenience helpers ────────────────────────────────────────────────
-
-def packet_content_hash(packet: dict[str, Any]) -> str:
-    """Stable SHA-256 of a packet. Handy for logging diffs without
-    serializing the full contents on every write."""
-    try:
-        body = json.dumps(packet, sort_keys=True, default=str).encode("utf-8")
-    except TypeError:
-        body = repr(packet).encode("utf-8", errors="replace")
-    return hashlib.sha256(body).hexdigest()

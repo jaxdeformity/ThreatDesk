@@ -6,19 +6,17 @@ by line, and yields typed events. Each event describes one observable
 thing Claude did: started a session, thought, called a tool, got a
 tool result, emitted text, finished.
 
-Consumers (the live orchestrator, the SSE stream handler) iterate the
-event stream and:
-- append entries to ``agent_activity_stream[]`` on the incident packet
-- rebroadcast to the dashboard via SSE
-- decide when the turn is done (on ``session_complete``) and what's next
+The triage orchestrator iterates the event stream, appends each event
+to the triage's ``events.jsonl``, rebroadcasts it to the UI via SSE,
+and treats ``session_complete`` as the end of the run.
 
 ## Usage
 
 ```python
 runner = ClaudeRunner()
 async for event in runner.run_turn(
-    system_prompt_append=open(".claude/agents/incident-commander.md").read(),
-    user_prompt="Read the packet and take the next action.",
+    system_prompt_append="Read .claude/agents/threat-triage.md and follow it.",
+    user_prompt="Triage request TRG-…; input brief at triages/TRG-…/input.json.",
     cwd=REPO_ROOT,
 ):
     print(event)
@@ -29,9 +27,7 @@ async for event in runner.run_turn(
 - The subprocess runs as the user who launched ThreatDesk. If that
   user is root, Claude refuses ``--dangerously-skip-permissions`` and we
   surface the error. Don't ``sudo`` this tool.
-- ``--add-dir`` is scoped to the incident directory + the repo root.
-  Evidence files must live under ``incidents/<id>/evidence/`` to be
-  reachable by default.
+- ``--add-dir`` is scoped to the triage directory + the repo root.
 - Stdout is consumed in a non-blocking loop so a malicious/malformed
   output stream can't hang the server indefinitely; we also enforce a
   configurable per-turn timeout.
@@ -139,7 +135,7 @@ class RunnerConfig:
 class ClaudeRunner:
     """Async wrapper around the ``claude`` CLI.
 
-    Instances are cheap, create one per incident (or even per turn).
+    Instances are cheap, create one per triage run.
     The runner keeps no state between calls beyond the resolved binary
     path and config. Sessions are continued via the ``session_id``
     parameter to ``run_turn``.
@@ -207,7 +203,7 @@ class ClaudeRunner:
         add_dirs: list[Path | str] | None = None,
         dangerous: bool = True,
         model: str | None = None,
-        incident_id_for_log: str | None = None,
+        log_id: str | None = None,
         env_overrides: dict[str, str] | None = None,
         pool_key: str | None = None,  # SDK backend only; the CLI spawns per turn
     ) -> AsyncIterator[dict[str, Any]]:
@@ -261,9 +257,9 @@ class ClaudeRunner:
         args += self.config.extra_args
 
         # Debug-log the spawn (argv gets sanitized, append-system-prompt is truncated).
-        if incident_id_for_log:
+        if log_id:
             debug_logger.log(
-                incident_id_for_log,
+                log_id,
                 "subprocess_spawning",
                 argv=args,
                 cwd=str(cwd_path),
@@ -293,15 +289,15 @@ class ClaudeRunner:
                 limit=self.config.stdout_line_limit,
             )
         except OSError as e:
-            if incident_id_for_log:
-                debug_logger.log(incident_id_for_log, "subprocess_spawn_failed", error=str(e))
+            if log_id:
+                debug_logger.log(log_id, "subprocess_spawn_failed", error=str(e))
             yield {"kind": "error", "ts": _now_iso(),
                    "message": f"failed to spawn claude: {e}"}
             return
 
-        if incident_id_for_log:
+        if log_id:
             debug_logger.log(
-                incident_id_for_log,
+                log_id,
                 "subprocess_spawned",
                 pid=proc.pid,
             )
@@ -376,7 +372,7 @@ class ClaudeRunner:
         # Stop and the orchestrator breaks out of `async for event in
         # run_turn(...)`. Without the finally, GeneratorExit unwinds past
         # the spawn and the `claude` process orphans, continuing to run
-        # tools and mutate the incident packet after the human said stop.
+        # tools and keep writing files after the human said stop.
         try:
             # Apply the overall timeout via wait_for on the entire read loop
             try:
@@ -399,9 +395,9 @@ class ClaudeRunner:
             spawn_end = asyncio.get_event_loop().time()
             stderr_text = stderr_bytes.decode("utf-8", errors="replace") if stderr_bytes else ""
 
-            if incident_id_for_log:
+            if log_id:
                 debug_logger.log(
-                    incident_id_for_log,
+                    log_id,
                     "subprocess_exited",
                     pid=proc.pid,
                     exit_code=rc,
@@ -423,8 +419,8 @@ class ClaudeRunner:
                 try:
                     proc.kill()
                     await proc.wait()
-                    if incident_id_for_log:
-                        debug_logger.log(incident_id_for_log, "subprocess_killed_on_close", pid=proc.pid)
+                    if log_id:
+                        debug_logger.log(log_id, "subprocess_killed_on_close", pid=proc.pid)
                 except ProcessLookupError:
                     pass
 
@@ -527,8 +523,8 @@ def _translate_event(
         return out
 
     # Housekeeping streams (system hook/status messages, rate-limit
-    # pings) were ~55% of agent_activity.jsonl and woke the Scribe for
-    # nothing. They stay in the debug log (subprocess_event) only.
+    # pings) are noise in the triage stream. They stay in the debug log
+    # (subprocess_event) only.
     if t in _SILENT_EVENT_TYPES:
         return out
 

@@ -31,8 +31,6 @@ DEFAULTS: dict[str, Any] = {
     # True: agents get a blank API key and run on the logged-in Claude
     # subscription (demo machines).
     "use_subscription": False,
-    # Agent turn backend: "cli" = one `claude -p` per triage.
-    "runner_backend": "cli",
 }
 
 
@@ -61,8 +59,6 @@ def save(partial: dict[str, Any]) -> dict[str, Any]:
             cur[key] = DEFAULTS[key]
     cur["cyber_fallback_enabled"] = bool(cur["cyber_fallback_enabled"])
     cur["use_subscription"] = bool(cur["use_subscription"])
-    if cur.get("runner_backend") not in ("sdk", "cli"):
-        cur["runner_backend"] = DEFAULTS["runner_backend"]
     SETTINGS_PATH.parent.mkdir(parents=True, exist_ok=True)
     tmp = SETTINGS_PATH.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(cur, indent=2), encoding="utf-8")

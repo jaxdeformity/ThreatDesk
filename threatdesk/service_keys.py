@@ -72,9 +72,9 @@ _BY_ID = {c["id"]: c for c in CATALOG}
 _ENV_RX = re.compile(r"^[A-Z][A-Z0-9_]{2,63}$")
 # Never let this store set variables that change how agents authenticate or run.
 _FORBIDDEN_ENV = {"ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_BASE_URL", "OPENAI_API_KEY",
-                  "PATH", "PYTHONPATH", "HOME", "USERPROFILE", "APPDATA", "SOC_AGENT_BILLING"}
+                  "PATH", "PYTHONPATH", "HOME", "USERPROFILE", "APPDATA"}
 
-# Names HoneyHive (and `Name: key` notes) use -> our ids.
+# Key names seen in secrets files and `Name: key` notes -> our ids.
 ALIASES = {"vt": "virustotal", "virustotal": "virustotal", "abuseipdb": "abuseipdb", "greynoise": "greynoise",
            "shodan": "shodan", "urlscan": "urlscan", "wigle": "wigle", "otx": "otx", "alienvault": "otx",
            "abusech": "abusech", "abuse.ch": "abusech", "censys": "censys", "securitytrails": "securitytrails",
@@ -197,7 +197,7 @@ def load_into_environment() -> list[str]:
 
 
 def import_file(path: Path) -> list[str]:
-    """Import from a HoneyHive ``data/secrets.json`` (flat {name: key}) or a
+    """Import from a flat {name: key} ``secrets.json`` or a
     ``Name: key`` notes file. Fills only keys that are not set. Returns ids."""
     text = path.read_text(encoding="utf-8", errors="ignore")
     pairs: list[tuple[str, str]] = []

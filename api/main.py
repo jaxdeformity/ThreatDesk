@@ -157,14 +157,13 @@ async def put_environment(req: EnvironmentUpdateRequest) -> dict[str, Any]:
     return {"ok": True, "path": str(ENV_CONFIG_PATH), "source": "custom"}
 
 
-# ─── Velociraptor / RTR ───────────────────────────────────────────────
+# ─── Runtime settings (triage model, billing) ────────────────────────
 
 class RuntimeSettingsPayload(BaseModel):
     triage_model: str | None = None
     cyber_fallback_enabled: bool | None = None
     cyber_fallback_model: str | None = None
     use_subscription: bool | None = None
-    runner_backend: str | None = Field(None, pattern="^(sdk|cli)$")
 
 
 @app.get("/api/settings/runtime")
@@ -203,7 +202,9 @@ class ProviderUpsertPayload(BaseModel):
     endpoint: str | None = None
     secret: str | None = None
     default_model: str | None = None
-    validate: bool = True
+    # "validate" on the wire; renamed in Python so it doesn't shadow BaseModel.validate.
+    validate_on_save: bool = Field(True, alias="validate")
+    model_config = {"populate_by_name": True}
 
 
 class McpEnvValue(BaseModel):
@@ -241,11 +242,9 @@ async def get_ai_config() -> dict[str, Any]:
     }
 
 
-# ─── Specialist agent models (frontmatter, read per Task spawn) ────────
-# Unlike the coordinator/Scribe knob above, these live in each agent's
-# .claude/agents/*.md frontmatter, which Claude Code re-reads on every
-# Task spawn — so a change here applies to the next specialist spawn with
-# no server reboot. Same flap-free semantics: in-flight subprocesses keep
+# ─── Agent models (frontmatter) ───────────────────────────────────────
+# The model line in .claude/agents/*.md frontmatter, re-read by Claude Code
+# on every run: a change applies to the next triage; in-flight runs keep
 # the model they launched with.
 
 
@@ -275,7 +274,7 @@ async def upsert_ai_provider(req: ProviderUpsertPayload) -> dict[str, Any]:
         default_model=req.default_model,
     )
     out: dict[str, Any] = {"ok": True, "provider": redacted}
-    if req.validate:
+    if req.validate_on_save:
         ok, err = ai_config.validate_provider(req.id)
         out["validated"] = ok
         out["validation_error"] = err
@@ -396,7 +395,7 @@ async def delete_custom_service_key(sid: str) -> dict[str, Any]:
 
 @app.post("/api/settings/service-keys/import")
 async def import_service_keys(req: ServiceKeyImportPayload) -> dict[str, Any]:
-    """Import from a HoneyHive data/secrets.json or a `Name: key` notes
+    """Import from a flat {name: key} secrets.json or a `Name: key` notes
     file on this machine. Only fills empty slots; returns service ids,
     never values."""
     p = Path(req.path.strip().strip('"'))
@@ -412,7 +411,7 @@ async def import_service_keys(req: ServiceKeyImportPayload) -> dict[str, Any]:
 #
 # A responder pastes a URL, a
 # threat name, a suspicious file, or free text, the threat-triage agent
-# produces a report + structured result. No packet mutations. The user
+# produces a report + structured result.
 
 @app.post("/api/triage")
 async def create_triage_endpoint(

@@ -45,10 +45,8 @@ Three sections:
 3. ``agent_routes`` — per-agent provider+model overrides::
 
        {
-         "default":           {"provider": "anthropic", "model": "claude-sonnet-4-6"},
-         "investigative-lead":{"provider": "anthropic", "model": "claude-opus-4-7"},
-         "scribe":            {"provider": "anthropic", "model": "claude-haiku-4-5-20251001"},
-         ...
+         "default":       {"provider": "anthropic", "model": "claude-opus-5-5"},
+         "threat-triage": {"provider": "anthropic", "model": "claude-opus-5-5"}
        }
 """
 from __future__ import annotations

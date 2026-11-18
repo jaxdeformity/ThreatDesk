@@ -29,7 +29,7 @@ Every dependency on SOC-in-a-Box found during the carve-out (2026-11-18), and ho
 
 | Dependency | Why | Alternative if it's blocked in the enterprise |
 |---|---|---|
-| Claude Code CLI + `claude-agent-sdk` | Runs the triage agent (tools: WebFetch, WebSearch, Read/Write, Bash) | Point it at Bedrock/Vertex via env vars, or replace `claude_runner` with a direct Messages API tool-use loop (more code; loses Claude Code's built-in web tools). |
+| Claude Code CLI | Runs the triage agent (tools: WebFetch, WebSearch, Read/Write, Bash) | Point it at Bedrock/Vertex via env vars, or replace `claude_runner` with a direct Messages API tool-use loop (more code; loses Claude Code's built-in web tools). |
 | `--dangerously-skip-permissions` | Unattended agent runs | Explicit `--allowedTools` list (see README, "Before production"). |
 | Windows DPAPI (`ai_config`, `service_keys`) | Secret storage at rest | OS keyring (`keyring` package) or an enterprise vault, if moved off Windows. |
 | `curl`, `jq` | Agent shell steps | `curl` ships with Windows; `winget install jqlang.jq`, or have the agent use WebFetch / Python for the environment read. |

@@ -59,7 +59,7 @@ class Observation:
     source: str                 # "triage"
     id: str                     # INC-… or TRG-…
     summary: str                # triage.headline
-    ioc_id: str | None = None   # local packet-level id (e.g. "I7")
+    ioc_id: str | None = None   # id the triage gave the IOC, if any
     disposition: str | None = None
     notes: str | None = None
     evidence_refs: list[str] = field(default_factory=list)

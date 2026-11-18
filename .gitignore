@@ -16,6 +16,6 @@ config/runtime-settings.json
 config/tech-stack.csv
 config/tech-stack.csv.bak
 config/inventory.json
-# frontend
+# frontend (web-dist/ is committed: demo machines need no Node)
 web/node_modules/
-web-dist/
+Start-ThreatDesk.cmd

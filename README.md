@@ -11,26 +11,65 @@ ThreatDesk was carved out of SOC-in-a-Box (2026-11-18). It contains SOC-in-a-Box
 | **Intel** | Every IOC from every triage, de-duplicated and searchable. You can enrich it on demand (VirusTotal, URLhaus, ThreatFox, AbuseIPDB) and export it to MISP, either per triage or in bulk. |
 | **Settings** | Technology inventory (tech-stack CSV upload), environment profile, triage model and billing, threat-intel API keys, AI providers. |
 
-## Prerequisites (Windows)
+## Install on a demo machine (Windows 10/11)
 
-- Python 3.11+
-- Node 20+ (only to build the UI)
-- [Claude Code CLI](https://docs.claude.com/claude-code) on `PATH` (`npm i -g @anthropic-ai/claude-code`). The triage agent runs through it.
-- `curl` and `jq` on `PATH`. The agent uses them. `curl` ships with Windows 10+; install `jq` with `winget install jqlang.jq`.
+**1. Get the code.** The repo is private, so sign in to GitHub on that machine first. Use either option:
 
-## Install and run
+- **With git:** run `gh auth login` (or sign in through Git for Windows), then:
+  ```powershell
+  git clone https://github.com/jaxdeformity/threatdesk.git ThreatDesk
+  cd ThreatDesk
+  ```
+- **Without git:** on github.com/jaxdeformity/threatdesk, use **Code → Download ZIP**, extract it, and open a terminal in the folder.
+
+**2. Install.**
 
 ```powershell
-git clone <this repo> ThreatDesk; cd ThreatDesk
-python -m pip install -e .[test]
-cd web; npm install; npm run build; cd ..
-copy .env.example .env        # then edit (see below)
-threatdesk --open             # http://127.0.0.1:8444
+.\install.cmd -Demo -InstallPrereqs
 ```
 
-`python -m threatdesk.serve` works without the editable install. The port is `THREATDESK_PORT`, default 8444, so it runs alongside SOC-in-a-Box on 8443.
+- `-Demo` loads the bundled synthetic Fortune-50 inventory, so the Vulns tab is full on first launch.
+- `-InstallPrereqs` uses winget to install anything missing: Python 3.12, jq, Node LTS and the Claude Code CLI. Leave it off if those are already installed.
 
-For dev with hot reload: run `threatdesk --reload` in one shell and `cd web; npm run dev` in another (Vite on :5173, proxying `/api` to :8444).
+The installer creates `.venv`, installs ThreatDesk, writes `.env`, and adds `Start-ThreatDesk.cmd` plus a **ThreatDesk** desktop shortcut. It then opens http://127.0.0.1:8444.
+
+The UI ships prebuilt in `web-dist/`, so the demo machine does not need Node unless you rebuild the UI.
+
+**3. Sign the triage agent in (once).** Either option works:
+- Run `claude` in a terminal and log in with a Claude account.
+- Paste an Anthropic API key into **Settings → AI providers**.
+
+Vulns, Intel and the threat feed work without this. Only Triage needs it.
+
+**4. Demo.** Start it any time from the desktop shortcut. To update the demo machine later, run `git pull`, then `.\install.cmd -NoLaunch`.
+
+| Option | Effect |
+|---|---|
+| `-Demo` | Inventory = `samples/meridian-global.csv` |
+| `-InstallPrereqs` | winget/npm install of missing prerequisites |
+| `-Port 9000` | Serve on another port (default 8444) |
+| `-NoLaunch` | Install only |
+| `-NoShortcut` | No desktop shortcut |
+
+Network needs: outbound HTTPS to CISA, FIRST (EPSS), NIST NVD, the news RSS feeds, and Anthropic (for triage). Behind a proxy, set `HTTPS_PROXY` before installing and launching.
+
+### Prerequisites the installer checks
+
+- Python 3.11+
+- [Claude Code CLI](https://docs.claude.com/claude-code) (`npm i -g @anthropic-ai/claude-code`). The triage agent runs through it.
+- `jq` (`winget install jqlang.jq`) and `curl` (ships with Windows). The agent uses both.
+- Node 20+ only if you rebuild the UI.
+
+## Developer setup
+
+```powershell
+python -m pip install -e .[test]
+cd web; npm install; npm run build; cd ..   # rebuild web-dist/ and commit it after UI changes
+copy .env.example .env
+threatdesk --open                           # http://127.0.0.1:8444
+```
+
+The port is `THREATDESK_PORT`, default 8444, so it runs alongside SOC-in-a-Box on 8443. For hot reload, run `threatdesk --reload` in one shell and `cd web; npm run dev` in another. Vite serves on :5173 and proxies `/api` to :8444.
 
 ## Model access and billing
 

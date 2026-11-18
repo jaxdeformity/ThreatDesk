@@ -331,7 +331,7 @@ async def _run_triage_claude(triage_id: str, inp: dict[str, Any]) -> None:
             system_prompt_append=system_prompt,
             cwd=REPO_ROOT,
             add_dirs=[triage_dir, REPO_ROOT],
-            incident_id_for_log=triage_id,
+            log_id=triage_id,
         ):
             await _emit(triage_id, event)
             if event.get("kind") == "session_complete" and not model_policy.is_refusal_event(event):

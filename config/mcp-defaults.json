@@ -2,7 +2,7 @@
   {
     "id": "filesystem",
     "label": "Filesystem",
-    "summary": "Read & write files inside a chosen directory. Useful for letting agents share artifacts across an incident.",
+    "summary": "Read & write files inside a chosen directory. Useful for letting the triage agent read local reference files.",
     "command": "npx",
     "args": ["-y", "@modelcontextprotocol/server-filesystem", "{{ROOT_PATH}}"],
     "env_template": {
@@ -20,7 +20,7 @@
   {
     "id": "memory",
     "label": "Memory (knowledge graph)",
-    "summary": "Persistent knowledge graph that survives across incidents. Agents can record IOCs, suspect users, etc.",
+    "summary": "Persistent knowledge graph that survives across triages. The agent can record IOCs, actors, etc.",
     "command": "npx",
     "args": ["-y", "@modelcontextprotocol/server-memory"],
     "env_template": {}
@@ -28,7 +28,7 @@
   {
     "id": "github",
     "label": "GitHub",
-    "summary": "Search code, create issues, post incident write-ups to a private repo.",
+    "summary": "Search code, create issues, post triage write-ups to a private repo.",
     "command": "npx",
     "args": ["-y", "@modelcontextprotocol/server-github"],
     "env_template": {
