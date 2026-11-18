@@ -1,0 +1,4 @@
+id,category,subcategory,vendor,product,version,patched_through,environment,count,owner,criticality,internet_facing,match
+NET-001,Network,Remote access VPN,Fortinet,FortiOS,7.2.8,2025-06-01,prod,24,netops@example.com,crown_jewel,yes,Fortinet FortiOS;Fortinet FortiGate
+APP-001,Messaging,Email,Microsoft,Exchange Server,2019 CU14,,prod,6,messaging@example.com,high,yes,Microsoft Exchange Server
+END-001,Endpoint,Browser,Google,Chromium,,,corp,4200,desktop@example.com,medium,no,Google Chromium;Google Chrome
