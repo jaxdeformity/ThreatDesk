@@ -12,6 +12,8 @@ def tdir(tmp_path, monkeypatch):
     monkeypatch.setattr(T, "TRIAGES_DIR", tmp_path / "triages")
     from threatdesk import runtime_settings
     monkeypatch.setattr(runtime_settings, "SETTINGS_PATH", tmp_path / "rt.json")
+    from threatdesk import ai_config
+    monkeypatch.setattr(ai_config, "CONFIG_PATH", tmp_path / "ai_config.json")
     return tmp_path / "triages"
 
 
@@ -103,3 +105,43 @@ def test_agent_reads_full_environment_and_flags_example():
     md = (Path(T.__file__).resolve().parent.parent / ".claude" / "agents" / "threat-triage.md").read_text(encoding="utf-8")
     assert "environment: .environment" in md and "inventory: .inventory" in md
     assert '"example"' in md
+
+
+async def test_mcp_servers_reach_the_agent_without_secrets_on_disk(tdir, tmp_path, monkeypatch):
+    from threatdesk import ai_config
+    monkeypatch.setattr(ai_config, "CONFIG_PATH", tmp_path / "ai_config.json")
+    ai_config.upsert_mcp_server({
+        "id": "servicenow", "command": "npx", "args": ["-y", "servicenow-mcp"],
+        "env": {"SN_INSTANCE": {"type": "plain", "value": "example.service-now.com"},
+                "SN_TOKEN": {"type": "secret", "value": "s3cr3t-token"}},
+    })
+    ai_config.upsert_mcp_server({"id": "off", "command": "x", "enabled": False})
+    FakeRunner.calls.clear()
+    monkeypatch.setattr(T, "ClaudeRunner", FakeRunner)
+    res = await T.create_triage(input_type="threat_name", input_ref="x", input_text=None, question="")
+    for _ in range(100):
+        await asyncio.sleep(0.01)
+        if T.read_triage(res["triage_id"])["status"]["status"] in ("done", "error"):
+            break
+    kw = FakeRunner.calls[-1]
+    cfg_path = Path(kw["mcp_config"])
+    cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+    assert list(cfg["mcpServers"]) == ["servicenow"]
+    sn = cfg["mcpServers"]["servicenow"]
+    assert sn["command"] == "npx" and sn["args"] == ["-y", "servicenow-mcp"]
+    assert sn["env"] == {"SN_INSTANCE": "example.service-now.com"}
+    assert "s3cr3t-token" not in cfg_path.read_text(encoding="utf-8")
+    assert kw["env_overrides"]["SN_TOKEN"] == "s3cr3t-token"
+
+
+async def test_no_mcp_servers_no_flag(tdir, tmp_path, monkeypatch):
+    from threatdesk import ai_config
+    monkeypatch.setattr(ai_config, "CONFIG_PATH", tmp_path / "ai_config.json")
+    FakeRunner.calls.clear()
+    monkeypatch.setattr(T, "ClaudeRunner", FakeRunner)
+    await T.create_triage(input_type="threat_name", input_ref="x", input_text=None, question="")
+    for _ in range(100):
+        await asyncio.sleep(0.01)
+        if FakeRunner.calls:
+            break
+    assert FakeRunner.calls[-1].get("mcp_config") is None

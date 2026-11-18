@@ -322,6 +322,14 @@ async def _run_triage_claude(triage_id: str, inp: dict[str, Any]) -> None:
     )
     # Refusal fallback is opt-in (cyber_fallback_enabled); None = no retry.
     fallback_model = rt.get("cyber_fallback_model") if rt.get("cyber_fallback_enabled") else None
+    # MCP servers from Settings -> AI (e.g. ServiceNow, a SIEM, an EDR).
+    # The config file (plain values only) is kept with the triage as a
+    # record of which tools the agent had; secrets ride in the env.
+    mcp_cfg, mcp_secrets = ai_config.agent_mcp_config()
+    mcp_path = None
+    if mcp_cfg["mcpServers"]:
+        mcp_path = triage_dir / "mcp-config.json"
+        _write_json(mcp_path, mcp_cfg)
     try:
         async for event in model_policy.run_turn_with_fallback(
             runner,
@@ -331,6 +339,8 @@ async def _run_triage_claude(triage_id: str, inp: dict[str, Any]) -> None:
             system_prompt_append=system_prompt,
             cwd=REPO_ROOT,
             add_dirs=[triage_dir, REPO_ROOT],
+            mcp_config=mcp_path,
+            env_overrides=mcp_secrets or None,
             log_id=triage_id,
         ):
             await _emit(triage_id, event)

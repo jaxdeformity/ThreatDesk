@@ -19,3 +19,4 @@ config/inventory.json
 # frontend (web-dist/ is committed: demo machines need no Node)
 web/node_modules/
 Start-ThreatDesk.cmd
+.gstack/

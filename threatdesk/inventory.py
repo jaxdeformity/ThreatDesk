@@ -215,14 +215,24 @@ def load_assets() -> list[dict[str, Any]]:
     return merged
 
 
+def _display(p: Path | None) -> str | None:
+    """Repo-relative path for display (no user directory in the UI)."""
+    if not p:
+        return None
+    try:
+        return p.resolve().relative_to(REPO_ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(p)
+
+
 def sources_status() -> list[dict[str, Any]]:
     load_assets()
     errs, counts = _cache.get("errors", {}), _cache.get("counts", {})
     c, j = csv_path(), json_path()
     return [
-        {"name": "csv", "label": "Tech-stack doc (CSV)", "configured": c.exists(), "path": str(c),
+        {"name": "csv", "label": "Tech-stack doc (CSV)", "configured": c.exists(), "path": _display(c),
          "count": counts.get("csv", 0), "errors": errs.get("csv", [])},
-        {"name": "json", "label": "Inventory JSON", "configured": bool(j and j.exists()), "path": str(j) if j else None,
+        {"name": "json", "label": "Inventory JSON", "configured": bool(j and j.exists()), "path": _display(j),
          "count": counts.get("json", 0), "errors": errs.get("json", [])},
         {"name": "env", "label": "Product list (.env)", "configured": bool(env_terms()), "path": None,
          "count": counts.get("env", 0), "errors": []},

@@ -413,6 +413,38 @@ def delete_mcp_server(server_id: str) -> bool:
     return False
 
 
+def agent_mcp_config() -> tuple[dict[str, Any], dict[str, str]]:
+    """MCP servers for an agent run, split for safe hand-off.
+
+    Returns ``(config, secret_env)``. ``config`` is a Claude Code
+    ``--mcp-config`` document ({"mcpServers": {id: {command, args, env}}})
+    for every enabled server, carrying only PLAIN env values, so it can be
+    written to disk. ``secret_env`` holds the decrypted secret values; the
+    caller puts them in the claude process environment, which the MCP
+    server processes inherit. Secrets never touch the triage directory.
+    """
+    store = _read_store()
+    servers: dict[str, Any] = {}
+    secret_env: dict[str, str] = {}
+    for spec in store["mcp_servers"]:
+        if not spec.get("enabled", True) or not spec.get("command"):
+            continue
+        plain: dict[str, str] = {}
+        for k, v in (spec.get("env") or {}).items():
+            if isinstance(v, dict) and v.get("type") == "secret":
+                if v.get("blob"):
+                    try:
+                        secret_env[k] = _dec_b64(v["blob"])
+                    except Exception:  # noqa: BLE001 - unreadable blob: skip, server reports auth error
+                        pass
+            elif isinstance(v, dict):
+                plain[k] = str(v.get("value", ""))
+            else:
+                plain[k] = str(v)
+        servers[spec["id"]] = {"command": spec["command"], "args": list(spec.get("args") or []), "env": plain}
+    return {"mcpServers": servers}, secret_env
+
+
 def get_mcp_env_resolved(server_id: str) -> dict[str, str]:
     """Return the spawn-ready env dict for an MCP server: plain values
     pass through, secret blobs are decrypted. Used by the MCP launcher."""

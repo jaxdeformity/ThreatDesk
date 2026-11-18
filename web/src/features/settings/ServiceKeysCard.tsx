@@ -61,7 +61,7 @@ export function ServiceKeysCard() {
 
       <div className="flex items-center gap-2 mb-3">
         <input className="input !text-xs flex-1" value={importPath} onChange={e => setImportPath(e.target.value)}
-               placeholder="Import from a file: HoneyHive data\secrets.json or a 'Name: key' notes file" />
+               placeholder="Import from a file: a flat {name: key} secrets.json, a .env, or a 'Name: key' notes file" />
         <button className="btn btn-sm" disabled={!importPath.trim() || importM.isPending} onClick={() => importM.mutate()}>
           <Download className="w-3 h-3" /> Import
         </button>

@@ -205,6 +205,7 @@ class ClaudeRunner:
         model: str | None = None,
         log_id: str | None = None,
         env_overrides: dict[str, str] | None = None,
+        mcp_config: Path | str | None = None,
         pool_key: str | None = None,  # SDK backend only; the CLI spawns per turn
     ) -> AsyncIterator[dict[str, Any]]:
         """Run one Claude turn. Yields event dicts until the subprocess exits.
@@ -254,6 +255,9 @@ class ClaudeRunner:
             args += ["--allowed-tools", ",".join(allowed_tools) if allowed_tools else ""]
         for d in (add_dirs or []):
             args += ["--add-dir", str(Path(d).resolve())]
+        if mcp_config:
+            # MCP servers configured in Settings -> AI (e.g. a ServiceNow MCP).
+            args += ["--mcp-config", str(Path(mcp_config).resolve())]
         args += self.config.extra_args
 
         # Debug-log the spawn (argv gets sanitized, append-system-prompt is truncated).
