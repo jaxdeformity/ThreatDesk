@@ -1,0 +1,162 @@
+/* ThreatDesk design tokens.
+ * All visual values come from here. Tailwind config consumes these via var().
+ * Component code should never use raw hex literals — only token utilities.
+ * Spec: docs/superpowers/specs/2026-04-27-socbox-redesign-design.md §4
+ */
+
+:root {
+  /* SURFACES — cool near-black, denser than the previous warm-grey palette */
+  --bg:        #0B0E11;
+  --surface:   #13171C;
+  --surface-2: #1B1F26;
+  --surface-3: #262C35;
+
+  /* HAIRLINES — replace borders */
+  --hairline:        #1E242C;
+  --hairline-strong: #2C333D;
+
+  /* TEXT */
+  --text:       #D4DAE0;
+  --text-dim:   #8B95A1;
+  --text-faint: #5A636E;
+  --text-ghost: #383F48;
+
+  /* SEMANTIC — desaturated 15% from web defaults so accent reads first */
+  --ok:    #3FB950;
+  --warn:  #F0B72F;
+  --crit:  #FF5C5C;
+  --info:  #5BC0EB;
+
+  --ok-dim:    #2A7A35;
+  --warn-dim:  #8A6918;
+  --crit-dim:  #B23E3E;
+  --info-dim:  #3E7E97;
+
+  /* ACCENT — single industrial orange, Bloomberg-amber descended */
+  --accent:        #FF7A1A;
+  --accent-hot:    #FF9242;
+  --accent-deep:   #C45200;
+  --accent-dim:    #A04C0E;
+
+  /* CONTEXT TINTS — top-bar wash when scope is high-stakes */
+  --surface-warn:  rgba(240, 183, 47, 0.06);
+  --surface-crit:  rgba(255, 92, 92, 0.06);
+
+  /* SEVERITY SCALE — backwards-compat names mapped to new tokens */
+  --sev-low:      #5BC0EB;
+  --sev-medium:   #F0B72F;
+  --sev-high:     #FF7A1A;
+  --sev-critical: #FF5C5C;
+
+  /* HEAT SCALE — backwards-compat names mapped to new tokens */
+  --heat-faint: #1E242C;
+  --heat-low:   #2C333D;
+  --heat-med:   #5A636E;
+  --heat-high:  #FF7A1A;
+  --heat-peak:  #FF5C5C;
+
+  /* INVESTIGATION GRAPH — node type colors (used in :graph canvas) */
+  --node-process: #FF9242;
+  --node-network: #5BC0EB;
+  --node-user:    #B280FF;
+  --node-file:    #4FC3B5;
+  --node-c2:      #FF5C5C;
+
+  /* TYPOGRAPHY STACKS */
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --display: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/* Body baseline — mono is now the default. Prose blocks opt in via .font-sans. */
+html, body, #root {
+  background: var(--bg);
+  color: var(--text);
+}
+body {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.4;
+  font-feature-settings: "tnum", "ss01";
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* SOC scene custom animations */
+@keyframes typing-wobble {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25%      { transform: translateX(-50%) rotate(-1.5deg); }
+  75%      { transform: translateX(-50%) rotate(1.5deg); }
+}
+.animate-typing-wobble { animation: typing-wobble 0.4s ease-in-out infinite; }
+
+/* Form elements — make every native input/select/textarea pick up MK1
+ * colors so partially-styled or legacy components don't fall back to
+ * OS defaults (white background + light grey text was unreadable). */
+input, textarea, select {
+  font-family: inherit;
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 2px;
+  caret-color: var(--accent);
+  outline: none;
+  padding: 6px 8px;
+  font-size: 13px;
+  min-height: 28px;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  background-color: var(--surface-2);
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-faint);
+}
+/* Native <select> is the worst offender — its dropdown list is OS-rendered
+ * but we can at least force readable colors on the closed control + the
+ * <option> rows (Chromium honors these). */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--text-dim) 50%),
+    linear-gradient(135deg, var(--text-dim) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 9px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 24px;
+}
+select option {
+  background-color: var(--surface);
+  color: var(--text);
+}
+select option:checked,
+select option:hover {
+  background-color: var(--surface-2);
+  color: var(--accent);
+}
+/* Inputs that opt out via .bare or transparency need their own classes
+ * — use input[type='checkbox']/[type='radio'] etc to escape if needed. */
+input[type='checkbox'], input[type='radio'] {
+  min-height: auto;
+  padding: 0;
+  accent-color: var(--accent);
+}
+/* Allow components that already style themselves (CommandLine, FilterBar)
+ * to opt out by adding `bg-transparent` or `border-0` — those tailwind
+ * classes win because they're more specific than these element selectors. */
+
+/* Scrollbars — thin, hairline-colored */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--hairline-strong); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }

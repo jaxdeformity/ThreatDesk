@@ -1,9 +1,12 @@
-"""ThreatDesk must stand alone: no SOC-in-a-Box imports, paths, port or Primus."""
+"""ThreatDesk must stand alone: no SOC-in-a-Box imports, paths, port or Primus.
+
+Test files are skipped: they assert the absence of these strings.
+"""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCAN = ["threatdesk", "api", ".claude", "web/src"]
-BANNED = ["soc_in_a_box", "soc-in-a-box", "8443", "primus"]
+BANNED = ["soc_in_a_box", "soc-in-a-box", "8443", "primus", "polaris"]
 
 
 def _files():
@@ -12,7 +15,8 @@ def _files():
         if not base.exists():
             continue
         for p in base.rglob("*"):
-            if p.is_file() and p.suffix in {".py", ".md", ".ts", ".tsx", ".json", ".css"} and "node_modules" not in p.parts:
+            if (p.is_file() and p.suffix in {".py", ".md", ".ts", ".tsx", ".json", ".css"}
+                    and "node_modules" not in p.parts and ".test." not in p.name):
                 yield p
 
 

@@ -1,0 +1,193 @@
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────────────
+ * ThreatDesk semantic component layer (industrial dark theme).
+ *
+ * These classes (.card / .btn / .chip / .label / .input / .md-body) are
+ * referenced ~200× across the app but were never implemented in CSS —
+ * the redesign spec defined them, the stylesheet shipped without them, so
+ * every button/card/chip/markdown-report rendered flat (Tailwind's
+ * preflight strips native styling and nothing replaced it). This block is
+ * that missing layer, built from the design tokens in tokens.css.
+ *
+ * Inline utilities still win where a component needs a specific override
+ * (e.g. `!py-0 !text-[9px]` on a dense chip) because they carry higher
+ * specificity / !important.
+ * ──────────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Card — the standard surface container. Padding is left to utilities
+     (e.g. `card p-5`) so density stays per-use. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+  }
+
+  /* Buttons. Base is a neutral surface button; modifiers recolor it,
+     sizes tighten padding. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--hairline-strong);
+    background: var(--surface-2);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease,
+                color 120ms ease, opacity 120ms ease;
+  }
+  .btn:hover { background: var(--surface-3); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  .btn-primary:hover { background: var(--accent-hot); border-color: var(--accent-hot); }
+
+  .btn-danger { background: var(--crit-dim); border-color: var(--crit); color: #fff; }
+  .btn-danger:hover { background: var(--crit); }
+
+  .btn-ghost { background: transparent; border-color: transparent; color: var(--text-dim); }
+  .btn-ghost:hover { background: var(--surface-2); color: var(--text); }
+
+  /* Secondary — outline button: present but quieter than primary. */
+  .btn-secondary { background: transparent; border-color: var(--hairline-strong); color: var(--text-dim); }
+  .btn-secondary:hover { background: var(--surface-2); color: var(--text); border-color: var(--text-faint); }
+
+  .btn-sm { padding: 4px 9px; font-size: 11px; gap: 5px; }
+  .btn-xs { padding: 2px 7px; font-size: 10px; gap: 4px; }
+
+  /* Chips — compact status/metadata pills. Default is neutral; the tint
+     modifiers carry severity/semantic meaning. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--hairline-strong);
+    background: var(--surface-2);
+    color: var(--text-dim);
+    font-size: 10px;
+    line-height: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .chip-accent  { background: rgba(255, 122, 26, 0.12); border-color: var(--accent-dim); color: var(--accent-hot); }
+  .chip-danger  { background: rgba(255, 92, 92, 0.12);  border-color: var(--crit-dim);   color: var(--crit); }
+  .chip-warning { background: rgba(240, 183, 47, 0.12); border-color: var(--warn-dim);   color: var(--warn); }
+  .chip-info    { background: rgba(91, 192, 235, 0.12); border-color: var(--info-dim);   color: var(--info); }
+  .chip-success { background: rgba(63, 185, 80, 0.12);  border-color: var(--ok-dim);     color: var(--ok); }
+
+  /* Form label — small uppercase caps line above a control. */
+  .label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+  }
+
+  /* Full-width form control. Element-level look (bg/border/focus) is in
+     tokens.css; this just stretches the control to its container. */
+  .input { width: 100%; }
+
+  /* Textarea — was undefined, so these rendered at the browser default
+     ~20-column width, hugging the left. Full-width, vertically resizable,
+     comfortable line-height. bg/border/focus come from tokens.css. */
+  .textarea {
+    display: block;
+    width: 100%;
+    min-height: 64px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  /* ── Markdown body — the word-wall fix ────────────────────────────────
+     Agent reports come back as markdown and were rendered with no rules,
+     so headings, lists, and paragraphs all collapsed into one grey slab.
+     This gives them a real reading hierarchy: a sans prose stack (vs the
+     mono default), sized/anchored headings, breathing room between
+     blocks, bulleted lists, and properly framed code/tables/quotes. */
+  .md-body {
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+  .md-body > :first-child { margin-top: 0; }
+  .md-body > :last-child { margin-bottom: 0; }
+
+  .md-body h1, .md-body h2, .md-body h3, .md-body h4, .md-body h5 {
+    font-family: var(--sans);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text);
+    margin: 1.5em 0 0.5em;
+  }
+  .md-body h1 { font-size: 20px; padding-bottom: 0.3em; border-bottom: 1px solid var(--hairline); }
+  .md-body h2 { font-size: 16px; padding-bottom: 0.25em; border-bottom: 1px solid var(--hairline); }
+  .md-body h3 { font-size: 14px; color: var(--accent-hot); }
+  .md-body h4 { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .md-body h5 { font-size: 12px; color: var(--text-dim); }
+
+  .md-body p { margin: 0.7em 0; }
+  .md-body ul, .md-body ol { margin: 0.7em 0; padding-left: 1.4em; }
+  .md-body ul { list-style: disc; }
+  .md-body ol { list-style: decimal; }
+  .md-body li { margin: 0.3em 0; }
+  .md-body li::marker { color: var(--text-faint); }
+  .md-body li > ul, .md-body li > ol { margin: 0.3em 0; }
+
+  .md-body a { color: var(--accent-hot); text-decoration: underline; text-underline-offset: 2px; }
+  .md-body a:hover { color: var(--accent); }
+  .md-body strong { color: var(--text); font-weight: 600; }
+  .md-body em { color: var(--text-dim); }
+
+  .md-body code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+  }
+  .md-body pre {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.5;
+    background: var(--bg);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    margin: 0.9em 0;
+  }
+  .md-body pre code { background: none; border: none; padding: 0; font-size: inherit; }
+
+  .md-body blockquote {
+    margin: 0.9em 0;
+    padding: 0.2em 0 0.2em 1em;
+    border-left: 3px solid var(--accent-dim);
+    color: var(--text-dim);
+  }
+  .md-body hr { border: none; border-top: 1px solid var(--hairline); margin: 1.5em 0; }
+
+  .md-body table { width: 100%; border-collapse: collapse; margin: 0.9em 0; font-size: 12px; }
+  .md-body th, .md-body td { border: 1px solid var(--hairline); padding: 5px 9px; text-align: left; vertical-align: top; }
+  .md-body th { background: var(--surface-2); color: var(--text-dim); font-weight: 600; }
+}
