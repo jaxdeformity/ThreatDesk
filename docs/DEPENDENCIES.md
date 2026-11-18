@@ -32,6 +32,6 @@ Every dependency on SOC-in-a-Box found during the carve-out (2026-11-18), and ho
 | Claude Code CLI + `claude-agent-sdk` | Runs the triage agent (tools: WebFetch, WebSearch, Read/Write, Bash) | Point it at Bedrock/Vertex via env vars, or replace `claude_runner` with a direct Messages API tool-use loop (more code; loses Claude Code's built-in web tools). |
 | `--dangerously-skip-permissions` | Unattended agent runs | Explicit `--allowedTools` list (see README, "Before production"). |
 | Windows DPAPI (`ai_config`, `service_keys`) | Secret storage at rest | OS keyring (`keyring` package) or an enterprise vault, if moved off Windows. |
-| `curl`, `jq` | Agent shell steps | Ship both (Git for Windows), or have the agent use WebFetch / Python for the environment read. |
+| `curl`, `jq` | Agent shell steps | `curl` ships with Windows; `winget install jqlang.jq`, or have the agent use WebFetch / Python for the environment read. |
 | Public feeds: CISA KEV, FIRST EPSS, NIST NVD, vendor/news RSS | Vulns + threat feed | Behind a proxy: set `HTTPS_PROXY`. Air-gapped: mirror KEV/EPSS/NVD JSON internally and change the URLs in `vulns.py` / `threat_feed.py`. |
 | Google Fonts (IBM Plex Mono, Inter) | UI typography | Self-host the fonts in `web/public/` if outbound font fetches are blocked; the UI falls back to system fonts otherwise. |

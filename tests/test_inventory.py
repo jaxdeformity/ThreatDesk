@@ -14,6 +14,7 @@ def paths(tmp_path, monkeypatch):
     monkeypatch.setenv("THREATDESK_INVENTORY", str(json_p))
     for k in ("THREATDESK_TECH_STACK", "SOC_ORG_TECH_STACK", "SOC_ORG_INVENTORY"):
         monkeypatch.delenv(k, raising=False)
+    monkeypatch.setattr(inventory, "UPLOAD_CSV", csv_p)
     return csv_p, json_p
 
 
@@ -87,3 +88,36 @@ def test_save_csv_rejects_no_product_column(paths):
 def test_servicenow_slot_unconfigured(paths):
     sn = next(s for s in inventory.sources_status() if s["name"] == "servicenow")
     assert sn["configured"] is False
+
+
+def test_same_product_two_rows_within_source_kept(paths):
+    csv_p, _ = paths
+    csv_p.write_text(HEADER + "A-1,App,,Acme,Widget,1.0,,prod,5,ops,high,no,\nA-2,App,,Acme,Widget,1.0,,dr,2,dr-team,low,no,\n", encoding="utf-8")
+    assert [a["id"] for a in inventory.load_assets()] == ["A-1", "A-2"]
+
+
+def test_bad_values_reported_row_kept(paths):
+    csv_p, _ = paths
+    csv_p.write_text(HEADER + "A-1,App,,Acme,Widget,1.0,,,abc,,urgent,maybe,\n", encoding="utf-8")
+    [a] = inventory.load_assets()
+    errs = next(s for s in inventory.sources_status() if s["name"] == "csv")["errors"]
+    assert any("internet_facing" in e for e in errs)
+    assert any("count" in e for e in errs)
+    assert any("criticality" in e for e in errs)
+
+
+def test_cp1252_csv_accepted(paths):
+    data = ("vendor,product\nSchneider Électric,EcoStruxure\n").encode("cp1252")
+    res = inventory.save_csv(data)
+    assert res["count"] == 1
+    assert inventory.load_assets()[0]["vendor"] == "Schneider Électric"
+
+
+def test_upload_never_overwrites_pointed_sample(paths, tmp_path, monkeypatch):
+    sample = tmp_path / "sample.csv"
+    sample.write_text(HEADER + "S-1,App,,Old,Thing,1,,,,,,no,\n", encoding="utf-8")
+    monkeypatch.setenv("THREATDESK_TECH_STACK_CSV", str(sample))
+    monkeypatch.setattr(inventory, "UPLOAD_CSV", tmp_path / "config" / "tech-stack.csv")
+    inventory.save_csv((HEADER + "N-1,App,,New,Thing,2,,,,,,no,\n").encode("utf-8"))
+    assert "Old" in sample.read_text(encoding="utf-8")
+    assert inventory.load_assets()[0]["vendor"] == "New"

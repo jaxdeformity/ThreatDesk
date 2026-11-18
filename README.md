@@ -16,7 +16,7 @@ ThreatDesk was carved out of SOC-in-a-Box (2026-11-18). It contains SOC-in-a-Box
 - Python 3.11+
 - Node 20+ (only to build the UI)
 - [Claude Code CLI](https://docs.claude.com/claude-code) on `PATH` (`npm i -g @anthropic-ai/claude-code`). The triage agent runs through it.
-- `curl` and `jq` on `PATH`. The agent uses them. Both ship with Git for Windows, or run `winget install jqlang.jq`.
+- `curl` and `jq` on `PATH`. The agent uses them. `curl` ships with Windows 10+; install `jq` with `winget install jqlang.jq`.
 
 ## Install and run
 
@@ -44,7 +44,7 @@ Triage defaults to `claude-opus-5-5`. You can retry refused turns on a fallback 
 
 Vulns matching and triage's "cross-reference with our environment" both read one inventory (`threatdesk/inventory.py`). These sources are listed in precedence order:
 
-1. **Tech-stack CSV.** `THREATDESK_TECH_STACK_CSV` (default `config/tech-stack.csv`). Upload it in Settings, or start from `config/tech-stack.template.csv`. See [docs/TECH-STACK.md](docs/TECH-STACK.md).
+1. **Tech-stack CSV.** One uploaded in Settings (stored at `config/tech-stack.csv`, which then wins), else the file named by `THREATDESK_TECH_STACK_CSV`. Start from `config/tech-stack.template.csv`. See [docs/TECH-STACK.md](docs/TECH-STACK.md).
 2. **Inventory JSON** (`THREATDESK_INVENTORY`), `{"assets": [...]}`.
 3. **Product list:** `THREATDESK_TECH_STACK="Microsoft Exchange, Fortinet FortiOS"`.
 4. **ServiceNow CMDB.** The slot exists but there's no adapter yet. See [docs/SERVICENOW.md](docs/SERVICENOW.md).

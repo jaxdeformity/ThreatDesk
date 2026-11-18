@@ -47,3 +47,14 @@ def test_misp_event_for_triage():
 def test_bulk_export_triages():
     out = tip_misp.bulk_export([{"triage_id": "A", "result": {"iocs": []}}, {"triage_id": "B", "result": None}])
     assert out["meta"]["event_count"] == 2
+
+
+def test_misp_matches_catalog_normalisation():
+    detail = {"triage_id": "TRG-7", "result": {"iocs": [
+        {"type": "IP", "value": "192.0.2.5"}, {"type": "hostname", "value": "x.example.org"},
+        {"type": "sha-256", "value": "b" * 64}, {"type": "url", "value": 12345}, "198.51.100.7",
+    ], "key_findings": [{"statement": "Mass exploitation observed", "disposition": "malicious"}]}}
+    ev = tip_misp.event_for_triage(detail)
+    vals = {a["value"] for a in ev["Attribute"]}
+    assert {"192.0.2.5", "x.example.org", "b" * 64, "198.51.100.7"} <= vals
+    assert any(a["type"] == "text" and "Mass exploitation" in a["value"] for a in ev["Attribute"])

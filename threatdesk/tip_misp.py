@@ -83,7 +83,8 @@ def event_for_triage(detail: dict[str, Any]) -> dict[str, Any]:
         "published": False,
         "Tag": tags,
         "Galaxy": _galaxies(res.get("ttps") or []),
-        "Attribute": [a for a in (_ioc_to_attribute(i) for i in res.get("iocs") or [] if isinstance(i, dict)) if a],
+        "Attribute": [a for a in (_ioc_to_attribute(i) for i in res.get("iocs") or []) if a]
+                     + _finding_attributes(res.get("key_findings") or []),
         "Object": [],
     }
 
@@ -102,9 +103,29 @@ def bulk_export(details: list[dict[str, Any]]) -> dict[str, Any]:
 
 # ── Helpers ───────────────────────────────────────────────────────────
 
-def _ioc_to_attribute(ioc: dict[str, Any]) -> dict[str, Any] | None:
-    t = (ioc.get("type") or "").lower()
-    v = (ioc.get("value") or "").strip()
+def _finding_attributes(findings: list[Any]) -> list[dict[str, Any]]:
+    """Key findings as non-IDS text attributes (analyst context on import)."""
+    out = []
+    for f in findings:
+        stmt = f.get("statement") if isinstance(f, dict) else f if isinstance(f, str) else None
+        if not stmt:
+            continue
+        disp = f.get("disposition") if isinstance(f, dict) else None
+        out.append({"type": "text", "category": "Other", "to_ids": False, "distribution": "5",
+                    "value": str(stmt)[:1000], **({"comment": f"disposition: {disp}"} if disp else {})})
+    return out
+
+
+def _ioc_to_attribute(ioc: Any) -> dict[str, Any] | None:
+    """Same coercion and type normalisation as the TIP catalog, so the
+    export carries every IOC the Intel tab shows."""
+    from threatdesk import tip_catalog
+
+    ioc = tip_catalog._coerce_ioc(ioc)
+    if not ioc or ioc.get("value") is None:
+        return None
+    v = str(ioc.get("value")).strip()
+    t = tip_catalog._canonical_type(str(ioc.get("type") or "")) if ioc.get("type") else tip_catalog._guess_type(v)
     if not t or not v:
         return None
     misp_t = MISP_TYPE_MAP.get(t)

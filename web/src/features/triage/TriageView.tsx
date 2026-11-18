@@ -114,6 +114,10 @@ export function TriageView() {
   useEffect(() => {
     const t = params.get('threat')
     if (!t) return
+    // The deep link is an explicit intent: stop the first-load auto-select
+    // from swapping the composer for the newest old triage when the list
+    // resolves after mount.
+    autoSelectDone.current = true
     openComposerWith({ mode: 'threat_name', value: t.slice(0, 200) })
     params.delete('threat')
     setParams(params, { replace: true })

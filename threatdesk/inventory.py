@@ -6,8 +6,8 @@ Vulns matches known-exploited CVEs against it; the triage agent reads it
 Sources, highest precedence first. On a vendor+product+version collision
 the earlier source wins:
 
-  1. ``csv``  - the tech-stack doc, ``THREATDESK_TECH_STACK_CSV``
-                (default ``config/tech-stack.csv``; template in
+  1. ``csv``  - the tech-stack doc: an uploaded ``config/tech-stack.csv``
+                if present, else ``THREATDESK_TECH_STACK_CSV`` (template in
                 ``config/tech-stack.template.csv``)
   2. ``json`` - an inventory JSON ``{"assets": [...]}``, ``THREATDESK_INVENTORY``
                 (``SOC_ORG_INVENTORY`` accepted)
@@ -36,11 +36,15 @@ log = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CSV = "config/tech-stack.csv"
+# Where Settings uploads land. Never the THREATDESK_TECH_STACK_CSV target
+# (that may be a tracked sample); an uploaded file takes precedence over it.
+UPLOAD_CSV = REPO_ROOT / DEFAULT_CSV
 
 CSV_COLUMNS = ["id", "category", "subcategory", "vendor", "product", "version", "patched_through",
                "environment", "count", "owner", "criticality", "internet_facing", "match"]
 CRITICALITIES = ("crown_jewel", "high", "medium", "low")
 _TRUE = {"yes", "y", "true", "1", "x"}
+_FALSE = {"no", "n", "false", "0", ""}
 
 _cache: dict[str, Any] = {"key": None, "assets": [], "errors": {}}
 
@@ -51,6 +55,9 @@ def _resolve(raw: str) -> Path:
 
 
 def csv_path() -> Path:
+    """The active tech-stack CSV: an uploaded one wins, else the env path."""
+    if UPLOAD_CSV.exists():
+        return UPLOAD_CSV
     return _resolve(os.environ.get("THREATDESK_TECH_STACK_CSV", "").strip() or DEFAULT_CSV)
 
 
@@ -76,7 +83,7 @@ def cache_key() -> tuple:
     return (str(c), _mtime(c), str(j), _mtime(j), tuple(env_terms()))
 
 
-def _norm_asset(a: dict[str, Any]) -> dict[str, Any]:
+def _norm_asset(a: dict[str, Any], errors: list[str] | None = None, where: str = "") -> dict[str, Any]:
     vendor = str(a.get("vendor") or "").strip()
     product = str(a.get("product") or "").strip()
     match = a.get("match")
@@ -85,13 +92,22 @@ def _norm_asset(a: dict[str, Any]) -> dict[str, Any]:
     if not match:
         match = [f"{vendor} {product}".strip()]
     count = a.get("count")
+    errs = errors if errors is not None else []
     try:
         count = int(count) if count not in (None, "") else None
     except (TypeError, ValueError):
+        errs.append(f"{where}bad count {count!r} (ignored)")
         count = None
-    crit = str(a.get("criticality") or "medium").strip().lower().replace(" ", "_").replace("-", "_")
+    raw_crit = str(a.get("criticality") or "").strip()
+    crit = raw_crit.lower().replace(" ", "_").replace("-", "_") or "medium"
+    if crit not in CRITICALITIES:
+        errs.append(f"{where}bad criticality {raw_crit!r} (used medium)")
     ife = a.get("internet_facing")
-    ife = ife if isinstance(ife, bool) else str(ife or "").strip().lower() in _TRUE
+    if not isinstance(ife, bool):
+        raw = str(ife or "").strip().lower()
+        if raw and raw not in _TRUE | _FALSE:
+            errs.append(f"{where}bad internet_facing {ife!r} (used no)")
+        ife = raw in _TRUE
     return {
         "id": str(a.get("id") or "").strip(),
         "category": str(a.get("category") or "").strip(),
@@ -109,6 +125,15 @@ def _norm_asset(a: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def decode_csv(data: bytes) -> str:
+    """UTF-8 (with or without BOM), falling back to Windows-1252, which is
+    what Excel's default "CSV (Comma delimited)" writes."""
+    try:
+        return data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return data.decode("cp1252", errors="replace")
+
+
 def parse_csv(text: str) -> tuple[list[dict[str, Any]], list[str]]:
     """Parse tech-stack CSV text. Returns (assets, row errors)."""
     reader = csv.DictReader(io.StringIO(text.lstrip("﻿")))
@@ -123,7 +148,7 @@ def parse_csv(text: str) -> tuple[list[dict[str, Any]], list[str]]:
         if not row.get("product"):
             errors.append(f"row {n}: missing product")
             continue
-        a = _norm_asset(row)
+        a = _norm_asset(row, errors, f"row {n}: ")
         a["id"] = a["id"] or f"CSV-{n:04d}"
         assets.append(a)
     return assets, errors
@@ -134,7 +159,7 @@ def _load_csv() -> tuple[list[dict[str, Any]], list[str]]:
     if not p.exists():
         return [], []
     try:
-        return parse_csv(p.read_text(encoding="utf-8-sig"))
+        return parse_csv(decode_csv(p.read_bytes()))
     except (OSError, ValueError, csv.Error) as e:
         log.warning("inventory: %s unreadable: %s", p, e)
         return [], [str(e)]
@@ -172,14 +197,19 @@ def load_assets() -> list[dict[str, Any]]:
         return _cache["assets"]
     c_assets, c_err = _load_csv()
     j_assets, j_err = _load_json()
+    # De-dup only ACROSS sources (CSV > JSON > env list): the same product
+    # listed twice in one source (prod + DR, different owners) is kept.
     merged: list[dict[str, Any]] = []
     seen: set[tuple[str, str, str]] = set()
-    for a in [*c_assets, *j_assets, *_load_env()]:
-        k = (a["vendor"].lower(), a["product"].lower(), a["version"].lower())
-        if k in seen:
-            continue
-        seen.add(k)
-        merged.append(a)
+    for source in (c_assets, j_assets, _load_env()):
+        keys = set()
+        for a in source:
+            k = (a["vendor"].lower(), a["product"].lower(), a["version"].lower())
+            if k in seen:
+                continue
+            keys.add(k)
+            merged.append(a)
+        seen |= keys
     _cache.update(key=key, assets=merged, errors={"csv": c_err, "json": j_err},
                   counts={"csv": len(c_assets), "json": len(j_assets), "env": len(env_terms())})
     return merged
@@ -202,14 +232,18 @@ def sources_status() -> list[dict[str, Any]]:
 
 
 def save_csv(data: bytes) -> dict[str, Any]:
-    """Replace the tech-stack CSV (previous copy kept as .bak). Validates first."""
-    text = data.decode("utf-8-sig")
-    assets, errors = parse_csv(text)  # raises ValueError on a bad header
-    p = csv_path()
+    """Store an uploaded tech-stack CSV at config/tech-stack.csv (previous
+    upload kept as .bak). Validates first; never writes to the
+    THREATDESK_TECH_STACK_CSV path, which may be a tracked sample."""
+    text = decode_csv(data)
+    try:
+        assets, errors = parse_csv(text)  # raises ValueError on a bad header
+    except csv.Error as e:
+        raise ValueError(f"not a readable CSV: {e}") from e
+    p = UPLOAD_CSV
     p.parent.mkdir(parents=True, exist_ok=True)
     if p.exists():
-        bak = p.with_suffix(".csv.bak")
-        bak.write_bytes(p.read_bytes())
+        p.with_suffix(".csv.bak").write_bytes(p.read_bytes())
     tmp = p.with_suffix(".csv.tmp")
     tmp.write_text(text, encoding="utf-8")
     tmp.replace(p)

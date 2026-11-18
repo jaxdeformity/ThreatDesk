@@ -77,6 +77,24 @@ app.add_middleware(
 )
 
 
+_ALLOWED_ORIGINS = {f"http://127.0.0.1:{PORT}", f"http://localhost:{PORT}", "http://127.0.0.1:5173", "http://localhost:5173"}
+
+
+@app.middleware("http")
+async def reject_cross_origin_writes(request: Request, call_next):
+    """Local-only API: a state-changing request carrying a foreign Origin
+    (a web page the analyst happens to have open) is refused. Multipart
+    and form POSTs skip the CORS preflight, so CORS alone does not stop
+    a page from starting a triage. Requests without Origin (curl, the
+    agent) pass."""
+    if request.method not in ("GET", "HEAD", "OPTIONS"):
+        origin = request.headers.get("origin")
+        if origin and origin not in _ALLOWED_ORIGINS:
+            from fastapi.responses import JSONResponse
+            return JSONResponse({"detail": "cross-origin request refused"}, status_code=403)
+    return await call_next(request)
+
+
 @app.get("/api/health")
 async def health() -> dict[str, Any]:
     return {"ok": True, "product": "ThreatDesk", "version": "0.1.0"}
@@ -435,7 +453,13 @@ async def create_triage_endpoint(
     # attachment on intake so the triage record carries its hash.
     for uf in files:
         name = triage_orchestrator.safe_attachment_name(uf.filename or "")
+        base, n = Path(name), 1
+        while name in hashes:  # two uploads with the same name both survive
+            n += 1
+            name = f"{base.stem}-{n}{base.suffix}"
         dest = attachments_dir / name
+        if dest.resolve().parent != attachments_dir.resolve():
+            raise HTTPException(status_code=400, detail="bad attachment name")
         with dest.open("wb") as out:
             while chunk := await uf.read(65536):
                 out.write(chunk)
@@ -524,7 +548,10 @@ async def rename_triage_endpoint(triage_id: str, req: TriageRenameRequest) -> di
 @app.get("/api/triage/{triage_id}/stream")
 async def stream_triage_endpoint(triage_id: str) -> StreamingResponse:
     """SSE: replay events.jsonl then push live events as the agent runs."""
-    triage_dir = triage_orchestrator.TRIAGES_DIR / triage_id
+    try:
+        triage_dir = triage_orchestrator.triage_path(triage_id)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="triage not found")
     if not triage_dir.is_dir():
         raise HTTPException(status_code=404, detail=f"triage {triage_id!r} not found")
 
@@ -620,6 +647,18 @@ async def tip_list_iocs(
     }
 
 
+IOC_TYPES = {"ipv4", "ipv6", "domain", "url", "email", "sha256", "sha1", "md5", "filename", "mutex", "registry_key"}
+
+
+def _ioc_type_or_400(ioc_type: str) -> str:
+    """Canonical IOC type, or 400. The type becomes a cache directory name,
+    so only known types are accepted."""
+    t = tip_catalog._canonical_type(ioc_type)
+    if t not in IOC_TYPES:
+        raise HTTPException(status_code=400, detail=f"unknown IOC type {ioc_type!r}")
+    return t
+
+
 @app.get("/api/tip/ioc/{ioc_type}/{value:path}")
 async def tip_get_ioc(ioc_type: str, value: str) -> dict[str, Any]:
     """Detail view for a single IOC. Returns the catalog record +
@@ -628,6 +667,7 @@ async def tip_get_ioc(ioc_type: str, value: str) -> dict[str, Any]:
     def _build() -> list[dict[str, Any]]:
         return tip_catalog.build_catalog(TRIAGES_DIR_PATH)
     catalog = await asyncio.to_thread(_build)
+    _ioc_type_or_400(ioc_type)
     rec = tip_catalog.find(catalog, ioc_type=ioc_type, value=value)
     if not rec:
         raise HTTPException(status_code=404, detail=f"IOC {ioc_type}:{value!r} not found in catalog")
@@ -653,7 +693,7 @@ async def tip_enrich_ioc(ioc_type: str, value: str, force: bool = False) -> dict
     """Run supported enrichers for this IOC. Results are disk-cached
     (24h TTL). Pass ``?force=1`` to refresh even if a cached result
     exists."""
-    t = tip_catalog._canonical_type(ioc_type)
+    t = _ioc_type_or_400(ioc_type)
     v = tip_catalog._normalize_value(t, value)
     result = await tip_enrichers.enrich(t, v, TIP_CACHE_DIR, force=force)
     return result
@@ -702,7 +742,7 @@ async def inventory_upload_csv(file: UploadFile = File(...)) -> dict[str, Any]:
         raise HTTPException(status_code=413, detail="CSV larger than 20 MB")
     try:
         return inventory.save_csv(data)
-    except (ValueError, UnicodeDecodeError) as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 

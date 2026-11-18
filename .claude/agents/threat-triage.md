@@ -82,10 +82,12 @@ For threat groups / malware families, pull the ATT&CK group/software page if one
 If `input.json.use_environment` is `false` (default in many workflows), SKIP this step entirely. Otherwise pull:
 
 ```bash
-curl -s "http://127.0.0.1:${THREATDESK_PORT:-8444}/api/environment" | jq '{org: .environment.org, inventory: .inventory}'
+curl -s "http://127.0.0.1:${THREATDESK_PORT:-8444}/api/environment" | jq '{source: .source, environment: .environment, inventory: .inventory}'
 ```
 
-`.inventory` is the org technology inventory (vendor, product, version, `patched_through`, count, owner, criticality, internet_facing). It is the ONLY asset list; match on vendor + product, then compare versions.
+- `.environment` is the org profile: org (name, industry, regulatory scope, crown jewels), EDR, network, sensors, intel feeds. Use it to tune hunts and recommendations to the tooling the org actually has.
+- `.inventory` is the org technology inventory (vendor, product, version, `patched_through`, count, owner, criticality, internet_facing). It is the ONLY asset list; match on vendor + product, then compare versions.
+- If `.source` is `"example"`, the profile is stock sample data, not this org's. Say so in `our_exposure.notes`, and do not present its EDR/SIEM/org details as facts about the responder's environment. The inventory is still real if non-empty.
 
 Cross-reference affected platforms vs the inventory. Count potentially-affected hosts. Write an `our_exposure` block. Don't fabricate, if the environment doc doesn't mention a product, say "unknown".
 

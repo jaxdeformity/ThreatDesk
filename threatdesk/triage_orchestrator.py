@@ -30,7 +30,7 @@ import re
 import secrets
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 
 from threatdesk.claude_runner import ClaudeRunner
@@ -168,11 +168,29 @@ def list_triages() -> list[dict[str, Any]]:
     return rows
 
 
+TRIAGE_ID_RE = re.compile(r"^TRG-\d{4}-\d{2}-\d{2}-\d{6}-[0-9a-f]{6}$")
+
+
+def triage_path(triage_id: str) -> Path:
+    """Directory for a well-formed triage id, guaranteed to sit directly
+    under TRIAGES_DIR. Anything else (``..``, absolute paths, encoded
+    separators) raises FileNotFoundError, so no route can reach outside."""
+    if not isinstance(triage_id, str) or not TRIAGE_ID_RE.match(triage_id):
+        raise FileNotFoundError(triage_id)
+    d = TRIAGES_DIR / triage_id
+    if d.resolve().parent != TRIAGES_DIR.resolve():
+        raise FileNotFoundError(triage_id)
+    return d
+
+
 def rename_triage(triage_id: str, custom_name: str | None) -> bool:
     """Update the triage's display name. Pass empty/None to clear it
     and fall back to headline/input_ref. Returns True on success,
     False if the triage doesn't exist."""
-    triage_dir = TRIAGES_DIR / triage_id
+    try:
+        triage_dir = triage_path(triage_id)
+    except FileNotFoundError:
+        return False
     inp_path = triage_dir / "input.json"
     if not inp_path.exists():
         return False
@@ -191,7 +209,7 @@ def rename_triage(triage_id: str, custom_name: str | None) -> bool:
 
 def read_triage(triage_id: str) -> dict[str, Any]:
     """Read full triage state: input + status + result + report markdown + events."""
-    triage_dir = TRIAGES_DIR / triage_id
+    triage_dir = triage_path(triage_id)
     if not triage_dir.is_dir():
         raise FileNotFoundError(triage_id)
     inp = _read_json(triage_dir / "input.json")
@@ -212,7 +230,10 @@ def read_triage(triage_id: str) -> dict[str, Any]:
 
 def delete_triage(triage_id: str) -> bool:
     """Remove the triage dir. Returns True if something was deleted."""
-    triage_dir = TRIAGES_DIR / triage_id
+    try:
+        triage_dir = triage_path(triage_id)
+    except FileNotFoundError:
+        return False
     if not triage_dir.is_dir():
         return False
     import shutil
@@ -432,11 +453,21 @@ def _port() -> str:
     return os.environ.get("THREATDESK_PORT", "8444").strip() or "8444"
 
 
+_WIN_RESERVED = {"CON", "PRN", "AUX", "NUL", *(f"COM{i}" for i in range(1, 10)), *(f"LPT{i}" for i in range(1, 10))}
+_ILLEGAL = re.compile(r'[<>:"/\|?*\x00-\x1f]')
+
+
 def safe_attachment_name(name: str) -> str:
-    """Basename only, so an uploaded filename can never leave attachments/."""
-    base = (name or "").replace("\\", "/").split("/")[-1].strip()
-    base = base.lstrip(".") if set(base) <= {"."} else base
-    return base or "upload.bin"
+    """A plain Windows-safe basename, so an uploaded filename can never leave
+    attachments/: drive prefixes (``C:x``), separators, ADS colons, reserved
+    device names and control characters are all neutralised."""
+    base = PureWindowsPath((name or "").replace("/", "\\")).name
+    base = _ILLEGAL.sub("", base).strip().rstrip(".")
+    if not base or set(base) <= {"."}:
+        return "upload.bin"
+    if base.split(".")[0].upper() in _WIN_RESERVED:
+        base = "_" + base
+    return base[:200]
 
 
 def _now_iso() -> str:

@@ -30,6 +30,8 @@ def env(tmp_path, monkeypatch):
     for k in ("THREATDESK_TECH_STACK", "THREATDESK_INVENTORY"):
         monkeypatch.delenv(k, raising=False)
     monkeypatch.setenv("THREATDESK_TECH_STACK_CSV", str(tmp_path / "none.csv"))
+    from threatdesk import inventory as _inv
+    monkeypatch.setattr(_inv, "UPLOAD_CSV", tmp_path / "uploaded.csv")
     monkeypatch.setattr(V, "TRACKING_PATH", tmp_path / "t.json")
 
 

@@ -81,3 +81,25 @@ def test_no_primus_symbols():
     src = Path(T.__file__).read_text(encoding="utf-8").lower()
     assert "primus" not in src
     assert "promote" not in src
+
+
+@pytest.mark.parametrize("bad", ["..", "C:\Windows", "../x", "TRG-2026-11-18-000000-zzzzzz", "foo"])
+def test_triage_id_rejected(tdir, bad):
+    tdir.mkdir(parents=True, exist_ok=True)
+    with pytest.raises(FileNotFoundError):
+        T.triage_path(bad)
+    assert T.delete_triage(bad) is False
+
+
+@pytest.mark.parametrize("name,expected", [
+    ("C:evil.txt", "evil.txt"), ("Z:x", "x"), ("report.txt:hidden", "report.txthidden"),
+    ("CON", "_CON"), ("nul.txt", "_nul.txt"), ('a<b>"|?*.txt', "ab.txt"),
+])
+def test_safe_attachment_name_windows(name, expected):
+    assert T.safe_attachment_name(name) == expected
+
+
+def test_agent_reads_full_environment_and_flags_example():
+    md = (Path(T.__file__).resolve().parent.parent / ".claude" / "agents" / "threat-triage.md").read_text(encoding="utf-8")
+    assert "environment: .environment" in md and "inventory: .inventory" in md
+    assert '"example"' in md

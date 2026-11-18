@@ -1,5 +1,4 @@
 {
-  "$schema": "./environment.schema.json",
   "org": {
     "name": "Acme Corp",
     "industry": "financial-services",
@@ -10,7 +9,12 @@
       "PCI-DSS",
       "CCPA"
     ],
-    "public_company": false
+    "public_company": false,
+    "crown_jewels": [
+      "Core banking ledger (example)",
+      "Customer PII data warehouse (example)",
+      "Payments gateway (example)"
+    ]
   },
   "edr": {
     "vendor": "CrowdStrike Falcon",

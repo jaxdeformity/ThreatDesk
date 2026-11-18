@@ -8,6 +8,8 @@ from fastapi.testclient import TestClient
 @pytest.fixture
 def client(tmp_path, monkeypatch):
     monkeypatch.setenv("THREATDESK_TECH_STACK_CSV", str(tmp_path / "ts.csv"))
+    from threatdesk import inventory as _inv
+    monkeypatch.setattr(_inv, "UPLOAD_CSV", tmp_path / "uploaded.csv")
     for k in ("THREATDESK_TECH_STACK", "THREATDESK_INVENTORY", "SOC_ORG_TECH_STACK", "SOC_ORG_INVENTORY"):
         monkeypatch.delenv(k, raising=False)
     from api import main
@@ -80,15 +82,15 @@ def test_triage_bad_input_type(client):
 
 
 def test_tip_iocs_and_misp(client, tmp_path):
-    d = tmp_path / "triages" / "TRG-X"
+    d = tmp_path / "triages" / "TRG-2026-11-18-000000-abcdef"
     d.mkdir(parents=True)
-    (d / "input.json").write_text(json.dumps({"triage_id": "TRG-X", "created_at": "2026-11-18T00:00:00+00:00"}), encoding="utf-8")
+    (d / "input.json").write_text(json.dumps({"triage_id": "TRG-2026-11-18-000000-abcdef", "created_at": "2026-11-18T00:00:00+00:00"}), encoding="utf-8")
     (d / "status.json").write_text(json.dumps({"status": "done"}), encoding="utf-8")
     (d / "result.json").write_text(json.dumps({"headline": "h", "iocs": [{"type": "domain", "value": "bad.example.com"}]}), encoding="utf-8")
     (d / "events.jsonl").touch()
     body = client.get("/api/tip/iocs").json()
     assert body["total"] == 1
-    ev = client.get("/api/tip/misp-export?triage_id=TRG-X").json()
+    ev = client.get("/api/tip/misp-export?triage_id=TRG-2026-11-18-000000-abcdef").json()
     assert ev["Attribute"][0]["value"] == "bad.example.com"
     assert client.get("/api/tip/misp-export").json()["meta"]["event_count"] == 1
     assert client.get("/api/tip/misp-export?triage_id=nope").status_code == 404
@@ -123,3 +125,35 @@ def test_settings_endpoints_ok(client):
 def test_no_promote_or_llm_routes(client):
     paths = {r.path for r in client.app.routes}
     assert not any("promote" in p or p.startswith("/api/llm") or "incident" in p for p in paths)
+
+
+def test_triage_traversal_ids_404(client, tmp_path):
+    victim = tmp_path / "victim"
+    victim.mkdir()
+    for tid in ("%2E%2E", str(victim).replace("\\", "%5C").replace(":", "%3A")):
+        assert client.delete(f"/api/triage/{tid}").status_code == 404
+        assert client.get(f"/api/triage/{tid}").status_code == 404
+    assert victim.exists()
+
+
+def test_cross_origin_post_rejected(client):
+    r = client.post("/api/triage", data={"input_type": "threat_name", "input_ref": "x"}, headers={"Origin": "https://evil.example"})
+    assert r.status_code == 403
+
+
+def test_enrich_bad_type_rejected(client):
+    assert client.post("/api/tip/ioc/C%3A%5Cx/1.2.3.4/enrich").status_code in (400, 404)
+    assert client.post("/api/tip/ioc/nonsense/1.2.3.4/enrich").status_code == 400
+
+
+def test_duplicate_attachment_names_both_kept(client, monkeypatch):
+    from threatdesk import triage_orchestrator
+
+    async def noop(tid):
+        return None
+
+    monkeypatch.setattr(triage_orchestrator, "_run_triage", noop)
+    r = client.post("/api/triage", data={"input_type": "file"},
+                    files=[("files", ("a.txt", io.BytesIO(b"one"), "text/plain")), ("files", ("a.txt", io.BytesIO(b"two"), "text/plain"))])
+    inp = client.get(f"/api/triage/{r.json()['triage_id']}").json()["input"]
+    assert len(inp["attached_files"]) == 2 and len(set(inp["attachment_sha256"].values())) == 2
