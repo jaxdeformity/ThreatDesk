@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,7 +7,7 @@ name = "threatdesk"
 version = "0.1.0"
 description = "Threat-ops triage agent + vulnerability dashboard, single machine"
 requires-python = ">=3.11"
-license = { text = "Proprietary — pre-alpha" }
+license = "LicenseRef-Proprietary"
 authors = [{ name = "Jax" }]
 dependencies = [
   "fastapi>=0.115",
