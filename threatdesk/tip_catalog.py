@@ -1,10 +1,10 @@
 """Threat-Intelligence Platform. IOC catalog aggregator.
 
-Walks the incident + triage corpus on demand and produces a
+Walks the triage corpus on demand and produces a
 normalized, de-duplicated list of every indicator of compromise ever
-observed. No database; computed fresh on each request. The incidents
-directory is the source of truth, if you delete an incident, its
-IOCs disappear from the catalog.
+observed. No database; computed fresh on each request. The triages
+directory is the source of truth: delete a triage and its IOCs
+disappear from the catalog.
 
 Shape of each record the API returns:
 
@@ -14,8 +14,8 @@ Shape of each record the API returns:
       "normalized_value": "10.0.2.15",    # lowercased / defanged for matching
       "observations": [
           {
-              "source": "incident",
-              "id": "INC-2026-...",
+              "source": "triage",
+              "id": "TRG-2026-...",
               "summary": "GuLoader for AgentTesla",
               "ioc_id": "I7",
               "disposition": "attacker",
@@ -28,11 +28,10 @@ Shape of each record the API returns:
       "first_seen": "2026-02-12T09:41:00Z",
       "last_seen": "2026-04-23T18:41:00Z",
       "dispositions": ["c2", "attacker"],
-      "related_incidents": ["INC-…", "INC-…"],
       "related_triages":   ["TRG-…"]
     }
 
-IOC types observed in-the-wild on our packet schema: ipv4, ipv6,
+IOC types observed in-the-wild in triage results: ipv4, ipv6,
 domain, url, email, sha256, sha1, md5, filename, mutex, registry_key.
 The catalog doesn't enforce a closed set, whatever the agents wrote
 shows up here.
@@ -57,9 +56,9 @@ log = logging.getLogger(__name__)
 
 @dataclass
 class Observation:
-    source: str                 # "incident" | "triage"
+    source: str                 # "triage"
     id: str                     # INC-… or TRG-…
-    summary: str                # incident.summary or triage.headline
+    summary: str                # triage.headline
     ioc_id: str | None = None   # local packet-level id (e.g. "I7")
     disposition: str | None = None
     notes: str | None = None
@@ -112,65 +111,12 @@ def _canonical_type(t: str) -> str:
 
 # ── Catalog build ─────────────────────────────────────────────────────
 
-def build_catalog(incidents_dir: Path, triages_dir: Path | None = None) -> list[dict[str, Any]]:
-    """Return the full IOC catalog. Call from an endpoint on demand;
-    cheap enough, the bottleneck is JSON decode of each packet."""
+def build_catalog(triages_dir: Path) -> list[dict[str, Any]]:
+    """Return the full IOC catalog, built from every triage result.json.
+    Call from an endpoint on demand; cheap enough at triage scale."""
     merged: dict[tuple[str, str], dict[str, Any]] = {}
 
-    if incidents_dir.exists():
-        for inc_dir in incidents_dir.iterdir():
-            if not inc_dir.is_dir():
-                continue
-            pkt_path = inc_dir / "incident-packet.json"
-            if not pkt_path.exists():
-                continue
-            try:
-                pkt = json.loads(pkt_path.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError):
-                continue
-            inc_id = pkt.get("incident_id") or inc_dir.name
-            inc_summary = pkt.get("summary") or ""
-            inc_ts = pkt.get("updated_at") or pkt.get("created_at")
-            for ioc in pkt.get("iocs") or []:
-                ioc_d = _coerce_ioc(ioc)
-                if not ioc_d:
-                    continue
-                _merge_observation(
-                    merged, ioc_d,
-                    obs=Observation(
-                        source="incident",
-                        id=inc_id,
-                        summary=inc_summary,
-                        ioc_id=ioc_d.get("id"),
-                        disposition=ioc_d.get("disposition"),
-                        notes=ioc_d.get("notes"),
-                        evidence_refs=ioc_d.get("evidence_refs") or [],
-                        seen_at=ioc_d.get("added_at") or inc_ts,
-                    ),
-                )
-            # Also pull threat_triages[] that were kept on the incident
-            for tri in pkt.get("threat_triages") or []:
-                if not isinstance(tri, dict):
-                    continue
-                for ioc in tri.get("iocs") or []:
-                    ioc_d = _coerce_ioc(ioc)
-                    if not ioc_d:
-                        continue
-                    _merge_observation(
-                        merged, ioc_d,
-                        obs=Observation(
-                            source="incident",
-                            id=inc_id,
-                            summary=inc_summary,
-                            ioc_id=f"TT:{tri.get('id', '')}",
-                            disposition=ioc_d.get("disposition"),
-                            notes=ioc_d.get("notes"),
-                            evidence_refs=[],
-                            seen_at=tri.get("added_at") or inc_ts,
-                        ),
-                    )
-
-    if triages_dir and triages_dir.exists():
+    if triages_dir.exists():
         for t_dir in triages_dir.iterdir():
             if not t_dir.is_dir():
                 continue
@@ -215,7 +161,6 @@ def build_catalog(incidents_dir: Path, triages_dir: Path | None = None) -> list[
         first_seen = sorted_obs[0].seen_at if sorted_obs else None
         last_seen = sorted_obs[-1].seen_at if sorted_obs else None
         dispositions = sorted({o.disposition for o in observations if o.disposition})
-        related_incidents = sorted({o.id for o in observations if o.source == "incident"})
         related_triages = sorted({o.id for o in observations if o.source == "triage"})
         out.append({
             "type": t,
@@ -226,7 +171,6 @@ def build_catalog(incidents_dir: Path, triages_dir: Path | None = None) -> list[
             "first_seen": first_seen,
             "last_seen": last_seen,
             "dispositions": list(dispositions),
-            "related_incidents": related_incidents,
             "related_triages": related_triages,
         })
 
