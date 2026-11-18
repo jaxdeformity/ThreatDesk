@@ -1,10 +1,9 @@
 """Triage orchestrator, standalone threat-triage runs, not tied to an incident.
 
-The main app has `live_orchestrator` for long-lived per-incident IC sessions.
-Triage is different: it's a one-shot analyst workbench. A responder pastes
+Triage is a one-shot analyst workbench. A responder pastes
 a URL/file/threat-name, the threat-triage agent researches it, produces a
 markdown report + structured JSON, and exits. No multi-turn, no delegation
-to other agents, no packet mutations.
+to other agents.
 
 Layout on disk:
 
@@ -27,6 +26,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import re
 import secrets
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -154,11 +154,6 @@ def list_triages() -> list[dict[str, Any]]:
                 "use_environment": inp.get("use_environment"),
                 "created_at": inp.get("created_at"),
                 "custom_name": inp.get("custom_name"),
-                # Which LLM produced this triage. Claude (default) or
-                # the local Primus classifier. Surfaced as a badge on
-                # each history row so responders can distinguish full-
-                # depth runs from the lookup-shaped ones at a glance.
-                "model_preference": inp.get("model_preference") or "claude",
                 "status": status.get("status"),
                 "started_at": status.get("started_at"),
                 "completed_at": status.get("completed_at"),
@@ -264,29 +259,14 @@ async def _broadcast(triage_id: str, event: dict[str, Any]) -> None:
 # ── Internal: the triage run ──────────────────────────────────────────
 
 async def _run_triage(triage_id: str) -> None:
-    """Dispatch the triage run based on the chosen model.
-
-    input.json carries a ``model_preference`` field:
-      - "claude" (default): full Opus-driven threat-triage agent run.
-        Rich multi-hop research, WebFetch, web search, legal nuance,
-        etc. ~5-7 min, ~$4-10 per run.
-      - "primus": local 8B classifier via Ollama. Writes a lightweight
-        report mechanically from the classify output. ~5s, $0. Good
-        for "what's this CVE?" / bulk IOC sniff, NOT for "what
-        happened in this breach?" (user-facing copy already warns).
-    """
+    """Run the threat-triage agent for one triage (Claude only)."""
     triage_dir = TRIAGES_DIR / triage_id
     try:
         inp = _read_json(triage_dir / "input.json")
     except FileNotFoundError:
         await _mark_error(triage_id, "triage input.json missing")
         return
-
-    model_pref = (inp.get("model_preference") or "claude").lower()
-    if model_pref == "primus":
-        await _run_triage_primus(triage_id, inp)
-    else:
-        await _run_triage_claude(triage_id, inp)
+    await _run_triage_claude(triage_id, inp)
 
 
 async def _run_triage_claude(triage_id: str, inp: dict[str, Any]) -> None:
@@ -313,21 +293,19 @@ async def _run_triage_claude(triage_id: str, inp: dict[str, Any]) -> None:
     system_prompt = _build_system_prompt()
     user_prompt = _build_user_prompt(triage_id, inp)
 
-    # Honor any per-agent route the operator set in Settings → AI;
-    # default keeps the historic Opus-class threat-triage behavior.
-    from threatdesk import ai_config
+    from threatdesk import ai_config, model_policy, runtime_settings
+    rt = runtime_settings.load()
+    # A per-agent route set in Settings -> AI wins; else the runtime default.
     triage_model = ai_config.resolve_model_for_agent(
-        "threat-triage", fallback="claude-opus-4-7",
+        "threat-triage", fallback=rt.get("triage_model", model_policy.DEFAULT_TRIAGE_MODEL),
     )
+    # Refusal fallback is opt-in (cyber_fallback_enabled); None = no retry.
+    fallback_model = rt.get("cyber_fallback_model") if rt.get("cyber_fallback_enabled") else None
     try:
-        from threatdesk import model_policy, runtime_settings
-        rt = runtime_settings.load()
-        # Threat-report triage is the most likely place to trip cyber
-        # safeguards; refusals retry once on the cyber-exempt model.
         async for event in model_policy.run_turn_with_fallback(
             runner,
             model=triage_model,
-            fallback_model=rt.get("cyber_fallback_model", model_policy.CYBER_FALLBACK_MODEL),
+            fallback_model=fallback_model,
             user_prompt=user_prompt,
             system_prompt_append=system_prompt,
             cwd=REPO_ROOT,
@@ -373,257 +351,6 @@ async def _run_triage_claude(triage_id: str, inp: dict[str, Any]) -> None:
     await _emit(triage_id, {"kind": "triage_status", "status": "done", "ts": state.completed_at, "model": "claude"})
 
 
-async def _run_triage_primus(triage_id: str, inp: dict[str, Any]) -> None:
-    """Shape C of the LLM integration plan: local Primus-backed triage.
-
-    Skips the Claude orchestrator entirely. Classifies the input text,
-    writes a mechanically-synthesized report that's honest about what
-    Primus can and can't do, and exits. Fast (~5s) + local + free;
-    shallow + no web fetch + no legal nuance.
-    """
-    from threatdesk import llm_providers
-
-    triage_dir = TRIAGES_DIR / triage_id
-    state = await _get_state(triage_id)
-
-    # Transition to running.
-    state.status = "running"
-    state.started_at = _now_iso()
-    _write_json(triage_dir / "status.json", {
-        "status": "running",
-        "started_at": state.started_at,
-        "completed_at": None,
-        "error": None,
-    })
-    await _emit(triage_id, {"kind": "triage_status", "status": "running", "ts": state.started_at, "model": "primus"})
-
-    # Probe + classify
-    prov = llm_providers.get_provider("primus")
-    if prov is None or not prov.available():
-        await _mark_error(
-            triage_id,
-            "Primus provider not available. Ollama offline or model not pulled. "
-            "Install Ollama + run `ollama pull hf.co/mradermacher/Llama-Primus-Merged-GGUF:Q4_K_M`, "
-            "or re-submit with model_preference=claude.",
-        )
-        return
-
-    # Build the text the classifier will see. Pull from all three
-    # input shapes so URL / text / threat_name all work.
-    classify_text = _build_primus_input(inp)
-    if not classify_text.strip():
-        await _mark_error(triage_id, "no classifiable content on input")
-        return
-
-    await _emit(triage_id, {
-        "kind": "text", "ts": _now_iso(), "agent": "primus",
-        "text": f"Classifying with {prov.status_dict().get('model')}…",
-    })
-
-    def _sync_classify():
-        return prov.classify(classify_text)
-
-    import asyncio as _asyncio
-    result = await _asyncio.to_thread(_sync_classify)
-
-    if not result.available:
-        await _mark_error(triage_id, f"Primus classify failed: {result.error or 'unknown'}")
-        return
-
-    # Build a TriageResult-shaped dict the existing UI can render.
-    headline = _primus_headline(inp, result)
-    out = {
-        "headline": headline,
-        "short_answer": _primus_short_answer(result),
-        "severity": _primus_severity(result),
-        "prioritization_score": _primus_score(result),
-        "exploitation_status": "unknown",
-        "cves": [],
-        "iocs": [],
-        "ttps": [
-            {
-                "technique_id": t.get("technique_id"),
-                "name": t.get("name"),
-                "confidence": t.get("confidence"),
-                "tactic": None,
-            }
-            for t in result.attack_techniques
-            if isinstance(t, dict) and t.get("technique_id")
-        ],
-        "affected_platforms": [],
-        "malware_family": (result.malware_families[0] if result.malware_families else None),
-        "actor_group": (result.actor_groups[0] if result.actor_groups else None),
-        "our_exposure": None,
-        "hunts": [],
-        "detections": [],
-        "actions": [],
-        "sources": [],
-        "confidence": 0.5,
-        "generated_by": "primus",
-        "primus_elapsed_ms": result.elapsed_ms,
-    }
-    _write_json(triage_dir / "result.json", out)
-
-    # Write a short, honest markdown report. No web research, no
-    # recommendations. Primus can't do that. Just summarize what the
-    # classifier found.
-    report = _primus_report(inp, result, out)
-    (triage_dir / "report.md").write_text(report, encoding="utf-8")
-
-    # Mark done.
-    state.status = "done"
-    state.completed_at = _now_iso()
-    _write_json(triage_dir / "status.json", {
-        "status": "done",
-        "started_at": state.started_at,
-        "completed_at": state.completed_at,
-        "error": None,
-    })
-    await _emit(triage_id, {
-        "kind": "text", "ts": _now_iso(), "agent": "primus",
-        "text": (
-            f"Primus triage complete, {len(result.attack_techniques)} technique(s), "
-            f"{len(result.malware_families)} family tag(s), "
-            f"{len(result.actor_groups)} actor ref(s) in {result.elapsed_ms}ms."
-        ),
-    })
-    await _emit(triage_id, {"kind": "triage_status", "status": "done", "ts": state.completed_at, "model": "primus"})
-
-
-def _build_primus_input(inp: dict[str, Any]) -> str:
-    """Concatenate the triage input into a single text blob for the
-    classifier. Primus doesn't fetch URLs, we give it whatever text
-    is already on hand."""
-    parts: list[str] = []
-    if inp.get("question"):
-        parts.append(f"Question: {inp['question']}")
-    if inp.get("input_type") == "text" and inp.get("input_text"):
-        parts.append(str(inp["input_text"]))
-    if inp.get("input_type") == "threat_name" and inp.get("input_ref"):
-        parts.append(f"Threat name: {inp['input_ref']}")
-    if inp.get("input_type") == "url" and inp.get("input_ref"):
-        parts.append(f"URL (not fetched. Primus is local): {inp['input_ref']}")
-    if inp.get("input_type") == "file":
-        parts.append(f"File: {inp.get('input_ref') or '(uploaded)'}, classifier has no file access.")
-    return "\n\n".join(parts)[:8000]
-
-
-def _primus_headline(inp: dict[str, Any], result: Any) -> str:
-    if inp.get("custom_name"):
-        return inp["custom_name"]
-    if result.malware_families:
-        return f"{result.malware_families[0]}. Primus classifier"
-    if inp.get("input_ref"):
-        return f"{inp['input_ref']}. Primus classifier"
-    return "Primus triage"
-
-
-def _primus_short_answer(result: Any) -> str:
-    bits = []
-    if result.attack_techniques:
-        tids = ", ".join(
-            t.get("technique_id", "")
-            for t in result.attack_techniques[:5]
-            if isinstance(t, dict)
-        )
-        bits.append(f"ATT&CK: {tids}")
-    if result.malware_families:
-        bits.append(f"family: {', '.join(result.malware_families[:3])}")
-    if result.cvss_estimate is not None:
-        bits.append(f"est. CVSS: {result.cvss_estimate}")
-    if not bits:
-        return "Primus found no classifiable indicators in the input."
-    return "Primus classifier output, " + "; ".join(bits) + ". Cross-verify before acting."
-
-
-def _primus_severity(result: Any) -> str:
-    cvss = result.cvss_estimate
-    if isinstance(cvss, (int, float)):
-        if cvss >= 9.0:
-            return "critical"
-        if cvss >= 7.0:
-            return "high"
-        if cvss >= 4.0:
-            return "medium"
-        return "low"
-    return "informational"
-
-
-def _primus_score(result: Any) -> int:
-    cvss = result.cvss_estimate
-    if isinstance(cvss, (int, float)):
-        return max(0, min(100, int(cvss * 10)))
-    # Derive a coarse score from class count when no CVSS estimate
-    base = 20
-    base += len(result.attack_techniques) * 4
-    base += len(result.malware_families) * 6
-    base += len(result.actor_groups) * 8
-    return max(0, min(100, base))
-
-
-def _primus_report(inp: dict[str, Any], result: Any, out: dict[str, Any]) -> str:
-    lines = [
-        f"# {out['headline']}",
-        "",
-        "> **This triage was produced by a local Primus (Llama-3.1-8B CTI) "
-        "classifier via Ollama. NOT by Claude Opus.** Output is lookup-"
-        "shaped only: ATT&CK/CWE/CVSS tagging from the input text. No web "
-        "fetch, no multi-hop reasoning, no legal nuance, no hunt queries. "
-        "Cross-verify every field before acting. For full analysis, re-run "
-        "with model=Claude.",
-        "",
-        f"- **Classifier:** Primus (Trend Micro Llama-3.1-8B)",
-        f"- **Runtime:** {result.elapsed_ms} ms",
-        f"- **Confidence:** ~0.5 (classifier-only, no cross-check)",
-        "",
-        "## Input",
-        "",
-        f"- **Type:** `{inp.get('input_type')}`",
-    ]
-    if inp.get("input_ref"):
-        lines.append(f"- **Ref:** `{inp['input_ref']}`")
-    if inp.get("question"):
-        lines.append(f"- **Question:** {inp['question']}")
-    lines += ["", "## What Primus extracted", ""]
-    if result.attack_techniques:
-        lines.append("**ATT&CK techniques:**")
-        for t in result.attack_techniques:
-            if not isinstance(t, dict):
-                continue
-            tid = t.get("technique_id", "?")
-            name = t.get("name", "")
-            conf = t.get("confidence")
-            conf_s = f" (conf {conf:.2f})" if isinstance(conf, (int, float)) else ""
-            lines.append(f"- `{tid}` {name}{conf_s}")
-        lines.append("")
-    if result.cwes:
-        lines.append(f"**CWEs:** {', '.join(result.cwes)}")
-        lines.append("")
-    if result.cvss_estimate is not None:
-        lines.append(f"**Estimated CVSS:** {result.cvss_estimate}")
-        lines.append("")
-    if result.malware_families:
-        lines.append(f"**Malware families:** {', '.join(result.malware_families)}")
-        lines.append("")
-    if result.actor_groups:
-        lines.append(f"**Actor groups:** {', '.join(result.actor_groups)}")
-        lines.append("")
-    if not any([result.attack_techniques, result.cwes, result.cvss_estimate,
-                result.malware_families, result.actor_groups]):
-        lines.append("_Primus found no classifiable indicators in the input._")
-        lines.append("")
-    lines += [
-        "## Next steps",
-        "",
-        "- If the extracted TTPs / families look plausible, cross-verify each",
-        "  against primary sources before committing anything to an incident.",
-        "- For hunt queries, detection logic, or written recommendations,",
-        "  promote this triage to an incident OR re-run with model=Claude.",
-        "- Raw classifier output is in `result.json` under `generated_by: primus`.",
-    ]
-    return "\n".join(lines) + "\n"
-
-
 async def _mark_error(triage_id: str, message: str) -> None:
     triage_dir = TRIAGES_DIR / triage_id
     state = await _get_state(triage_id)
@@ -661,7 +388,7 @@ def _build_system_prompt() -> str:
         "You are acting as the threat-triage specialist for ThreatDesk. "
         "Read your full role definition from .claude/agents/threat-triage.md "
         "via the Read tool BEFORE doing anything else, then follow it exactly. "
-        "You are in STANDALONE mode (not an incident). Your working files "
+        "Your working files "
         "live under triages/<triage_id>/. Your outputs are report.md and "
         "result.json in that directory, nothing else."
     )
@@ -687,7 +414,7 @@ def _build_user_prompt(triage_id: str, inp: dict[str, Any]) -> str:
         lines.append("Input text is included in input.json (field: input_text), read it there.")
     lines += [
         f"SIEM preference: {siem}",
-        f"Use environment.json: {'yes' if use_env else 'no (skip the environment cross-reference step entirely)'}",
+        f"Use environment: {'yes, GET http://127.0.0.1:' + _port() + '/api/environment (org profile + inventory)' if use_env else 'no (skip the environment cross-reference step entirely)'}",
         "",
         "Responder's question:",
         f"  {question or '(no question, produce a general analysis and recommendations)'}",
@@ -700,6 +427,17 @@ def _build_user_prompt(triage_id: str, inp: dict[str, Any]) -> str:
 
 
 # ── Tiny IO helpers ───────────────────────────────────────────────────
+
+def _port() -> str:
+    return os.environ.get("THREATDESK_PORT", "8444").strip() or "8444"
+
+
+def safe_attachment_name(name: str) -> str:
+    """Basename only, so an uploaded filename can never leave attachments/."""
+    base = (name or "").replace("\\", "/").split("/")[-1].strip()
+    base = base.lstrip(".") if set(base) <= {"."} else base
+    return base or "upload.bin"
+
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
